@@ -3,9 +3,6 @@ import vuetify from 'vite-plugin-vuetify'
 require('dotenv').config()
 
 export default defineNuxtConfig({
-  runtimeConfig: {
-    env: process.env,
-  },
   ssr: true,
   app: {
     head: {
