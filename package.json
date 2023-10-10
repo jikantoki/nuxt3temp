@@ -10,12 +10,17 @@
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-throw-expressions": "^7.22.5",
     "@nuxt/devtools": "latest",
     "nuxt": "^3.7.4",
     "vue": "^3.3.4",
     "vue-router": "^4.2.5"
   },
   "dependencies": {
+    "@babel/eslint-parser": "^7.22.15",
+    "@mdi/font": "^7.3.67",
+    "@typescript-eslint/parser": "^6.7.5",
+    "@vue/language-plugin-pug": "^1.8.18",
     "eslint": "^8.51.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-nuxt": "^4.0.0",

@@ -39,5 +39,9 @@ export default defineNuxtConfig({
       'process.env.DEBUG': false,
     },
   },
-  css: ['@/assets/main.scss'],
+  css: [
+    '@/assets/main.scss',
+    'vuetify/lib/styles/main.sass',
+    '@mdi/font/css/materialdesignicons.css',
+  ],
 })
