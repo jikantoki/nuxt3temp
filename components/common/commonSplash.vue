@@ -2,8 +2,8 @@
 .wait
   .wait-wrap
     img.splash-img(src="/img/icon512.png")
-    p.text-h4 Nuxt
-    .pa-16
+    p.text-h4.splash-text Nuxt
+    .ma-16
     loading
 </template>
 
@@ -24,7 +24,7 @@ export default {
 <style lang="scss" scoped>
 .wait-wrap {
   position: fixed;
-  z-index: 999;
+  z-index: 9999;
   width: 100%;
   height: 100%;
   background-color: white;
@@ -34,6 +34,12 @@ export default {
   flex-direction: column;
   .splash-img {
     width: 128px;
+  }
+  .splash-text {
+    font-family: 'Zen Maru Gothic', sans-serif !important;
+  }
+  .loading {
+    width: 100px;
   }
 }
 </style>

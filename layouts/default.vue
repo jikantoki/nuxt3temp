@@ -146,7 +146,7 @@ body {
   font-family: $font !important;
 }
 .v-app-main-application {
-  display: flex;
+  display: block;
 }
 #nuxt {
   font-family: $font !important;
@@ -205,10 +205,15 @@ body {
   .text-h3,
   .text-h4,
   .text-h5,
-  .text-h6 {
+  .text-h6,
+  .text-h7,
+  .text-small {
     font-family: $font !important;
     margin-top: 0.2em;
     margin-bottom: 0.2em;
+  }
+  .splash-text {
+    font-family: $font !important;
   }
   .allow-select {
     user-select: auto;

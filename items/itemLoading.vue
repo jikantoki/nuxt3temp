@@ -1,6 +1,6 @@
 <template lang="pug">
 .loading
-  v-progress-liner(indeterminate)
+  v-progress-linear(indeterminate)
 </template>
 
 <script>

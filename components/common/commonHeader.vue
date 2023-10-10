@@ -13,7 +13,7 @@
         a.header-list(:href="'/login'")
           v-list-item.pa-4(link)
             .v-item
-              v-icon mdi-account-outline
+              v-icon(style="opacity:0.7") mdi-account-outline
               p.nav ログイン
         v-divider(style="opacity:0.3")
         a.header-list(v-for="navigationItem in NavigationList" :href="navigationItem.url")
