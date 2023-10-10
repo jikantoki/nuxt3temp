@@ -14,9 +14,4 @@ export default [
     url: '/vuetify',
     icon: 'mdi-vuejs',
   },
-  {
-    name: '404',
-    url: '/hf8wehegiaohiedwhie',
-    icon: 'mdi-help-circle-outline',
-  },
 ]
