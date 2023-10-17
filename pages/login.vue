@@ -25,15 +25,15 @@ export default {
     }
   },
   mounted() {
-    if (localStorage.userId) {
-      this.userName = localStorage.userId
+    if (localStorage.userIdForLogin) {
+      this.userName = localStorage.userIdForLogin
     }
   },
   unmounted() {
     if (this.userName) {
-      localStorage.userId = this.userName
+      localStorage.userIdForLogin = this.userName
     } else {
-      localStorage.userId = ''
+      localStorage.userIdForLogin = ''
     }
   },
   methods: {

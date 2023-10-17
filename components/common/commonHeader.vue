@@ -69,12 +69,12 @@ export default {
     },
     isDarkTheme(isDark) {
       if (isDark) {
-        this.$vuetify.theme.dark = true
+        this.$vuetify.theme.global.name = 'dark'
         MetaFunctions.setStatusColor('#222222')
         localStorage.theme = 'dark'
       }
       if (!isDark) {
-        this.$vuetify.theme.dark = false
+        this.$vuetify.theme.global.name = 'light'
         MetaFunctions.setStatusColor('#FFFFFF')
         localStorage.theme = 'light'
       }
@@ -87,42 +87,31 @@ export default {
     } else {
       this.isRoot = false
     }
-    /*
-    if (this.$vuetify.theme.dark === 'light' && this.isDarkTheme) {
-      this.$vuetify.theme.dark = 'dark'
-      MetaFunctions.setStatusColor('#222222')
-      localStorage.theme = 'dark'
-    }
-    if (this.$vuetify.theme.dark === 'dark' && !this.isDarktheme) {
-      this.$vuetify.theme.dark = 'light'
-      MetaFunctions.setStatusColor('#FFFFFF')
-      localStorage.theme = 'light'
-    }
-    */
-    if (window.matchMedia('(prefers-color-scheme: dark)').matches == true) {
-      //dark mode
-      this.$vuetify.theme.dark = true
-      MetaFunctions.setStatusColor('#222222')
-      this.isDarkTheme = true
-    } else {
-      this.$vuetify.theme.dark = false
-      MetaFunctions.setStatusColor('#FFFFFF')
-      this.isDarkTheme = false
-    }
 
     const theme = localStorage.theme
     if (theme) {
       switch (theme) {
         case 'light':
-          this.$vuetify.theme.dark = false
+          this.$vuetify.theme.global.name = 'light'
           MetaFunctions.setStatusColor('#FFFFFF')
           this.isDarkTheme = false
           break
         case 'dark':
-          this.$vuetify.theme.dark = true
+          this.$vuetify.theme.global.name = 'dark'
           MetaFunctions.setStatusColor('#222222')
           this.isDarkTheme = true
           break
+      }
+    } else {
+      if (window.matchMedia('(prefers-color-scheme: dark)').matches == true) {
+        //dark mode
+        this.$vuetify.theme.global.name = 'dark'
+        MetaFunctions.setStatusColor('#222222')
+        this.isDarkTheme = true
+      } else {
+        this.$vuetify.theme.global.name = 'light'
+        MetaFunctions.setStatusColor('#FFFFFF')
+        this.isDarkTheme = false
       }
     }
 

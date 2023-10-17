@@ -1,5 +1,5 @@
 <template lang="pug">
-.wait
+.wait(color="primary")
   .wait-wrap
     img.splash-img(src="/img/icon512.png")
     p.text-h4.splash-text Nuxt
