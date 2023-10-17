@@ -9,6 +9,17 @@ const VAPID_SUBJECT = 'dev.vuetemp.enoki.xyz';
 const PUBLIC_KEY = VUE_APP_WebPush_PublicKey;
 const PRIVATE_KEY = VUE_APP_WebPush_PrivateKey;
 
+if (isset($_GET['icon'])) {
+  $icon = $_GET['icon'];
+} else {
+  $icon = null;
+}
+if (isset($_GET['title'])) {
+  $title = $_GET['title'];
+} else {
+  $title = '通知確認テスト';
+}
+
 // push通知認証用のデータ
 $subscription = Subscription::create([
   'endpoint' => $_GET['endpoint'],
@@ -31,9 +42,10 @@ $report = $webPush->sendOneNotification(
   $subscription,
   json_encode(
     array(
-      'title' => '通知確認用',
+      'title' => $title,
       'option' => array(
         'body' => $_GET['message'],
+        'icon' => $icon,
         'actions' => [
           array(
             'action' => 'test',
