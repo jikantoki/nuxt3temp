@@ -11,11 +11,34 @@ export default defineNuxtConfig({
   ssr: true,
   app: {
     head: {
-      title: 'NuxTemp',
+      titleTemplate: '%s | NuxTemp',
+      htmlAttrs: {
+        lang: 'ja',
+        prefix: 'og: http://ogp.me/ns#',
+      },
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-        { hid: 'description', name: 'description', content: '' },
+        {
+          hid: 'og:title',
+          property: 'og:title',
+          content: 'NuxTemp',
+        },
+        {
+          hid: 'description',
+          name: 'description',
+          content: 'Nuxtを簡単に構築するサンプル',
+        },
+        {
+          hid: 'og:description',
+          property: 'og:description',
+          content: 'Nuxtを簡単に構築するサンプル',
+        },
+        {
+          hid: 'og:image',
+          property: 'og:image',
+          content: '/img/icon.png',
+        },
         { name: 'format-detection', content: 'telephone=no' },
         { name: 'mobile-web-app-capable', content: 'yes' },
         { name: 'apple-mobile-web-app-capable', content: 'yes' },

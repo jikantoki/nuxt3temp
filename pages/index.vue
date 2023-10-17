@@ -48,6 +48,18 @@ import componentPopup from '~/components/componentPopup'
 
 export default {
   name: 'index',
+  head() {
+    return {
+      title: 'aaaaa',
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: 'いおえｗんｂをえ',
+        },
+      ],
+    }
+  },
   components: {
     popup: componentPopup,
   },
@@ -57,7 +69,10 @@ export default {
       notificationText: '通知テスト12345🤓',
     }
   },
-  mounted() {},
+  mounted() {
+    const router = useRoute()
+    console.log(router)
+  },
   methods: {
     getRequest() {
       webpush
