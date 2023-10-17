@@ -1,9 +1,8 @@
 {
-  "short_name": "Vue Temp",
-  "name": "Vuetify Template",
+  "short_name": "NuxTemp",
+  "name": "Nuxt Template",
   "display": "standalone",
   "display_override": ["standalone"],
-  "background_color": "#000000",
   "lang": "ja-JP",
   "start_url": "./",
   "id": "./",
@@ -48,5 +47,5 @@
       ]
     }
   ],
-  "description": "簡単にVuetifyを使用するチュートリアルパッケージ"
+  "description": "簡単にNuxt.jsを使用するチュートリアルパッケージ"
 }
