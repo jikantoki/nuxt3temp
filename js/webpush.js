@@ -11,42 +11,40 @@ export default {
    * @returns promise
    */
   set: async () => {
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
       /**
        * サービスワーカーの登録
        */
-      self.addEventListener('load', async () => {
-        if ('serviceWorker' in navigator) {
-          window.sw = await navigator.serviceWorker.register('/sw.js', {
-            scope: '/',
-          })
+      if ('serviceWorker' in navigator) {
+        window.sw = await navigator.serviceWorker.register('/sw.js', {
+          scope: '/',
+        })
+      }
+      if ('Notification' in window) {
+        let permission = Notification.permission
+
+        if (permission === 'denied') {
+          console.warn(
+            'Push通知が拒否されているようです。ブラウザの設定からPush通知を有効化してください',
+          )
+          reject(false)
         }
-        if ('Notification' in window) {
-          let permission = Notification.permission
 
-          if (permission === 'denied') {
-            console.warn(
-              'Push通知が拒否されているようです。ブラウザの設定からPush通知を有効化してください',
-            )
-            reject(false)
-          }
+        if (permission === 'granted') {
+          console.log('すでにWebPushを許可済みです')
+          //ここでreturnしてもシステム上問題ないが、トークンをconsole.logしたいので続行
+          //return 'allowed
+        }
+        const request = await getRequest()
 
-          if (permission === 'granted') {
-            console.log('すでにWebPushを許可済みです')
-            //ここでreturnしてもシステム上問題ないが、トークンをconsole.logしたいので続行
-            //return 'allowed
-          }
-          const request = await getRequest()
-
-          if (request) {
-            resolve(request)
-          } else {
-            reject(false)
-          }
+        if (request) {
+          resolve(request)
         } else {
           reject(false)
         }
-      })
+      } else {
+        reject(false)
+      }
     })
   },
 
@@ -67,13 +65,11 @@ export default {
     return await getRequest(listenFlag)
   },
 }
-
 /**
  * トークンを変換するときに使うロジック
  * @param {*} base64String
  */
 function urlB64ToUint8Array(base64String) {
-  console.log(base64String)
   const padding = '='.repeat((4 - (base64String.length % 4)) % 4)
   const base64 = (base64String + padding).replace(/\-/g, '+').replace(/_/g, '/')
 
@@ -93,16 +89,16 @@ function urlB64ToUint8Array(base64String) {
  * @returns リクエスト、エラーはfalse、PWAによるリクエスト不可はnull
  */
 const getRequest = async (listenFlag = false) => {
-  console.log(process.env)
+  const env = useRuntimeConfig().public.env
   /**
    * 共通変数
    */
-  const PUBLIC_KEY = process.env.VUE_APP_WebPush_PublicKey
+  const PUBLIC_KEY = env.VUE_APP_WEBPUSH_PUBLICKEY
   // 取得したPublicKeyを「UInt8Array」形式に変換する
   const applicationServerKey = urlB64ToUint8Array(PUBLIC_KEY)
 
   // push managerにサーバーキーを渡し、トークンを取得
-  let subscription = undefined
+  let subscription
 
   let permission = Notification.permission
   if (permission === 'granted' || listenFlag) {

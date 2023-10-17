@@ -16,6 +16,8 @@ export default {
     return {
       cookieAllowed: false,
       PackageJson: PackageJson,
+      envconf: useRuntimeConfig(),
+      env: null,
     }
   },
   mounted() {
@@ -39,6 +41,7 @@ export default {
         }
       }
     }
+    this.env = this.envconf.public.env
   },
   methods: {
     sendAjax: ajaxFunctions.send,

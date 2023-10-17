@@ -1,7 +1,7 @@
 <template lang="pug">
 .login(v-if="isShow")
   v-form.center
-    img.ma-8(:src="require('@/assets/logo.png')")
+    img.ma-8(src="~/assets/logo.png")
     p.form-p.text-h6 ログインして、世界とつながろう
     v-container
       v-text-field(v-model="userName" label="ID" prepend-inner-icon="mdi-account-outline" required clearable)

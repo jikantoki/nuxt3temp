@@ -1,7 +1,7 @@
 <template lang="pug">
 .v-app-main-application
   splash(v-show="splash")
-  v-app.wrap100vh#nuxt(ontouchstart="" style="min-height: 100vh!important;width:100vw")
+  v-app.wrap100vh#nuxt(ontouchstart="" style="min-height: 100vh!important;width:100vw" :style="style")
     header
       common-header
     v-main#main
@@ -50,6 +50,7 @@ export default {
      */
     return {
       splash: true,
+      style: 'opacity: 0;',
     }
   },
   /**
@@ -93,6 +94,7 @@ export default {
      * mountedの最後に記述
      */
     this.splash = false
+    this.style = 'opacity: 1;'
   },
   /**
    * ページ離脱時にやりたい事
@@ -144,9 +146,6 @@ body {
   list-style: none;
   transition: all 0.14s;
   font-family: $font !important;
-}
-.v-app-main-application {
-  display: block;
 }
 #nuxt {
   font-family: $font !important;

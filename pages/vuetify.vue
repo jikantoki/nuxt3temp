@@ -1,6 +1,6 @@
 <template lang="pug">
 .home
-  //img(alt="Vue logo" src="@/assets/logo.png")
+  //img(alt="Vue logo" src="~/assets/logo.png")
   HelloWorld(msg="Welcome to Your Vue.js App")
 </template>
 
@@ -17,3 +17,9 @@ export default {
   mixins: [mixins],
 }
 </script>
+
+<style lang="scss" scoped>
+.home {
+  text-align: center;
+}
+</style>

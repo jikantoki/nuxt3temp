@@ -1,7 +1,7 @@
 <template lang="pug">
 .login(v-if="isShow")
   v-form.center
-    img.ma-8(:src="require('@/assets/logo.png')")
+    img.ma-8(src="~/assets/logo.png")
     p.form-p.text-h6 アカウント新規登録
     v-container
       p.error.pa-4.mb-4.relative(v-if="errorMessage")
@@ -99,13 +99,13 @@ export default {
         this.errorMessage = '利用規約に同意してください'
         return false
       }
-      this.sendAjax(process.env.VUE_APP_API_HOST + '/createAccount.php', {
+      this.sendAjax(this.env.VUE_APP_API_HOST + '/createAccount.php', {
         username: this.userName,
         password: this.password,
         mailaddress: this.mailAddress,
-        apiid: process.env.VUE_APP_API_ID,
-        apitoken: process.env.VUE_APP_API_TOKEN,
-        apipassword: process.env.VUE_APP_API_ACCESSKEY,
+        apiid: this.env.VUE_APP_API_ID,
+        apitoken: this.env.VUE_APP_API_TOKEN,
+        apipassword: this.env.VUE_APP_API_ACCESSKEY,
       })
         .then((e) => {
           console.log(e)
