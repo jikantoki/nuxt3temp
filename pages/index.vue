@@ -45,21 +45,13 @@
 import mixins from '~/mixins/mixins'
 import webpush from '~/js/webpush'
 import componentPopup from '~/components/componentPopup'
-
+/*
+useHead({
+  title: 'aaaaaa',
+})
+*/
 export default {
   name: 'index',
-  head() {
-    return {
-      title: 'aaaaa',
-      meta: [
-        {
-          hid: 'description',
-          name: 'description',
-          content: 'いおえｗんｂをえ',
-        },
-      ],
-    }
-  },
   components: {
     popup: componentPopup,
   },
