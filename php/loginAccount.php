@@ -5,7 +5,8 @@ require_once './functions/authAPI.php';
 require_once './functions/authAPIforUse.php'; //APIが有効かどうか自動判定
 
 if (
-  !isset($_GET['id'])
+  !isset($_GET['id']) ||
+  !isset($_GET['password'])
 ) {
   echo json_encode([
     'status' => 'ng',
@@ -16,5 +17,5 @@ if (
 }
 
 $id = $_GET['id'];
-$SQLres = idToSecretId($id);
-var_dump($SQLres);
+$token = createUserToken($id, $password);
+var_dump($token);

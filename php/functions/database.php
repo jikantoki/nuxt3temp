@@ -301,21 +301,26 @@ function makeAccount($userId, $password, $mailAddress)
 /**
  * ユーザー用のアクセストークンを発行する
  *
- * @param [String] $targetSecretId ユーザーのシークレットID
+ * @param [String] $id ユーザーID
  * @return void
  */
-function getUserToken($targetSecretId)
+function createUserToken($id, $password)
 {
-  if (!isset($targetSecretId)) {
+  if (!isset($id)) {
     return false;
   }
-  $user = SQLfind('user_list', 'secretId', $targetSecretId);
-  if (!$user) {
+  $secretId = idToSecretId($id);
+  if (!$secretId) {
+    return false;
+  }
+  $user = SQLfind('user_secret_list', 'secretId', $secretId);
+
+  if (!password_verify($password, $user['password'])) {
     return false;
   }
   var_dump($user);
-  //工事中
-  //$token = randomString(32);
+  $token = randomString(32);
+  return $token;
 }
 
 /**
