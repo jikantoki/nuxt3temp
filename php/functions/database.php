@@ -320,10 +320,10 @@ function getUserToken($targetSecretId)
 
 function idToSecretId($id)
 {
-  if (!isset($id)) {
+  if (!$id) {
     return false;
   }
-  $sqlRes = SQLfind('user_list', 'id', $id);
+  $sqlRes = SQLfind('user_list', 'userId', $id);
   if (!$sqlRes) {
     return false;
   }
