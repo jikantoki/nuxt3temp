@@ -10,7 +10,7 @@
       .btns
         v-btn(@click="getRequest()") 通知を許可する
         v-btn(@click="pushForMe()") 通知送信テスト
-        v-btn.is-not-pwa(@click="download('/download/nuxTemp.apk','vuetifyTemplate.apk')") Download APK
+        //v-btn.is-not-pwa(@click="download('/download/nuxTemp.apk','vuetifyTemplate.apk')") Download APK
         v-btn(@click="a('https://github.com/jikantoki/nuxt3temp')") Github
         v-btn(@click="pop()") ポップアップ
       .input-area
