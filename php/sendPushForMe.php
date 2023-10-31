@@ -58,7 +58,6 @@ $report = $webPush->sendOneNotification(
 );
 
 $endpoint = $report->getRequest()->getUri()->__toString();
-echo '<pre>';
 if ($report->isSuccess()) {
   echo json_encode([
     'status' => 'ok',
@@ -73,5 +72,3 @@ if ($report->isSuccess()) {
   //この場合は無効なトークンを持っている場合が多い
   //リセットした方がいい
 }
-
-echo '</pre>';
