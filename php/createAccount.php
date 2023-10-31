@@ -37,7 +37,7 @@ if (!$response) {
   //アカウント作れた
   echo json_encode([
     'status' => 'ok',
-    'reason' => 'Thank you!'
+    'reason' => 'Thank you! Please check your mailbox!'
   ]);
 } else {
   //既に存在しているとか

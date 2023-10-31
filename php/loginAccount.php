@@ -19,4 +19,16 @@ if (
 $id = $_GET['id'];
 $password = $_GET['password'];
 $token = createUserToken($id, $password);
-var_dump($token);
+if ($token) {
+  echo json_encode([
+    'status' => 'ok',
+    'reason' => 'Thank you!',
+    'token' => $token
+  ]);
+} else {
+  echo json_encode([
+    'status' => 'ng',
+    'reason' => 'Unknown user',
+    'errCode' => 20
+  ]);
+}
