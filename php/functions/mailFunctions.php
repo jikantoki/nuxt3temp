@@ -35,6 +35,6 @@ function sendMail($to, $title, $message)
     //送信
     $mail->send();
   } catch (Exception $e) {
-    echo json_encode($e);
+    echo $e;
   }
 }
