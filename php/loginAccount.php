@@ -17,5 +17,6 @@ if (
 }
 
 $id = $_GET['id'];
+$password = $_GET['password'];
 $token = createUserToken($id, $password);
 var_dump($token);
