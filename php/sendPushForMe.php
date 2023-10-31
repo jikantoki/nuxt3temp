@@ -67,7 +67,8 @@ if ($report->isSuccess()) {
 } else {
   echo json_encode([
     'status' => 'ng',
-    'reason' => $report
+    'reason' => $report,
+    'errCode' => 1
   ]);
   //この場合は無効なトークンを持っている場合が多い
   //リセットした方がいい
