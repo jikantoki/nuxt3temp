@@ -7,14 +7,55 @@
       p.error.pa-4.mb-4.relative(v-if="errorMessage")
         v-icon mdi-alert-circle-outline
         p.px-4 {{ errorMessage }}
-        v-icon.v-ripple.absolute.close-error(v-ripple @click="errorMessage=false") mdi-close-circle-outline
-      v-text-field(v-model="userName" name="id" label="ID" counter="32" prepend-inner-icon="mdi-account-outline" :rules="[rules.required]" hint="3～32文字、半角英数字アンダーバーのみ" clearable)
-      v-text-field(v-model="mailAddress" name="mail" label="Mail Address" prepend-inner-icon="mdi-email-outline" type="email" :rules="[rules.required]" clearable)
-      v-text-field(v-model="password" name="password" label="Password" prepend-inner-icon="mdi-lock-outline" :type="showPassword ? 'text' : 'password'" :append-inner-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'" @click:append-inner="showPassword = !showPassword" :rules="[rules.required]")
-      v-text-field(v-model="confirmPassword" name="confirmPassword" label="Confirm Password" prepend-inner-icon="mdi-lock-outline" :type="showConfirmPassword ? 'text' : 'password'" :append-inner-icon="showConfirmPassword ? 'mdi-eye' : 'mdi-eye-off'" @click:append-inner="showConfirmPassword = !showConfirmPassword" :rules="[rules.required]")
+        v-icon.v-ripple.absolute.close-error(
+          v-ripple
+          @click="errorMessage=false"
+          ) mdi-close-circle-outline
+      v-text-field(
+        v-model="userName"
+        name="id"
+        label="ID"
+        counter="32"
+        prepend-inner-icon="mdi-account-outline"
+        :rules="[rules.required]"
+        hint="3～32文字、半角英数字アンダーバーのみ"
+        clearable
+        )
+      v-text-field(
+        v-model="mailAddress"
+        name="mail"
+        label="Mail Address"
+        prepend-inner-icon="mdi-email-outline"
+        type="email"
+        :rules="[rules.required]"
+        clearable
+        )
+      v-text-field(
+        v-model="password"
+        name="password"
+        label="Password"
+        prepend-inner-icon="mdi-lock-outline"
+        :type="showPassword ? 'text' : 'password'"
+        :append-inner-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+        @click:append-inner="showPassword = !showPassword"
+        :rules="[rules.required]"
+        )
+      v-text-field(
+        v-model="confirmPassword"
+        name="confirmPassword"
+        label="Confirm Password"
+        prepend-inner-icon="mdi-lock-outline"
+        :type="showConfirmPassword ? 'text' : 'password'"
+        :append-inner-icon="showConfirmPassword ? 'mdi-eye' : 'mdi-eye-off'"
+        @click:append-inner="showConfirmPassword = !showConfirmPassword"
+        :rules="[rules.required]"
+        )
       v-checkbox(v-model="agreement" label="利用規約に同意します")
       .btns
-        v-btn.round.submit(@click="registar" :disabled="!userName || !mailAddress || !password || !confirmPassword") Registar
+        v-btn.round.submit(
+          @click="registar"
+          :disabled="!userName || !mailAddress || !password || !confirmPassword"
+          ) Registar
         v-btn.round(@click="a('/login')") I have a account already
 </template>
 
