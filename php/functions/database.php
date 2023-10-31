@@ -240,7 +240,11 @@ function SQLjoin($baseTable, $joinTable, $baseKey, $joinKey, $where = null)
   return SQL($sql);
 }
 
-//ここから先はWebサイト固有の機能
+// ##############################
+//
+// ここから先はWebサイト固有の機能
+//
+// ##############################
 
 /**
  * ## アカウント作成
@@ -292,4 +296,37 @@ function makeAccount($userId, $password, $mailAddress)
     'mailAddress' => $mail
   ]);
   return 0;
+}
+
+/**
+ * ユーザー用のアクセストークンを発行する
+ *
+ * @param [String] $targetSecretId ユーザーのシークレットID
+ * @return void
+ */
+function getUserToken($targetSecretId)
+{
+  if (!isset($targetSecretId)) {
+    return false;
+  }
+  $user = SQLfind('user_list', 'secretId', $targetSecretId);
+  if (!$user) {
+    return false;
+  }
+  var_dump($user);
+  //工事中
+  //$token = randomString(32);
+}
+
+function idToSecretId($id)
+{
+  if (!isset($id)) {
+    return false;
+  }
+  $sqlRes = SQLfind('user_list', 'id', $id);
+  if (!$sqlRes) {
+    return false;
+  }
+  var_dump($sqlRes);
+  //工事中
 }

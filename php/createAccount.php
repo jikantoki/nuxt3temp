@@ -5,14 +5,12 @@ require_once './settings.php';
 require_once './functions/functions.php';
 require_once './functions/database.php';
 require_once './functions/authAPI.php';
+require_once './functions/authAPIforUse.php'; //APIが有効かどうか自動判定
 
 if (
   !isset($_GET['username']) ||
   !isset($_GET['password']) ||
-  !isset($_GET['mailaddress']) ||
-  !isset($_GET['apiid']) ||
-  !isset($_GET['apitoken']) ||
-  !isset($_GET['apipassword'])
+  !isset($_GET['mailaddress'])
 ) {
   echo json_encode([
     'status' => 'ng',
@@ -24,10 +22,7 @@ if (
 if (
   $_GET['username'] === '' ||
   $_GET['password'] === '' ||
-  $_GET['mailaddress'] === '' ||
-  $_GET['apiid'] === '' ||
-  $_GET['apitoken'] === '' ||
-  $_GET['apipassword'] === ''
+  $_GET['mailaddress'] === ''
 ) {
   echo json_encode([
     'status' => 'ng',
@@ -36,22 +31,19 @@ if (
   ]);
   exit;
 }
-$isAPI = authAPI($_GET['apiid'], $_GET['apitoken'], $_GET['apipassword']);
 
-if ($isAPI) {
-  $response = makeAccount($_GET['username'], $_GET['password'], $_GET['mailaddress']);
-  if (!$response) {
-    //アカウント作れた
-    echo json_encode([
-      'status' => 'ok',
-      'reason' => 'Thank you!'
-    ]);
-  } else {
-    //既に存在しているとか
-    echo json_encode([
-      'status' => 'ng',
-      'reason' => 'This account already exists',
-      'errCode' => 20
-    ]);
-  }
+$response = makeAccount($_GET['username'], $_GET['password'], $_GET['mailaddress']);
+if (!$response) {
+  //アカウント作れた
+  echo json_encode([
+    'status' => 'ok',
+    'reason' => 'Thank you!'
+  ]);
+} else {
+  //既に存在しているとか
+  echo json_encode([
+    'status' => 'ng',
+    'reason' => 'This account already exists',
+    'errCode' => 20
+  ]);
 }
