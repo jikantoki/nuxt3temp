@@ -8,6 +8,7 @@ env.php
 /node_modules/*
 /dist
 /vendor
+/user
 .htaccess
 
 # Nuxt dev/build outputs
