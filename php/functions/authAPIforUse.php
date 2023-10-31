@@ -1,5 +1,8 @@
 <?php
 //APIが有効かどうかをGET要素から自動判定し、ダメそうなら大元から処理を停止
+
+require_once './authAPI.php';
+
 if (
   !isset($_GET['apiid']) ||
   !isset($_GET['apitoken']) ||
