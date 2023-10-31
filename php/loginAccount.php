@@ -3,7 +3,9 @@ require_once './settings.php'; //env読み込み用、これを読み込まな�
 require_once './functions/database.php';
 require_once './functions/authAPI.php';
 require_once './functions/authAPIforUse.php'; //APIが有効かどうか自動判定
+require_once './functions/mailFunctions.php';
 
+sendMail('info@enoki.xyz', '試験メール', '<h1>ハッハッハあああ</h1><p>本文</p>');
 if (
   !isset($_GET['id']) ||
   !isset($_GET['password'])
