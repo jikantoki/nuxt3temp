@@ -17,7 +17,7 @@ if (
   echo json_encode([
     'status' => 'ng',
     'reason' => 'invalid GET params',
-    'errCode' => 1
+    'errCode' => 10
   ]);
   exit;
 }
@@ -32,7 +32,7 @@ if (
   echo json_encode([
     'status' => 'ng',
     'reason' => 'invalid GET params',
-    'errCode' => 2
+    'errCode' => 11
   ]);
   exit;
 }
@@ -51,7 +51,7 @@ if ($isAPI) {
     echo json_encode([
       'status' => 'ng',
       'reason' => 'This account already exists',
-      'errCode' => 3
+      'errCode' => 20
     ]);
   }
 }
