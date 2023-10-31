@@ -17,7 +17,7 @@ function sendMail($to, $title, $message)
   $mail->Encoding = '7bit';
   try {
     //全メール共通設定
-    $mail->isSMTP();
+    $mail->IsSMTP();
     $mail->Host = SMTP_Server;
     $mail->SMTPAuth = true;
     $mail->Username = SMTP_Username;
