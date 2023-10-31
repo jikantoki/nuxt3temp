@@ -314,7 +314,7 @@ function createUserToken($id, $password)
     return false;
   }
   $user = SQLfind('user_secret_list', 'secretId', $secretId);
-  var_dump($user);
+  var_dump($password);
 
   if (!password_verify($password, $user['password'])) {
     return false;
