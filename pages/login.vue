@@ -17,7 +17,7 @@ export default {
   mixins: [mixins],
   data() {
     return {
-      /** 将来的にdivの一つとしてフォームを埋め込む用 */
+      /** 将来的にv-dialogとかでフォームを埋め込む用 */
       isShow: true,
       userName: '',
       password: '',
@@ -37,7 +37,21 @@ export default {
     }
   },
   methods: {
-    login() {},
+    async login() {
+      this.sendAjax(this.env.VUE_APP_API_HOST + '/loginAccount.php', {
+        id: this.userName,
+        password: this.password,
+        apiid: this.env.VUE_APP_API_ID,
+        apitoken: this.env.VUE_APP_API_TOKEN,
+        apipassword: this.env.VUE_APP_API_ACCESSKEY,
+      })
+        .then((e) => {
+          console.log(e)
+        })
+        .catch((e) => {
+          console.log(e)
+        })
+    },
   },
 }
 </script>

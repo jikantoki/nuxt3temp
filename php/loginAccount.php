@@ -1,6 +1,7 @@
 <?php
-require_once('./functions/database.php');
-require_once('./functions/authAPIforUse.php'); //APIが有効かどうか自動判定
+require_once './functions/database.php';
+require_once './settings.php';
+require_once './functions/authAPIforUse.php'; //APIが有効かどうか自動判定
 
 if (
   !isset($_GET['id'])
