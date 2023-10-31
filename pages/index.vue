@@ -12,10 +12,22 @@
         v-btn(@click="pushForMe()") 通知送信テスト
         //v-btn.is-not-pwa(@click="download('/download/nuxTemp.apk','vuetifyTemplate.apk')") Download APK
         v-btn(@click="a('https://github.com/jikantoki/nuxt3temp')") Github
-        v-btn(@click="pop()") ポップアップ
+        v-btn(@click="createPopup()") ポップアップ
       .input-area
         v-text-field.my-4(label="送りたい通知内容を入力" v-model="notificationText")
       .hgewao {{ $t('page.content') }}
+  v-dialog(v-model="dialog" max-width="500")
+    v-card
+      v-card-title {{ dialogTitle }}
+      v-card-text(v-html="dialogText")
+      v-card-actions(v-if="dialogActions")
+        v-spacer
+        v-btn(
+          v-for="btn, key in dialogActions"
+          :key="key"
+          @click="btn.action()"
+          v-bind:class="[key === dialogActions.length - 1 ? 'btn-default' : 'btn-other']"
+          ) {{ btn.value }}
   .wrap
     v-card.content(elevation="4")
       .text-h2 簡単で、美しい。
@@ -35,7 +47,6 @@
       .text-h2 マークダウンぽいやつもお手の物
       hr
       p ノーマルテキスト
-  popup(ref="componentPopup")
 </template>
 
 <script>
@@ -44,7 +55,6 @@
  */
 import mixins from '~/mixins/mixins'
 import webpush from '~/js/webpush'
-import componentPopup from '~/components/componentPopup'
 /*
 useHead({
   title: 'aaaaaa',
@@ -52,13 +62,15 @@ useHead({
 */
 export default {
   name: 'index',
-  components: {
-    popup: componentPopup,
-  },
+  components: {},
   mixins: [mixins],
   data() {
     return {
       notificationText: '通知テスト12345🤓',
+      dialog: false,
+      dialogTitle: null,
+      dialogText: null,
+      dialogActions: null,
     }
   },
   mounted() {
@@ -71,24 +83,43 @@ export default {
         .get(true)
         .then((e) => {
           if (e) {
-            this.$refs.componentPopup.pop(
-              'ありがとうございます！',
-              'プッシュ通知の許可に成功しました。',
-              [{ text: 'OK', return: 0 }],
-            )
+            this.dialogTitle = 'ありがとうございます！'
+            this.dialogText = 'プッシュ通知の許可に成功しました。'
+            this.dialogActions = [
+              {
+                value: '閉じる',
+                action: () => {
+                  this.dialog = false
+                },
+              },
+            ]
+            this.dialog = true
           } else {
             if (e === undefined) {
-              this.$refs.componentPopup.pop(
-                'リクエスト失敗',
-                'ブラウザによって通知へのリクエストが拒否されています。',
-                [{ text: 'OK', return: 0 }],
-              )
+              this.dialogTitle = 'リクエスト失敗'
+              this.dialogText =
+                'ブラウザによって通知へのリクエストが拒否されています。'
+              this.dialog = true
+              this.dialogActions = [
+                {
+                  value: '閉じる',
+                  action: () => {
+                    this.dialog = false
+                  },
+                },
+              ]
             } else {
-              this.$refs.componentPopup.pop(
-                'リクエスト失敗',
-                `プッシュ通知の許可は、ブラウザから行う必要があります。\nこの端末で <span class="allow-select-all underline">https://${location.host}</span> にアクセスしてください。`,
-                [{ text: 'OK', return: 0 }],
-              )
+              this.dialogTitle = 'リクエスト失敗'
+              this.dialogText = `プッシュ通知の許可は、ブラウザから行う必要があります。\nこの端末で <span class="allow-select-all underline">https://${location.host}</span> にアクセスしてください。`
+              this.dialog = true
+              this.dialogActions = [
+                {
+                  value: '閉じる',
+                  action: () => {
+                    this.dialog = false
+                  },
+                },
+              ]
             }
           }
         })
@@ -97,11 +128,18 @@ export default {
     async pushForMe() {
       const keys = await webpush.get()
       if (!keys) {
-        this.$refs.componentPopup.pop(
-          '通知を送信できませんでした',
-          'プッシュ通知が許可されていないため、処理を完了できませんでした',
-          [{ text: 'OK', return: 0 }],
-        )
+        this.dialogTitle = '通知を送信できませんでした'
+        this.dialogText =
+          'プッシュ通知が許可されていないため、処理を完了できませんでした'
+        this.dialog = true
+        this.dialogActions = [
+          {
+            value: '閉じる',
+            action: () => {
+              this.dialog = false
+            },
+          },
+        ]
         return false
       }
       this.sendAjax(this.env.VUE_APP_API_HOST + '/sendPushForMe.php', {
@@ -116,18 +154,37 @@ export default {
         .catch((e) => {
           console.log(e)
         })
+      this.dialogTitle = '通知を送信しました'
+      this.dialogText = 'プッシュ通知を確認してみてください！'
+      this.dialog = true
+      this.dialogActions = [
+        {
+          value: '閉じる',
+          action: () => {
+            this.dialog = false
+          },
+        },
+      ]
       return true
     },
-    async pop() {
-      return await this.$refs.componentPopup
-        .pop('テスト表示', 'これはポップアップのサンプルです', [
-          { text: 'OK', return: 0 },
-          { text: 'NG', return: 1 },
-          { text: 'Cancel', return: 2 },
-        ])
-        .then((e) => {
-          console.log(e)
-        })
+    createPopup() {
+      this.dialogTitle = 'ポップアップテスト'
+      this.dialogText = 'これはテストです'
+      this.dialog = true
+      this.dialogActions = [
+        {
+          value: 'ボタン2',
+          action: () => {
+            this.dialog = false
+          },
+        },
+        {
+          value: '閉じる',
+          action: () => {
+            this.dialog = false
+          },
+        },
+      ]
     },
   },
 }

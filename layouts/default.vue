@@ -8,7 +8,6 @@
       .center
         router-view
         common-cookie-get-permission
-        popup(ref="componentPopup")
       v-footer.pa-16#footer
         common-footer
   .right-space(style="min-height: 100vh")
@@ -20,7 +19,6 @@ import Functions from '~/js/Functions'
 import commonHeader from '~/components/common/commonHeader'
 import commonFooter from '~/components/common/commonFooter'
 import commonCookieGetPermission from '~/components/common/commonCookieGetPermission'
-import componentPopup from '~/components/componentPopup'
 import mixins from '~/mixins/mixins'
 import webpush from '~/js/webpush'
 import splash from '~/components/common/commonSplash'
@@ -37,7 +35,6 @@ export default {
     commonHeader: commonHeader,
     commonFooter: commonFooter,
     commonCookieGetPermission: commonCookieGetPermission,
-    popup: componentPopup,
     splash: splash,
   },
   mixins: [mixins],
@@ -324,5 +321,9 @@ body {
   .absolute {
     position: absolute;
   }
+}
+.btn-default {
+  background-color: var(--accent-color);
+  color: white;
 }
 </style>
