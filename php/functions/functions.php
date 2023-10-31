@@ -18,7 +18,8 @@ function dump($var)
   return 0;
 }
 
+/** 現在unixtimeを返すが、time()でよい */
 function now()
 {
-  time();
+  return time();
 }

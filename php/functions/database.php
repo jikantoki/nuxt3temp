@@ -318,7 +318,12 @@ function createUserToken($id, $password)
   if (!password_verify($password, $user['password'])) {
     return false;
   }
-  $token = randomString(32);
+  $token = randomString(64);
+  SQLinsert('user_accesstoken_list', [
+    'secretId' => $secretId,
+    'token' => $token,
+    'createdAt' => time()
+  ]);
   return $token;
 }
 
