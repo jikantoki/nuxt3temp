@@ -23,7 +23,8 @@ if ($token) {
   echo json_encode([
     'status' => 'ok',
     'reason' => 'Thank you!',
-    'token' => $token
+    'token' => $token,
+    'id' => $id
   ]);
 } else {
   echo json_encode([
