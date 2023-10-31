@@ -14,7 +14,10 @@ if (
   !isset($_GET['apitoken']) ||
   !isset($_GET['apipassword'])
 ) {
-  echo 'GET要素が足りん（怒）';
+  echo json_encode([
+    'status' => 'ng',
+    'reason' => 'invalid GET params'
+  ]);
   exit;
 }
 if (
@@ -25,7 +28,10 @@ if (
   $_GET['apitoken'] === '' ||
   $_GET['apipassword'] === ''
 ) {
-  echo '空白あるよ（怒）';
+  echo json_encode([
+    'status' => 'ng',
+    'reason' => 'invalid GET params'
+  ]);
   exit;
 }
 $isAPI = authAPI($_GET['apiid'], $_GET['apitoken'], $_GET['apipassword']);
@@ -34,9 +40,15 @@ if ($isAPI) {
   $response = makeAccount($_GET['username'], $_GET['password'], $_GET['mailaddress']);
   if (!$response) {
     //アカウント作れた
-    echo 'OK!';
+    echo json_encode([
+      'status' => 'ok',
+      'reason' => 'Thank you!'
+    ]);
   } else {
     //既に存在しているとか
-    echo 'NG';
+    echo json_encode([
+      'status' => 'ng',
+      'reason' => 'This account already exists'
+    ]);
   }
 }

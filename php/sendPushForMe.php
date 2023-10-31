@@ -60,10 +60,15 @@ $report = $webPush->sendOneNotification(
 $endpoint = $report->getRequest()->getUri()->__toString();
 echo '<pre>';
 if ($report->isSuccess()) {
-  echo '送信成功！';
+  echo json_encode([
+    'status' => 'ok',
+    'reason' => 'Thank you!'
+  ]);
 } else {
-  echo '送信失敗';
-  var_dump($report);
+  echo json_encode([
+    'status' => 'ng',
+    'reason' => $report
+  ]);
   //この場合は無効なトークンを持っている場合が多い
   //リセットした方がいい
 }
