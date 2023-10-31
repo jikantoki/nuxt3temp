@@ -1,7 +1,7 @@
 <?php
 //アカウント作成用API
 
-require_once './settings.php';
+require_once './settings.php'; //env読み込み用、これを読み込まないと動かないもの多い
 require_once './functions/functions.php';
 require_once './functions/database.php';
 require_once './functions/authAPI.php';
