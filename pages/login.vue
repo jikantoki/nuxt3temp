@@ -78,6 +78,8 @@ export default {
           this.loading = false
           if (e.body.status === 'ok') {
             const now = new URL(window.location.href)
+            localStorage.userId = e.body.id
+            localStorage.accessToken = e.body.token
             const redirect = now.searchParams.get('redirect')
             if (redirect && redirect !== '') {
               this.a(redirect)
