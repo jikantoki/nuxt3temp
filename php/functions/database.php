@@ -306,13 +306,14 @@ function makeAccount($userId, $password, $mailAddress)
  */
 function createUserToken($id, $password)
 {
-  if (!isset($id)) {
+  if (!$id) {
     return false;
   }
   $secretId = idToSecretId($id);
   if (!$secretId) {
     return false;
   }
+  echo $secretId;
   $user = SQLfind('user_secret_list', 'secretId', $secretId);
 
   if (!password_verify($password, $user['password'])) {
