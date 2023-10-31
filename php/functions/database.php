@@ -318,6 +318,12 @@ function getUserToken($targetSecretId)
   //$token = randomString(32);
 }
 
+/**
+ * UserIdをSecretIdに変換
+ *
+ * @param [String] $id ユーザーID
+ * @return String シークレットID
+ */
 function idToSecretId($id)
 {
   if (!$id) {
@@ -327,6 +333,23 @@ function idToSecretId($id)
   if (!$sqlRes) {
     return false;
   }
-  var_dump($sqlRes);
-  //工事中
+  return $sqlRes['secretId'];
+}
+
+/**
+ * SecretIdをUserIdに変換
+ *
+ * @param [String] $secretId シークレットID
+ * @return String ユーザーID
+ */
+function secretIdToId($secretId)
+{
+  if (!$secretId) {
+    return false;
+  }
+  $sqlRes = SQLfind('user_list', 'userId', $secretId);
+  if (!$sqlRes) {
+    return false;
+  }
+  return $sqlRes['secretId'];
 }
