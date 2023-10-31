@@ -313,13 +313,12 @@ function createUserToken($id, $password)
   if (!$secretId) {
     return false;
   }
-  echo $secretId;
   $user = SQLfind('user_secret_list', 'secretId', $secretId);
+  var_dump($user);
 
   if (!password_verify($password, $user['password'])) {
     return false;
   }
-  var_dump($user);
   $token = randomString(32);
   return $token;
 }
