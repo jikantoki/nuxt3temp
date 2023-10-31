@@ -6,6 +6,10 @@
  */
 require_once DIR_ROOT . '/env.php';
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
 function sendMail($to, $title, $message)
 {
   $mail = new PHPMailer(true);
