@@ -1,4 +1,6 @@
 <?php
+require_once './settings.php'; //env読み込み用、これを読み込まないと動かないもの多い
+require_once '../vendor/autoload.php';
 require_once '../vendor/autoload.php';
 require_once '../env.php';
 require_once './functions/authAPI.php';
