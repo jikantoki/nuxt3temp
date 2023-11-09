@@ -57,6 +57,9 @@ export default {
   /**
    * ページ生成時にやりたい事
    */
+  created() {
+    this.$vuetify.theme.global.name = 'dark'
+  },
   mounted() {
     PackageJson.name = Functions.ifEnglishStartUpper(PackageJson.name)
     /*
@@ -93,7 +96,7 @@ export default {
     window.setTimeout(() => {
       this.splash = false
       this.style = 'opacity: 1;'
-    }, 2000)
+    }, 3000)
   },
   /**
    * ページ離脱時にやりたい事

@@ -5,7 +5,7 @@
       v-btn(icon="mdi-magnify")
       v-btn(icon="mdi-dots-vertical")
     v-app-bar-nav-icon(v-if="isRoot" @click="toggleDrawer()")
-    v-btn(v-if="!isRoot" icon="mdi-keyboard-backspace" @click="back()")
+    v-btn(v-if="!isRoot" icon="mdi-keyboard-backspace" @click="console.log(back())")
     v-app-bar-title {{ metaStore.title }}
   v-navigation-drawer.pa-0(v-model="drawer" fixed temporary)
     v-list(nav dense)
@@ -147,6 +147,10 @@ export default {
 
     //移動距離から左右or上下の処理を実行
     document.getElementById('main').addEventListener('touchend', (e) => {
+      //rootディレクトリ関連じゃないばあいは処理を停止
+      if (!this.isRoot) {
+        return false
+      }
       //触っているクラスに.dont-swipeが含まれていたらリジェクト
       const classes = e.target.className.split(' ')
       if (classes) {
@@ -201,12 +205,26 @@ export default {
         this.$router.push('/')
       }
       if (document.referrer === '') {
-        if (!pleaseReturn) {
-          goHome()
+        if (
+          !window.history ||
+          !window.history.state ||
+          !window.history.state.back
+        ) {
+          if (!pleaseReturn) {
+            goHome()
+          }
+          return -1
         }
-        return -1
       }
-      const referrer = new URL(document.referrer)
+      let ref
+      if (document.referrer !== '') {
+        ref = document.referrer
+      } else {
+        ref = `${new URL(window.location.href).protocol}${
+          new URL(window.location.href).host
+        }${window.history.state.back}`
+      }
+      const referrer = new URL(ref)
       const now = new URL(window.location.href)
       if (!referrer) {
         if (!pleaseReturn) {
@@ -227,12 +245,13 @@ export default {
         }
         return 3
       } else {
-        if (referrer.host === now.host && !referrer.path) {
+        if (referrer.host === now.host && !referrer.pathname) {
           this.$router.push('/')
+          return 0
         } else {
-          router.back()
+          this.$router.back()
+          return false
         }
-        return 0
       }
     },
     changeTheme() {},
