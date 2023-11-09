@@ -78,13 +78,15 @@ export default {
         id: this.userName,
         password: this.password,
       })
-        .then((e) => {
+        .then(async (e) => {
           console.log(e)
           this.loading = false
           if (e.body.status === 'ok') {
             const now = new URL(window.location.href)
             this.userStore.setId(e.body.id)
             this.userStore.setToken(e.body.token)
+            const profile = await this.getProfile(e.body.id)
+            this.userStore.setProfile(profile)
             const redirect = now.searchParams.get('redirect')
             if (redirect && redirect !== '') {
               this.a(redirect)

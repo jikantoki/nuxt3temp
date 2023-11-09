@@ -4,7 +4,10 @@
     template(v-slot:append)
       v-btn(icon="mdi-magnify")
       v-btn(icon="mdi-dots-vertical")
-    v-app-bar-nav-icon(v-if="isRoot" @click="toggleDrawer()")
+    v-app-bar-nav-icon(v-if="isRoot && (!userStore || !userStore.profile)" @click="toggleDrawer()")
+    .nav-icon(v-if="isRoot && userStore && userStore.profile")
+      .nav-round(@click="toggleDrawer()" v-ripple)
+        img.nav-img(src="/account_default.jpg")
     v-btn(v-if="!isRoot" icon="mdi-keyboard-backspace" @click="console.log(back())")
     v-app-bar-title {{ metaStore.title }}
   v-navigation-drawer.pa-0(v-model="drawer" fixed temporary)
@@ -285,6 +288,7 @@ export default {
           console.log(e)
           this.userStore.setId(null)
           this.userStore.setToken(null)
+          this.userStore.setProfile(null)
         })
         .catch((e) => {
           console.log(e)
@@ -345,5 +349,27 @@ button {
   color: white;
   font-weight: bold;
   border-radius: 8px;
+}
+.nav-icon {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1/1;
+  .nav-round {
+    height: 70%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 1/1;
+    border-radius: 9999px;
+    cursor: pointer;
+    .nav-img {
+      height: 100%;
+      aspect-ratio: 1/1;
+      object-fit: cover;
+      border-radius: 9999px;
+    }
+  }
 }
 </style>
