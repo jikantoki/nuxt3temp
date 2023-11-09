@@ -17,6 +17,8 @@
         prepend-inner-icon="mdi-account-outline"
         required
         clearable
+        ref="userName"
+        @keydown.enter="$refs.password.focus()"
         )
       v-text-field(
         v-model="password"
@@ -26,12 +28,15 @@
         :append-inner-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
         @click:append-inner="showPassword = !showPassword"
         required
+        ref="password"
+        @keydown.enter="login()"
         )
       .btns
         v-btn.round.submit(
           @click="login"
           :disabled="!userName || !password"
           :loading="loading"
+          ref="submit"
           ) Login
         v-btn.round(@click="a('/registar')" v-show="!loading") Registar Account
 </template>
@@ -50,6 +55,7 @@ export default {
       showPassword: false,
       loading: false,
       errorMessage: null,
+      userStore: useUserStore(),
     }
   },
   mounted() {
@@ -80,10 +86,8 @@ export default {
           this.loading = false
           if (e.body.status === 'ok') {
             const now = new URL(window.location.href)
-            localStorage.userId = e.body.id
-            localStorage.accessToken = e.body.token
-            useUserStore.setId = e.body.id
-            useUserStore.setToken = e.body.token
+            this.userStore.setId(e.body.id)
+            this.userStore.setToken(e.body.token)
             const redirect = now.searchParams.get('redirect')
             if (redirect && redirect !== '') {
               this.a(redirect)

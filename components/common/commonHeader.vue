@@ -10,11 +10,16 @@
   v-navigation-drawer.pa-0(v-model="drawer" fixed temporary)
     v-list(nav dense)
       v-item-group(v-model="group" active-class="deep-purple-text text--accent-4")
-        a.header-list(:href="'/login'")
+        a.header-list(href="/login" v-if="!userStore || !userStore.userId")
           v-list-item.pa-4(link)
             .v-item
               v-icon(style="opacity:0.7") mdi-account-outline
               p.nav ログイン
+        a.header-list(:href="'#'" v-if="userStore && userStore.userId")
+          v-list-item.pa-4(link)
+            .v-item
+              v-icon(style="opacity:0.7") mdi-account-outline
+              p.nav プロフィール
         v-divider(style="opacity:0.3")
         a.header-list(v-for="navigationItem in NavigationList" :href="navigationItem.url")
           v-list-item.pa-4(link)
@@ -33,6 +38,21 @@
             v-icon(style="opacity:0.7") mdi-theme-light-dark
             p.nav Theme
             v-switch(v-model="isDarkTheme")
+        a.header-list(
+          :href="'#'"
+          v-if="userStore && userStore.userId"
+          v-bind="attrs"
+          v-on="on"
+          )
+          v-list-item.pa-4(link)
+            .v-item
+              v-icon(style="opacity:0.7") mdi-account-outline
+              p.nav もっと見る
+              v-icon(style="opacity:0.7") mdi-menu-right
+          v-menu(activator="parent" offset-x)
+            v-list
+              v-list-item.logout(link @click="logout()")
+                v-list-item-title ログアウト
 </template>
 
 <script>
@@ -255,6 +275,9 @@ export default {
       }
     },
     changeTheme() {},
+    logout() {
+      console.log('logout')
+    },
   },
 }
 </script>
@@ -304,5 +327,11 @@ button {
 .header-list {
   text-decoration: none;
   color: inherit;
+}
+.logout {
+  background-color: #aa0000;
+  color: white;
+  font-weight: bold;
+  border-radius: 8px;
 }
 </style>

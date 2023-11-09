@@ -96,7 +96,7 @@ export default {
     window.setTimeout(() => {
       this.splash = false
       this.style = 'opacity: 1;'
-    }, 3000)
+    }, 2000)
   },
   /**
    * ページ離脱時にやりたい事
