@@ -11,10 +11,10 @@ use PHPMailer\PHPMailer\Exception;
 
 function sendMail($to, $title, $message)
 {
-  $mail = new PHPMailer(true);
-  $mail->CharSet = 'utf-8';
   try {
     //全メール共通設定
+    $mail = new PHPMailer(true);
+    $mail->CharSet = 'utf-8';
     $mail->isSMTP();
     $mail->SMTPAuth = true;
     $mail->Host = SMTP_Server;
