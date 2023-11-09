@@ -283,6 +283,8 @@ export default {
       })
         .then((e) => {
           console.log(e)
+          this.userStore.setId(null)
+          this.userStore.setToken(null)
         })
         .catch((e) => {
           console.log(e)
