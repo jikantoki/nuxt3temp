@@ -34,18 +34,19 @@ $res = SQLdeleteSome('user_accesstoken_list', [
     'func' => '='
   ]
 ]);
-var_dump($res);
-if ($token) {
+if ($res) {
   echo json_encode([
     'status' => 'ok',
-    'reason' => 'Thank you!',
+    'reason' => 'Deleted!',
     'token' => $token,
-    'id' => $id
+    'id' => $userId
   ]);
 } else {
   echo json_encode([
     'status' => 'ng',
-    'reason' => 'Unknown user',
-    'errCode' => 20
+    'reason' => 'Data not found',
+    'errCode' => 20,
+    'token' => $token,
+    'id' => $userId
   ]);
 }

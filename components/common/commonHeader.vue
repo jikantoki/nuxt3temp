@@ -277,6 +277,16 @@ export default {
     changeTheme() {},
     logout() {
       console.log('logout')
+      this.sendAjaxWithAuth('/logoutAccount.php', {
+        id: this.userStore.userId,
+        token: this.userStore.userToken,
+      })
+        .then((e) => {
+          console.log(e)
+        })
+        .catch((e) => {
+          console.log(e)
+        })
     },
   },
 }
