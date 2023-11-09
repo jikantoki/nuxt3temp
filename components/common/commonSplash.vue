@@ -1,6 +1,6 @@
 <template lang="pug">
-.wait(color="primary")
-  .wait-wrap
+.wait
+  .wait-wrap(style="background:rgb(var(--v-theme-background));")
     img.splash-img(src="/img/icon512.png")
     p.text-h4.splash-text Nuxt
     .ma-16

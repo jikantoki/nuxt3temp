@@ -1,5 +1,5 @@
 <template lang="pug">
-.v-app-main-application
+.v-app-main-application#nuxt
   splash(v-show="splash")
   v-app.wrap100vh#nuxt(ontouchstart="" style="min-height: 100vh!important;width:100vw" :style="style")
     header
@@ -90,8 +90,10 @@ export default {
     /**
      * mountedの最後に記述
      */
-    this.splash = false
-    this.style = 'opacity: 1;'
+    window.setTimeout(() => {
+      this.splash = false
+      this.style = 'opacity: 1;'
+    }, 2000)
   },
   /**
    * ページ離脱時にやりたい事
