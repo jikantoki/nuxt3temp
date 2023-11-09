@@ -12,6 +12,7 @@ use PHPMailer\PHPMailer\Exception;
 function sendMail($to, $title, $message)
 {
   var_dump(SMTP_Password);
+  var_dump(SMTP_Server);
   try {
     //全メール共通設定
     $mail = new PHPMailer(true);
