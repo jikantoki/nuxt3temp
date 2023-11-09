@@ -34,6 +34,5 @@ function sendMail($to, $title, $message)
     $mail->send();
   } catch (Exception $e) {
     echo $e;
-    echo $mail->Errorinfo;
   }
 }
