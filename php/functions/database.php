@@ -444,3 +444,9 @@ function secretIdToId($secretId)
   }
   return $sqlRes['secretId'];
 }
+
+/** 特定のユーザーのプロフィールをゲット */
+function getProfile($id)
+{
+  return SQLfind('USER_PROFILE_VIEW', 'userId', $id);
+}
