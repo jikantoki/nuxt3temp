@@ -202,7 +202,7 @@ function SQLfind($table, $key, $value)
 }
 
 /**
- * テーブルの任意の列で未使用なダンダム英数字を吐き出す
+ * テーブルの任意の列で未使用なダンダム英数字16文字以上を吐き出す
  *
  * @param [type] $table 使いたいテーブル
  * @param [type] $key IDを登録する列
