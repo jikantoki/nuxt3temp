@@ -82,6 +82,8 @@ export default {
             const now = new URL(window.location.href)
             localStorage.userId = e.body.id
             localStorage.accessToken = e.body.token
+            useUserStore.setId = e.body.id
+            useUserStore.setToken = e.body.token
             const redirect = now.searchParams.get('redirect')
             if (redirect && redirect !== '') {
               this.a(redirect)
