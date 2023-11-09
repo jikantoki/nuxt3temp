@@ -11,6 +11,7 @@ use PHPMailer\PHPMailer\Exception;
 
 function sendMail($to, $title, $message)
 {
+  echo SMTP_Password;
   try {
     //全メール共通設定
     $mail = new PHPMailer(true);
