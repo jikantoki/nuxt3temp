@@ -142,13 +142,10 @@ export default {
         this.errorMessage = '利用規約に同意してください'
         return false
       }
-      this.sendAjax(this.env.VUE_APP_API_HOST + '/createAccount.php', {
+      this.sendAjaxWithAuth('/createAccount.php', {
         username: this.userName,
         password: this.password,
         mailaddress: this.mailAddress,
-        apiid: this.env.VUE_APP_API_ID,
-        apitoken: this.env.VUE_APP_API_TOKEN,
-        apipassword: this.env.VUE_APP_API_ACCESSKEY,
       })
         .then((e) => {
           console.log(e)

@@ -50,6 +50,20 @@ export default {
   methods: {
     sendAjax: ajaxFunctions.send,
     /**
+     * APIトークンを同時に送信するAjax（内部処理用）
+     * @param {string} url 送信先URL（ドメインは自動で付きます）
+     * @param {object} sendObject 送りたいオブジェクト
+     */
+    sendAjaxWithAuth(url, sendObject) {
+      const auth = {
+        apiid: this.env.VUE_APP_API_ID,
+        apitoken: this.env.VUE_APP_API_TOKEN,
+        apipassword: this.env.VUE_APP_API_ACCESSKEY,
+      }
+      const sendObj = Object.assign(auth, sendObject)
+      return this.sendAjax(this.env.VUE_APP_API_HOST + url, sendObj)
+    },
+    /**
      * <p>aタグと同じ動きをするし、pjaxになる</p>
      * <p>外部URLの場合、新しいタブで開く</p>
      * @param {string} url 転送したいURL（ルートからのパス）

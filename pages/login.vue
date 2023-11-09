@@ -74,12 +74,9 @@ export default {
   methods: {
     async login() {
       this.loading = true
-      this.sendAjax(this.env.VUE_APP_API_HOST + '/loginAccount.php', {
+      this.sendAjaxWithAuth('/loginAccount.php', {
         id: this.userName,
         password: this.password,
-        apiid: this.env.VUE_APP_API_ID,
-        apitoken: this.env.VUE_APP_API_TOKEN,
-        apipassword: this.env.VUE_APP_API_ACCESSKEY,
       })
         .then((e) => {
           console.log(e)

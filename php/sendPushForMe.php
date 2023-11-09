@@ -1,6 +1,8 @@
 <?php
 require_once '../vendor/autoload.php';
 require_once '../env.php';
+require_once './functions/authAPI.php';
+require_once './functions/authAPIforUse.php'; //APIが有効かどうか自動判定
 
 use Minishlink\WebPush\WebPush;
 use Minishlink\WebPush\Subscription;

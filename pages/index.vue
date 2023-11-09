@@ -140,7 +140,7 @@ export default {
         ]
         return false
       }
-      this.sendAjax(this.env.VUE_APP_API_HOST + '/sendPushForMe.php', {
+      this.sendAjaxWithAuth('/sendPushForMe.php', {
         endpoint: keys.endpoint,
         publickey: keys.publicKey,
         authtoken: keys.authToken,
