@@ -27,8 +27,8 @@ function sendMail($to, $title, $message)
 
     //メールによる設定
     $mail->addAddress($to);
-    $mail->Subject = mb_encode_mimeheader($title);
-    $mail->Body = mb_encode_mimeheader($message);
+    $mail->Subject = $title;
+    $mail->Body = $message;
 
     //送信
     $mail->send();
