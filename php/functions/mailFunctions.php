@@ -18,8 +18,8 @@ function sendMail($to, $title, $message)
   try {
     //全メール共通設定
     $mail->isSMTP();
-    $mail->Host = SMTP_Server;
     $mail->SMTPAuth = true;
+    $mail->Host = SMTP_Server;
     $mail->Username = SMTP_Username;
     $mail->Password = SMTP_Password;
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
