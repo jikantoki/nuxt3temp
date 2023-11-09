@@ -378,8 +378,11 @@ function createUserToken($id, $password)
   if (!password_verify($password, $user['password'])) {
     return false;
   }
+  /** 未使用なランダムID */
+  $tokenId = SQLmakeRandomId('user_accesstoken_list', 'tokenId');
   $token = randomString(64);
   SQLinsert('user_accesstoken_list', [
+    'tokenId' => $tokenId,
     'secretId' => $secretId,
     'token' => $token,
     'createdAt' => time()
