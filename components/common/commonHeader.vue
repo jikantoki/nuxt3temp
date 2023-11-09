@@ -15,7 +15,7 @@
             .v-item
               v-icon(style="opacity:0.7") mdi-account-outline
               p.nav ログイン
-        a.header-list(:href="'#'" v-if="userStore && userStore.userId")
+        a.header-list(:href="`/${userStore.userId}`" v-if="userStore && userStore.userId")
           v-list-item.pa-4(link)
             .v-item
               v-icon(style="opacity:0.7") mdi-account-outline
