@@ -294,6 +294,7 @@ function SQLdeleteSome($table, $array, $limit = 1)
   }
   $words = substr($words, 0, -4);
   $words = $words . ' limit ' . $limit;
+  echo $words;
   return SQL($words);
 }
 
