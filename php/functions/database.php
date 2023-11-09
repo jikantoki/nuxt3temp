@@ -240,6 +240,63 @@ function SQLjoin($baseTable, $joinTable, $baseKey, $joinKey, $where = null)
   return SQL($sql);
 }
 
+/**
+ * $tableから$keyが$valueに一致する項目を一件のみ削除
+ *
+ * @param [type] $table 調べるテーブル
+ * @param [type] $key 調べるキー（項目名）
+ * @param [type] $value 調べる値
+ * @return void
+ */
+function SQLdelete($table, $key, $value)
+{
+  if (is_string($value)) {
+    $value = '"' . $value . '"';
+  }
+  return SQL('delete from ' . $table . ' where ' . $key . ' = ' . $value . 'limit 1');
+}
+
+/**
+ * ## テーブルの中から複数条件で削除
+ *
+ * ### $arrayの中身
+ * ```
+ * $array = [
+ *   [
+ *     'key' => '検索したいキー',
+ *     'value' => '検索したい文字列',
+ *     'func' => '=' //演算記号
+ *   ],
+ *   [
+ *     'key' => '検索したいキー',
+ *     'value' => '検索したい文字列',
+ *     'func' => '=' //演算記号
+ *   ]
+ * ]
+ * ```
+ *
+ * @param [string] $table 検索したいテーブル
+ * @param [array] $array 検索したい条件をまとめた配列
+ * @param [integer] $limit 最大削除数デフォルト1
+ * @return object 結果
+ */
+function SQLdeleteSome($table, $array, $limit = 1)
+{
+  $words = 'delete from ' . $table . ' where ';
+  foreach ($array as $obj) {
+    $key = $obj['key'];
+    $val = $obj['value'];
+    $func = $obj['func'];
+    if (is_string($val)) {
+      $val = '"' . $val . '"';
+    }
+    $words = $words . $key . $func . ' ' . $val . ' and ';
+  }
+  $words = substr($words, 0, -4);
+  $words = $words . ' limit ' . $limit;
+  return SQL($words);
+}
+
 // ##############################
 //
 // ここから先はWebサイト固有の機能
