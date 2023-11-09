@@ -13,8 +13,7 @@ use PHPMailer\PHPMailer\Exception;
 function sendMail($to, $title, $message)
 {
   $mail = new PHPMailer(true);
-  $mail->CharSet = 'iso-2022-jp';
-  $mail->Encoding = '7bit';
+  $mail->CharSet = 'utf-8';
   try {
     //全メール共通設定
     $mail->isSMTP();
@@ -22,7 +21,6 @@ function sendMail($to, $title, $message)
     $mail->Host = SMTP_Server;
     $mail->Username = SMTP_Username;
     $mail->Password = SMTP_Password;
-    $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
     $mail->Port = SMTP_Port;
     $mail->setFrom(SMTP_Mailaddress, mb_encode_mimeheader(SMTP_Name));
     $mail->isHTML(true);
