@@ -22,7 +22,7 @@ function sendMail($to, $title, $message)
     $mail->Host = SMTP_Server;
     $mail->Username = SMTP_Username;
     $mail->Password = SMTP_Password;
-    $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+    $mail->SMTPSecure = 'tls';
     $mail->Port = SMTP_Port;
     $mail->setFrom(SMTP_Mailaddress, mb_encode_mimeheader(SMTP_Name));
     $mail->isHTML(true);
