@@ -1,7 +1,8 @@
 <template lang="pug">
 .hwedhgw(v-if="param")
-  p Hello! {{ param.userId }}'s Page
-  v-btn(@click="console.log($route)") View router
+  p.text-h3 Hello! {{ param.userId }}
+  p(v-if="userData") {{ userData }}
+  p(v-if="!userData") unknown user
 </template>
 
 <script>
@@ -12,11 +13,14 @@ export default {
   data() {
     return {
       param: null,
+      userData: null,
     }
   },
-  mounted() {
+  async mounted() {
     this.param = this.$route.params
     this.setTitle(this.param.userId)
+    this.userData = await this.getProfile(this.param.userId)
+    console.log(this.userData)
   },
 }
 </script>
