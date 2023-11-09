@@ -18,6 +18,9 @@ export default {
       PackageJson: PackageJson,
       envconf: useRuntimeConfig(),
       env: null,
+      counter: useCounterStore(),
+      metaStore: useMetaStore(),
+      userStore: useUserStore(),
     }
   },
   mounted() {

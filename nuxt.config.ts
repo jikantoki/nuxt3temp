@@ -72,4 +72,5 @@ export default defineNuxtConfig({
     'vuetify/lib/styles/main.sass',
     '@mdi/font/css/materialdesignicons.css',
   ],
+  modules: ['@pinia/nuxt', '@pinia-plugin-persistedstate/nuxt'],
 })

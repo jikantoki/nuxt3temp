@@ -6,7 +6,7 @@
       v-btn(icon="mdi-dots-vertical")
     v-app-bar-nav-icon(v-if="isRoot" @click="toggleDrawer()")
     v-btn(v-if="!isRoot" icon="mdi-keyboard-backspace" @click="back()")
-    v-app-bar-title {{ $route.meta.title }}
+    v-app-bar-title {{ metaStore.title }}
   v-navigation-drawer.pa-0(v-model="drawer" fixed temporary)
     v-list(nav dense)
       v-item-group(v-model="group" active-class="deep-purple-text text--accent-4")

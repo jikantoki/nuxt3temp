@@ -52,6 +52,7 @@ export default {
     }
   },
   mounted() {
+    this.metaStore.setTitle('ログイン')
     if (localStorage.userIdForLogin) {
       this.userName = localStorage.userIdForLogin
     }

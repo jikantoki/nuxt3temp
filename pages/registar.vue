@@ -98,6 +98,7 @@ export default {
     },
   },
   mounted() {
+    this.metaStore.setTitle('新規登録')
     if (localStorage.userIdForLogin) {
       this.userName = localStorage.userIdForLogin
     }

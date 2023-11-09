@@ -15,6 +15,9 @@ export default {
     HelloWorld,
   },
   mixins: [mixins],
+  mounted() {
+    this.metaStore.setTitle('Vuetify')
+  },
 }
 </script>
 
