@@ -7,7 +7,6 @@
 require_once DIR_ROOT . '/env.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
 function sendMail($to, $title, $message)
@@ -22,7 +21,8 @@ function sendMail($to, $title, $message)
     $mail->Username = SMTP_Username;
     $mail->Password = SMTP_Password;
     $mail->Port = SMTP_Port;
-    $mail->setFrom(SMTP_Mailaddress, mb_encode_mimeheader(SMTP_Name));
+    $mail->setFrom(SMTP_Mailaddress);
+    $mail->FromName = SMTP_Name;
     $mail->isHTML(true);
 
     //メールによる設定
@@ -34,5 +34,6 @@ function sendMail($to, $title, $message)
     $mail->send();
   } catch (Exception $e) {
     echo $e;
+    echo $mail->Errorinfo;
   }
 }
