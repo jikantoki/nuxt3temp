@@ -11,7 +11,6 @@ export default defineNuxtConfig({
   ssr: true,
   app: {
     head: {
-      titleTemplate: '%s | NuxTemp',
       htmlAttrs: {
         lang: 'ja',
         prefix: 'og: http://ogp.me/ns#',

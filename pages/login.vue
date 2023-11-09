@@ -37,6 +37,7 @@
 </template>
 
 <script>
+import metaFunctions from '~/js/metaFunctions'
 import mixins from '~/mixins/mixins'
 export default {
   mixins: [mixins],
@@ -52,7 +53,7 @@ export default {
     }
   },
   mounted() {
-    this.metaStore.setTitle('ログイン')
+    this.setTitle('ログイン')
     if (localStorage.userIdForLogin) {
       this.userName = localStorage.userIdForLogin
     }

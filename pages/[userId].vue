@@ -3,11 +3,12 @@ p Hello! {{ $route.params }}
 </template>
 
 <script>
+import metaFunctions from '~/js/metaFunctions'
 import mixins from '~/mixins/mixins'
 export default {
   mixins: [mixins],
   mounted() {
-    this.metaStore.setTitle($route.params)
+    this.setTitle($route.params)
   },
 }
 </script>

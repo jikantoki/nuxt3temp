@@ -7,6 +7,7 @@
 <script>
 // @ is an alias to /src
 import HelloWorld from '~/items/HelloWorld.vue'
+import metaFunctions from '~/js/metaFunctions'
 import mixins from '~/mixins/mixins'
 
 export default {
@@ -16,7 +17,7 @@ export default {
   },
   mixins: [mixins],
   mounted() {
-    this.metaStore.setTitle('Vuetify')
+    this.setTitle('Vuetify')
   },
 }
 </script>

@@ -57,11 +57,7 @@
  */
 import mixins from '~/mixins/mixins'
 import webpush from '~/js/webpush'
-/*
-useHead({
-  title: 'aaaaaa',
-})
-*/
+import metaFunctions from '~/js/metaFunctions'
 export default {
   name: 'index',
   components: {},
@@ -77,9 +73,7 @@ export default {
     }
   },
   mounted() {
-    this.metaStore.setTitle('トップ')
-    const router = useRoute()
-    console.log(router)
+    this.setTitle('トップ')
   },
   methods: {
     getRequest() {

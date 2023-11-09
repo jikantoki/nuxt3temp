@@ -5,12 +5,13 @@
 </template>
 
 <script>
+import metaFunctions from '~/js/metaFunctions'
 import mixins from '~/mixins/mixins'
 
 export default {
   mixins: [mixins],
   mounted() {
-    this.metaStore.setTitle('About')
+    this.setTitle('About')
   },
 }
 </script>
