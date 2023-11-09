@@ -241,6 +241,24 @@ function SQLjoin($baseTable, $joinTable, $baseKey, $joinKey, $where = null)
 }
 
 /**
+ * ## $tableから$keyが$valueに一致する項目を全て削除
+ * 元から削除済みでもエラー出ません
+ * ## 一致した項目全部消える注意！
+ *
+ * @param [type] $table 調べるテーブル
+ * @param [type] $key 調べるキー（項目名）
+ * @param [type] $value 調べる値
+ * @return void
+ */
+function SQLdeleteFull($table, $key, $value)
+{
+  if (is_string($value)) {
+    $value = '"' . $value . '"';
+  }
+  return SQL('delete from ' . $table . ' where ' . $key . ' = ' . $value);
+}
+
+/**
  * ## $tableから$keyが$valueに一致する項目を一件のみ削除
  * 元から削除済みでもエラー出ません
  *
