@@ -241,7 +241,8 @@ function SQLjoin($baseTable, $joinTable, $baseKey, $joinKey, $where = null)
 }
 
 /**
- * $tableから$keyが$valueに一致する項目を一件のみ削除
+ * ## $tableから$keyが$valueに一致する項目を一件のみ削除
+ * 元から削除済みでもエラー出ません
  *
  * @param [type] $table 調べるテーブル
  * @param [type] $key 調べるキー（項目名）
@@ -258,6 +259,7 @@ function SQLdelete($table, $key, $value)
 
 /**
  * ## テーブルの中から複数条件で削除
+ * 元から削除済みでもエラー出ません
  *
  * ### $arrayの中身
  * ```
@@ -294,7 +296,6 @@ function SQLdeleteSome($table, $array, $limit = 1)
   }
   $words = substr($words, 0, -4);
   $words = $words . ' limit ' . $limit;
-  echo $words;
   return SQL($words);
 }
 
