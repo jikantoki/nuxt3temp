@@ -293,7 +293,9 @@ function makeAccount($userId, $password, $mailAddress)
   ]);
   $res = SQLinsert('user_mail_list', [
     'secretId' => $secretId,
-    'mailAddress' => $mail
+    'mailAddress' => $mail,
+    'status' => 'Uncertified',
+    'token' => '' . rand(0, 9) . rand(0, 9) . rand(0, 9) . rand(0, 9) . rand(0, 9) . rand(0, 9)
   ]);
   return 0;
 }

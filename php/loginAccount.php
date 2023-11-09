@@ -7,7 +7,6 @@ require_once './functions/authAPI.php';
 require_once './functions/authAPIforUse.php'; //APIが有効かどうか自動判定
 require_once './functions/mailFunctions.php';
 
-sendMail('info@enoki.xyz', '試験メール', '<h1>ハッハッハあああ</h1><p>本文</p>');
 if (
   !isset($_GET['id']) ||
   !isset($_GET['password'])
@@ -30,6 +29,7 @@ if ($token) {
     'token' => $token,
     'id' => $id
   ]);
+  sendMail('info@enoki.xyz', '試験メール', '<h1>ハッハッハあああ</h1><p>本文</p>');
 } else {
   echo json_encode([
     'status' => 'ng',
