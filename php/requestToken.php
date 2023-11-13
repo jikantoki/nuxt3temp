@@ -25,11 +25,10 @@ $token = requestOnetimeToken($id, $password);
 if ($token) {
   echo json_encode([
     'status' => 'ok',
-    'reason' => 'Thank you!',
-    'otp' => $token,
+    'reason' => 'Send mail to your mailaddress!',
     'id' => $id
   ]);
-  sendMail('info@enoki.xyz', '試験メール', '<h1>ハッハッハあああ</h1><p>本文</p>' . $token);
+  sendMail('info@enoki.xyz', 'アクセストークンのお知らせ', '<h1>アクセストークンはこちら！</h1><p>' . $token . '</p>');
 } else {
   echo json_encode([
     'status' => 'ng',
