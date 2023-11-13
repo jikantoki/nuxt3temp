@@ -21,8 +21,8 @@ if (
 
 $id = $_GET['id'];
 $password = $_GET['password'];
-$token = requestOnetimeToken($id, $password);
-if ($token) {
+$otp = requestOnetimeToken($id, $password);
+if ($otp) {
   echo json_encode([
     'status' => 'ok',
     'reason' => 'Send mail to your mailaddress!',
@@ -30,7 +30,7 @@ if ($token) {
   ]);
   $secretId = idToSecretId($id);
   $mailAddress = secretIdToMailAddress($secretId);
-  sendMail($mailAddress, 'アクセストークンのお知らせ', '<h1>アクセストークンはこちら！</h1><p>' . $token . '</p>');
+  sendMail($mailAddress, 'アクセストークンのお知らせ', '<h1>アクセストークンはこちら！</h1><p>' . $otp . '</p>');
 } else {
   echo json_encode([
     'status' => 'ng',
