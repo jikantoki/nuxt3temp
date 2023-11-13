@@ -10,7 +10,8 @@ require_once './functions/mailFunctions.php';
 if (
   !isset($_GET['id']) ||
   !isset($_GET['password']) ||
-  !isset($_GET['token'])
+  !isset($_GET['token']) ||
+  $_GET['token'] === ''
 ) {
   echo json_encode([
     'status' => 'ng',
