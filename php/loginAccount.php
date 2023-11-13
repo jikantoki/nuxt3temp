@@ -34,6 +34,7 @@ if ($token) {
   $secretId = idToSecretId($id);
   $mailAddress = secretIdToMailAddress($secretId);
   sendMail($mailAddress, 'ログインがあったよ！', '<h1>ハッハッハあああ</h1><p>本文</p>');
+  SQLupdate('user_secret_list', 'otp', null, 'secretId', $secretId);
 } else {
   echo json_encode([
     'status' => 'ng',
