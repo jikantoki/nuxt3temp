@@ -1,15 +1,5 @@
 <template lang="pug">
 .header
-  v-app-bar
-    template(v-slot:append)
-      v-btn(icon="mdi-magnify")
-      v-btn(icon="mdi-dots-vertical")
-    v-app-bar-nav-icon(v-if="isRoot && (!userStore || !userStore.profile)" @click="toggleDrawer()")
-    .nav-icon(v-if="isRoot && userStore && userStore.profile")
-      .nav-round(@click="toggleDrawer()" v-ripple)
-        img.nav-img(src="/account_default.jpg")
-    v-btn(v-if="!isRoot" icon="mdi-keyboard-backspace" @click="console.log(back())")
-    v-app-bar-title {{ metaStore.title }}
   v-navigation-drawer.pa-0(v-model="drawer" fixed temporary)
     v-list(nav dense)
       v-item-group(v-model="group" active-class="deep-purple-text text--accent-4")
@@ -21,7 +11,7 @@
         a.header-list(:href="`/${userStore.userId}`" v-if="userStore && userStore.userId")
           v-list-item.pa-4(link)
             .v-item
-              v-icon(style="opacity:0.7") mdi-account-outline
+              img.menu-profile-img.nav-img(src="/account_default.jpg")
               p.nav プロフィール
         v-divider(style="opacity:0.3")
         a.header-list(v-for="navigationItem in NavigationList" :href="navigationItem.url")
@@ -41,21 +31,32 @@
             v-icon(style="opacity:0.7") mdi-theme-light-dark
             p.nav Theme
             v-switch(v-model="isDarkTheme")
-        a.header-list(
-          :href="'#'"
-          v-if="userStore && userStore.userId"
-          v-bind="attrs"
-          v-on="on"
-          )
-          v-list-item.pa-4(link)
-            .v-item
-              v-icon(style="opacity:0.7") mdi-account-outline
-              p.nav もっと見る
-              v-icon(style="opacity:0.7") mdi-menu-right
-          v-menu(activator="parent" offset-x)
-            v-list
-              v-list-item.logout(link @click="logout()")
-                v-list-item-title ログアウト
+    template(v-slot:append)
+      a.header-list(
+        href="#"
+        v-if="userStore && userStore.userId"
+        v-bind="attrs"
+        v-on="on"
+        )
+        v-list-item.pa-4(link)
+          .v-item
+            v-icon(style="opacity:0.7") mdi-account-outline
+            p.nav もっと見る
+            v-icon(style="opacity:0.7") mdi-menu-right
+        v-menu(activator="parent" offset-x)
+          v-list
+            v-list-item.logout(link @click="logout()")
+              v-list-item-title ログアウト
+  v-app-bar
+    template(v-slot:append)
+      v-btn(icon="mdi-magnify")
+      v-btn(icon="mdi-dots-vertical")
+    v-app-bar-nav-icon(v-if="isRoot && (!userStore || !userStore.profile)" @click="toggleDrawer()")
+    .nav-icon(v-if="isRoot && userStore && userStore.profile")
+      .nav-round(@click="toggleDrawer()" v-ripple)
+        img.nav-img(src="/account_default.jpg")
+    v-btn(v-if="!isRoot" icon="mdi-keyboard-backspace" @click="console.log(back())")
+    v-app-bar-title {{ metaStore.title }}
 </template>
 
 <script>
@@ -349,6 +350,12 @@ button {
   color: white;
   font-weight: bold;
   border-radius: 8px;
+}
+.menu-profile-img {
+  width: 24px;
+  height: 24px;
+  border-radius: 9999px;
+  object-fit: cover;
 }
 .nav-icon {
   height: 100%;
