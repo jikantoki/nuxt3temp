@@ -25,7 +25,7 @@ $otp = requestOnetimeToken($id, $password);
 if ($otp) {
   $otpString = (string) $otp;
   $otpFirst = substr($otpString, 0, 3);
-  $otpSecond = substr($otpString, 4, 6);
+  $otpSecond = substr($otpString, 3, 6);
   $otpForMail = $otpFirst . '-' . $otpSecond;
   echo json_encode([
     'status' => 'ok',
