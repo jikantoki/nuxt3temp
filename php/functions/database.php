@@ -161,7 +161,6 @@ function SQLupdateEx($table, $updateKey, $updateValue, $key, $value, $func)
   if (is_string($updateValue)) {
     $useUpdateValue = '"' . $updateValue . '"';
   }
-  echo 'update ' . $table . ' set ' . $updateKey . '=' . $useUpdateValue . ' where ' . $key . $func . $useValue;
   return SQL('update ' . $table . ' set ' . $updateKey . '=' . $useUpdateValue . ' where ' . $key . $func . $useValue);
 }
 
