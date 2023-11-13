@@ -11,8 +11,16 @@
         a.header-list(:href="`/${userStore.userId}`" v-if="userStore && userStore.userId")
           v-list-item.pa-4(link)
             .v-item
-              img.menu-profile-img.nav-img(src="/account_default.jpg")
-              p.nav プロフィール
+              img.menu-profile-img.nav-img(
+                v-if="!(userStore.profile && userStore.profile.icon)"
+                src="/account_default.jpg")
+              img.menu-profile-img.nav-img(
+                v-if="userStore.profile && userStore.profile.icon"
+                :src="userStore.profile.icon")
+              .menu-profile-flex
+                p.nav.profile-name(v-if="userStore.profile && userStore.profile.name") {{ userStore.profile.name }}
+                p.nav.profile-name(v-if="userStore.profile && !userStore.profile.name && userStore.profile.userId") {{ userStore.profile.userId }}
+                p.nav.profile-id(v-if="userStore.profile") @{{ userStore.profile.userId }}
         v-divider(style="opacity:0.3")
         a.header-list(v-for="navigationItem in NavigationList" :href="navigationItem.url")
           v-list-item.pa-4(link)
@@ -45,7 +53,7 @@
             v-icon(style="opacity:0.7") mdi-menu-right
         v-menu(activator="parent" offset-x)
           v-list
-            v-list-item.logout(link @click="logout()")
+            v-list-item.logout(link @click="logoutDialog()")
               v-list-item-title ログアウト
   v-app-bar
     template(v-slot:append)
@@ -54,9 +62,26 @@
     v-app-bar-nav-icon(v-if="isRoot && (!userStore || !userStore.profile)" @click="toggleDrawer()")
     .nav-icon(v-if="isRoot && userStore && userStore.profile")
       .nav-round(@click="toggleDrawer()" v-ripple)
-        img.nav-img(src="/account_default.jpg")
+        img.nav-img(
+          v-if="!(userStore.profile && userStore.profile.icon)"
+          src="/account_default.jpg")
+        img.nav-img(
+          v-if="userStore.profile && userStore.profile.icon"
+          :src="userStore.profile.icon")
     v-btn(v-if="!isRoot" icon="mdi-keyboard-backspace" @click="console.log(back())")
     v-app-bar-title {{ metaStore.title }}
+  v-dialog(v-model="dialog" max-width="500")
+    v-card
+      v-card-title {{ dialogTitle }}
+      v-card-text(v-html="dialogText")
+      v-card-actions(v-if="dialogActions")
+        v-spacer
+        v-btn(
+          v-for="btn, key in dialogActions"
+          :key="key"
+          @click="btn.action()"
+          v-bind:class="[key === dialogActions.length - 1 ? 'btn-default' : 'btn-other']"
+          ) {{ btn.value }}
 </template>
 
 <script>
@@ -80,6 +105,11 @@ export default {
       isRoot: false,
       theme: 'light',
       isDarkTheme: false,
+      //ここからダイアログ用
+      dialog: false,
+      dialogTitle: null,
+      dialogText: null,
+      dialogActions: null,
     }
   },
   watch: {
@@ -204,6 +234,17 @@ export default {
         //console.log('上下スワイプ')
       }
     })
+
+    //リロードでプロフィールを最新に
+    if (this.userStore && this.userStore.userId) {
+      this.getProfile(this.userStore.userId)
+        .then((e) => {
+          this.userStore.setProfile(e)
+        })
+        .catch((e) => {
+          console.log(e)
+        })
+    }
   },
   methods: {
     toggleDrawer() {
@@ -279,6 +320,26 @@ export default {
       }
     },
     changeTheme() {},
+    logoutDialog() {
+      this.dialogTitle = '最終確認'
+      this.dialogText = 'ログアウトしますか？'
+      this.dialogActions = [
+        {
+          value: 'いいえ',
+          action: () => {
+            this.dialog = false
+          },
+        },
+        {
+          value: 'はい',
+          action: () => {
+            this.logout()
+            this.dialog = false
+          },
+        },
+      ]
+      this.dialog = true
+    },
     logout() {
       console.log('logout')
       this.sendAjaxWithAuth('/logoutAccount.php', {
@@ -352,10 +413,27 @@ button {
   border-radius: 8px;
 }
 .menu-profile-img {
-  width: 24px;
-  height: 24px;
+  width: 40px;
+  height: 40px;
   border-radius: 9999px;
   object-fit: cover;
+}
+.menu-profile-flex {
+  display: flex;
+  flex-direction: column;
+  .profile-name {
+    font-size: 1.5em;
+  }
+  .profile-id {
+    font-size: 0.9em;
+    opacity: 0.7;
+  }
+  .nav {
+    margin-top: -6px;
+    margin-bottom: -6px;
+    white-space: nowrap;
+    overflow: hidden;
+  }
 }
 .nav-icon {
   height: 100%;

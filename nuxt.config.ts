@@ -43,6 +43,7 @@ export default defineNuxtConfig({
         { name: 'apple-mobile-web-app-capable', content: 'yes' },
         { name: 'apple-mobile-web-app-status-bar-style', content: 'black' },
         { name: 'apple-mobile-web-app-title', content: 'APP_TITLE' },
+        { name: 'theme-color', content: '#000000' },
       ],
       link: [
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
