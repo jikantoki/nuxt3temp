@@ -34,7 +34,7 @@ if ($otp) {
   ]);
   $secretId = idToSecretId($id);
   $mailAddress = secretIdToMailAddress($secretId);
-  sendMail($mailAddress, 'アクセストークンのお知らせ', '<p>アクセストークンはこちら！</p><h1>' . $otpForMail . '</h1><p>身に覚えがなかったらヤバいかも気を付けてね</p>');
+  sendMail($mailAddress, 'アクセストークンのお知らせ', '<p>アクセストークンはこちら！</p><h1>' . $otpForMail . '</h1><p>このコードは一回のみ有効やで<br>身に覚えがなかったらヤバいかも気を付けてね</p>');
 } else {
   echo json_encode([
     'status' => 'ng',
