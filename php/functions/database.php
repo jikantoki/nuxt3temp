@@ -534,6 +534,24 @@ function secretIdToId($secretId)
   return $sqlRes['secretId'];
 }
 
+/**
+ * SecretIdからメールアドレスを特定
+ *
+ * @param [String] $secretId シークレットID
+ * @return String メアド
+ */
+function secretIdToMailAddress($secretId)
+{
+  if (!$secretId) {
+    return false;
+  }
+  $sqlRes = SQLfind('user_mail_list', 'secretId', $secretId);
+  if (!$sqlRes) {
+    return false;
+  }
+  return $sqlRes['mailAddress'];
+}
+
 /** 特定のユーザーのプロフィールをゲット */
 function getProfile($id)
 {

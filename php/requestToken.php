@@ -28,7 +28,9 @@ if ($token) {
     'reason' => 'Send mail to your mailaddress!',
     'id' => $id
   ]);
-  sendMail('info@enoki.xyz', 'アクセストークンのお知らせ', '<h1>アクセストークンはこちら！</h1><p>' . $token . '</p>');
+  $secretId = idToSecretId($id);
+  $mailAddress = secretIdToMailAddress($secretId);
+  sendMail($mailAddress, 'アクセストークンのお知らせ', '<h1>アクセストークンはこちら！</h1><p>' . $token . '</p>');
 } else {
   echo json_encode([
     'status' => 'ng',
