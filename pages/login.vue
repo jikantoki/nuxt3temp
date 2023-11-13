@@ -2,7 +2,7 @@
 .login(v-if="isShow")
   v-form.center
     img.ma-8(src="~/assets/logo.png")
-    p.form-p.text-h6 ログインして、世界とつながろう
+    p.form-p.text-h6 {{ pageTitle }}
     v-container
       p.error.pa-4.mb-4.relative(v-if="errorMessage")
         v-icon mdi-alert-circle-outline
@@ -12,6 +12,7 @@
           @click="errorMessage=false"
           ) mdi-close-circle-outline
       v-text-field(
+        v-if="page === 0"
         v-model="userName"
         label="ID"
         prepend-inner-icon="mdi-account-outline"
@@ -21,6 +22,7 @@
         @keydown.enter="$refs.password.focus()"
         )
       v-text-field(
+        v-if="page === 0"
         v-model="password"
         label="Password"
         prepend-inner-icon="mdi-lock-outline"
@@ -31,14 +33,35 @@
         ref="password"
         @keydown.enter="login()"
         )
+      v-text-field(
+        v-if="page === 1"
+        v-model="token"
+        label="Token"
+        prepend-inner-icon="mdi-key-outline"
+        required
+        clearable
+        @keydown.enter="login()"
+        )
       .btns
         v-btn.round.submit(
+          v-if="page === 0"
           @click="login"
           :disabled="!userName || !password"
           :loading="loading"
           ref="submit"
           ) Login
-        v-btn.round(@click="a('/registar')" v-show="!loading") Registar Account
+        v-btn.round.submit(
+          v-if="page === 1"
+          @click="login"
+          :disabled="!token"
+          :loading="loadingToken"
+          ref="submitToken"
+          ) Login
+        v-btn.round(
+          v-if="page === 0"
+          @click="a('/registar')"
+          v-show="!loading"
+          ) Registar Account
 </template>
 
 <script>
@@ -52,9 +75,13 @@ export default {
       isShow: true,
       userName: '',
       password: '',
+      token: '',
       showPassword: false,
       loading: false,
+      loadingToken: false,
       errorMessage: null,
+      page: 0,
+      pageTitle: 'ログインして、世界とつながろう',
       userStore: useUserStore(),
     }
   },
@@ -72,11 +99,27 @@ export default {
     }
   },
   methods: {
+    /** ログイン前の二段階認証をリクエスト */
+    async requestToken() {
+      this.loading = true
+      this.sendAjaxWithAuth('/requestToken.php', {
+        id: this.userName,
+        password: this.password,
+      })
+        .then((e) => {
+          console.log(e)
+        })
+        .catch((e) => {
+          console.log(e)
+        })
+      this.loading = false
+    },
     async login() {
       this.loading = true
       this.sendAjaxWithAuth('/loginAccount.php', {
         id: this.userName,
         password: this.password,
+        token: this.token,
       })
         .then(async (e) => {
           console.log(e)
