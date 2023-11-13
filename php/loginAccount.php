@@ -9,7 +9,8 @@ require_once './functions/mailFunctions.php';
 
 if (
   !isset($_GET['id']) ||
-  !isset($_GET['password'])
+  !isset($_GET['password']) ||
+  !isset($_GET['token'])
 ) {
   echo json_encode([
     'status' => 'ng',
@@ -21,7 +22,8 @@ if (
 
 $id = $_GET['id'];
 $password = $_GET['password'];
-$token = createUserToken($id, $password);
+$otp = $_GET['token'];
+$token = createUserToken($id, $password, $token);
 if ($token) {
   echo json_encode([
     'status' => 'ok',

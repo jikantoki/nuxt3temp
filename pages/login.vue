@@ -113,6 +113,7 @@ export default {
           console.log(e)
         })
       this.page = 1
+      this.pageTitle = 'メールに送信したトークンを入力'
       this.loading = false
     },
     async login() {

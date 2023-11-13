@@ -429,18 +429,31 @@ function makeAccount($userId, $password, $mailAddress)
  * ユーザー用のアクセストークンを発行する
  *
  * @param [String] $id ユーザーID
+ * @param [String] $password パスワード
+ * @param [String] $otp ワンタイムトークン
  * @return void
  */
-function createUserToken($id, $password)
+function createUserToken($id, $password, $otp)
 {
-  if (!$id) {
+  if (!$id || !$otp) {
     return false;
   }
   $secretId = idToSecretId($id);
   if (!$secretId) {
     return false;
   }
-  $user = SQLfind('user_secret_list', 'secretId', $secretId);
+  $user = SQLfindSome('user_secret_list', [
+    [
+      'key' => 'secretId',
+      'value' => $secretId,
+      'func' => '='
+    ],
+    [
+      'key' => 'otp',
+      'value' => $otp,
+      'func' => '='
+    ]
+  ]);
 
   if (!password_verify($password, $user['password'])) {
     return false;
@@ -456,6 +469,7 @@ function createUserToken($id, $password)
   ]);
   return $token;
 }
+
 /**
  * ログイン用のワンタイムトークンを発行する
  *
