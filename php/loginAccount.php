@@ -31,7 +31,9 @@ if ($token) {
     'token' => $token,
     'id' => $id
   ]);
-  sendMail('info@enoki.xyz', '試験メール', '<h1>ハッハッハあああ</h1><p>本文</p>');
+  $secretId = idToSecretId($id);
+  $mailAddress = secretIdToMailAddress($secretId);
+  sendMail($mailAddress, 'ログインがあったよ！', '<h1>ハッハッハあああ</h1><p>本文</p>');
 } else {
   echo json_encode([
     'status' => 'ng',
