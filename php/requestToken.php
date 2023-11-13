@@ -22,7 +22,6 @@ if (
 $id = $_GET['id'];
 $password = $_GET['password'];
 $token = requestOnetimeToken($id, $password);
-//$token = createUserToken($id, $password);
 if ($token) {
   echo json_encode([
     'status' => 'ok',

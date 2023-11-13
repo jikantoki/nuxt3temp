@@ -478,7 +478,7 @@ function requestOnetimeToken($id, $password)
     return false;
   }
   $otp = randomOTP();
-  SQLupdate('user_secret_list', $otp, 'value', 'secretId', $secretId);
+  SQLupdate('user_secret_list', 'otp', $otp, 'secretId', $secretId);
   return $otp;
 }
 
