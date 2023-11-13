@@ -1,6 +1,6 @@
 <template lang="pug">
 .login(v-if="isShow")
-  v-form.center
+  v-form.center(@submit.prevent)
     img.ma-8(src="~/assets/logo.png")
     p.form-p.text-h6 {{ pageTitle }}
     v-container
@@ -123,7 +123,7 @@ export default {
         })
     },
     async login() {
-      this.loading = true
+      this.loadingToken = true
       this.sendAjaxWithAuth('/loginAccount.php', {
         id: this.userName,
         password: this.password,
@@ -138,7 +138,6 @@ export default {
             const profile = await this.getProfile(e.body.id)
             this.userStore.setProfile(profile)
             const redirect = now.searchParams.get('redirect')
-            this.loadingToken = false
             if (redirect && redirect !== '') {
               this.a(redirect)
             } else {
@@ -147,11 +146,12 @@ export default {
           } else {
             this.errorMessage = 'ワンタイムトークンが違います'
           }
+          this.loadingToken = false
         })
         .catch((e) => {
           console.log(e)
           this.errorMessage = 'ネットワークエラー'
-          this.loading = false
+          this.loadingToken = false
         })
     },
   },
