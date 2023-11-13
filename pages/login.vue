@@ -124,6 +124,7 @@ export default {
     },
     async login() {
       this.loadingToken = true
+      this.token.replace('-', '')
       this.sendAjaxWithAuth('/loginAccount.php', {
         id: this.userName,
         password: this.password,
