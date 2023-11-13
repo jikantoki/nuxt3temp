@@ -162,7 +162,7 @@ function SQLupdateEx($table, $updateKey, $updateValue, $key, $value, $func)
     $useUpdateValue = '"' . $updateValue . '"';
   }
   if (!$updateValue) {
-    $useUpdateValue = 'null'
+    $useUpdateValue = 'null';
   }
   return SQL('update ' . $table . ' set ' . $updateKey . '=' . $useUpdateValue . ' where ' . $key . $func . $useValue);
 }
