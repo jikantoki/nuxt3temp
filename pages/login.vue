@@ -36,7 +36,7 @@
       v-text-field(
         v-if="page === 1"
         v-model="token"
-        label="Token"
+        label="XXX-XXX"
         prepend-inner-icon="mdi-key-outline"
         required
         clearable
