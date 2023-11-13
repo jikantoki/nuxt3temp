@@ -31,7 +31,7 @@
         @click:append-inner="showPassword = !showPassword"
         required
         ref="password"
-        @keydown.enter="login()"
+        @keydown.enter="requestToken()"
         )
       v-text-field(
         v-if="page === 1"
@@ -45,23 +45,23 @@
       .btns
         v-btn.round.submit(
           v-if="page === 0"
-          @click="login"
+          @click="requestToken()"
           :disabled="!userName || !password"
           :loading="loading"
           ref="submit"
-          ) Login
-        v-btn.round.submit(
-          v-if="page === 1"
-          @click="login"
-          :disabled="!token"
-          :loading="loadingToken"
-          ref="submitToken"
           ) Login
         v-btn.round(
           v-if="page === 0"
           @click="a('/registar')"
           v-show="!loading"
           ) Registar Account
+        v-btn.round.submit(
+          v-if="page === 1"
+          @click="login()"
+          :disabled="!token"
+          :loading="loadingToken"
+          ref="submitToken"
+          ) Login
 </template>
 
 <script>
@@ -112,6 +112,7 @@ export default {
         .catch((e) => {
           console.log(e)
         })
+      this.page = 1
       this.loading = false
     },
     async login() {
