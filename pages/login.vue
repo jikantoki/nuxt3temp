@@ -108,13 +108,19 @@ export default {
       })
         .then((e) => {
           console.log(e)
+          if (e.body.status === 'ok') {
+            this.page = 1
+            this.pageTitle = 'メールに送信したトークンを入力'
+          } else {
+            this.errorMessage = 'ユーザー名またはパスワードが間違っています'
+          }
+          this.loading = false
         })
         .catch((e) => {
           console.log(e)
+          this.errorMessage = 'ネットワークエラー'
+          this.loading = false
         })
-      this.page = 1
-      this.pageTitle = 'メールに送信したトークンを入力'
-      this.loading = false
     },
     async login() {
       this.loading = true
@@ -125,7 +131,6 @@ export default {
       })
         .then(async (e) => {
           console.log(e)
-          this.loading = false
           if (e.body.status === 'ok') {
             const now = new URL(window.location.href)
             this.userStore.setId(e.body.id)
@@ -133,17 +138,19 @@ export default {
             const profile = await this.getProfile(e.body.id)
             this.userStore.setProfile(profile)
             const redirect = now.searchParams.get('redirect')
+            this.loadingToken = false
             if (redirect && redirect !== '') {
               this.a(redirect)
             } else {
               this.a('/')
             }
           } else {
-            this.errorMessage = 'ユーザー名またはパスワードが間違っています'
+            this.errorMessage = 'ワンタイムトークンが違います'
           }
         })
         .catch((e) => {
           console.log(e)
+          this.errorMessage = 'ネットワークエラー'
           this.loading = false
         })
     },

@@ -23,7 +23,7 @@ if (
 $id = $_GET['id'];
 $password = $_GET['password'];
 $otp = $_GET['token'];
-$token = createUserToken($id, $password, $token);
+$token = createUserToken($id, $password, $otp);
 if ($token) {
   echo json_encode([
     'status' => 'ok',
