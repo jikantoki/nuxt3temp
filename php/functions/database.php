@@ -29,6 +29,15 @@ function randomString($length)
   }
   return $text;
 }
+/**
+ * ランダムなOTPを生成
+ *
+ * @return int
+ */
+function randomOTP()
+{
+  return mt_rand(100000, 999999);
+}
 
 /**
  * SQLに接続して、そのPDOを返す
@@ -129,6 +138,45 @@ function SQLinsert($table, $array)
   $keys = mb_substr($keys, 0, -1);
   $values = mb_substr($values, 0, -1);
   return SQL('insert into ' . $table . ' (' . $keys . ') values (' . $values . ')');
+}
+
+/**
+ * テーブルの中の'key'列から$funcの演算記号で検索し、一致した項目の'updateKey'の項目を$updateValueに更新
+ *
+ * @param [string] $table 検索したいテーブル
+ * @param [string] $key 検索したい列
+ * @param [*] $value 見つけたい値
+ * @param [string] $updateKey 更新したい列
+ * @param [*] $updateValue 更新後の値
+ * @param [string] $func 演算記号（=、<、>=、など）
+ * @return void
+ */
+function SQLupdateEx($table, $updateKey, $updateValue, $key, $value, $func)
+{
+  $useValue = $value;
+  if (is_string($value)) {
+    $useValue = '"' . $value . '"';
+  }
+  $useUpdateValue = $updateValue;
+  if (is_string($updateValue)) {
+    $useUpdateValue = '"' . $updateValue . '"';
+  }
+  return SQL('update ' . $table . ' set ' . $updateKey . '=' . $useUpdateValue . ' where ' . $key . $func . $useValue);
+}
+
+/**
+ * テーブルの中の'key'列から$valueを検索し、一致した項目の'updateKey'の項目を$updateValueに更新
+ *
+ * @param [string] $table 検索したいテーブル
+ * @param [string] $key 検索したい列
+ * @param [*] $value 見つけたい値
+ * @param [string] $updateKey 更新したい列
+ * @param [*] $updateValue 更新後の値
+ * @return void
+ */
+function SQLupdate($table, $updateKey, $updateValue, $key, $value)
+{
+  return SQLupdateEx($table, $updateKey, $updateValue, $key, $value, '=');
 }
 
 /**
@@ -407,6 +455,30 @@ function createUserToken($id, $password)
     'createdAt' => time()
   ]);
   return $token;
+}
+/**
+ * ログイン用のワンタイムトークンを発行する
+ *
+ * @param [String] $id ユーザーID
+ * @return void OTPまたは失敗したらfalse
+ */
+function requestOnetimeToken($id, $password)
+{
+  if (!$id) {
+    return false;
+  }
+  $secretId = idToSecretId($id);
+  if (!$secretId) {
+    return false;
+  }
+  $user = SQLfind('user_secret_list', 'secretId', $secretId);
+
+  if (!password_verify($password, $user['password'])) {
+    return false;
+  }
+  $otp = randomOTP();
+  SQLupdate('user_secret_list', $otp, 'value', 'secretId', $secretId);
+  return $otp;
 }
 
 /**
