@@ -46,7 +46,6 @@
             v-switch(v-model="isDarkTheme")
     template(v-slot:append)
       a.header-list(
-        href="#"
         v-if="userStore && userStore.userId"
         v-bind="attrs"
         v-on="on"
