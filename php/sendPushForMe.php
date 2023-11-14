@@ -9,7 +9,7 @@ require_once './functions/authAPIforUse.php'; //APIが有効かどうか自動�
 use Minishlink\WebPush\WebPush;
 use Minishlink\WebPush\Subscription;
 
-const VAPID_SUBJECT = 'dev.vuetemp.enoki.xyz';
+const VAPID_SUBJECT = 'nuxt.enoki.xyz';
 const PUBLIC_KEY = VUE_APP_WebPush_PublicKey;
 const PRIVATE_KEY = VUE_APP_WebPush_PrivateKey;
 
