@@ -6,6 +6,7 @@
   "lang": "ja-JP",
   "start_url": "./",
   "id": "./",
+  "background_color": "#000000",
   "icons": [
     {
       "src": "img/icon512.png",
