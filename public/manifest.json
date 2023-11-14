@@ -7,6 +7,8 @@
   "start_url": "./",
   "id": "./",
   "background_color": "#000000",
+  "theme_color": "#000000",
+  "categories": ["social"],
   "icons": [
     {
       "src": "img/icon512.png",
