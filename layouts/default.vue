@@ -136,6 +136,7 @@ body {
   --color-allow: #cceeff;
   --color-error: #ffcccc;
   --color-error: #cc2222;
+  --color-success: #338833;
   /** アプリの色 */
   --accent-color: #00bbee;
   /** アプリの色に合わせた文字色 */

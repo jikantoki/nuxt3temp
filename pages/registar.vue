@@ -4,7 +4,10 @@
     img.ma-8(src="~/assets/logo.png")
     p.form-p.text-h6 アカウント新規登録
     v-container
-      p.error.pa-4.mb-4.relative(v-if="errorMessage")
+      o.success.pa-4.ma-4.relative(v-if="page === 1")
+        v-icon mdi-check
+        p.px-4 新しいアカウントを追加しました！
+      p.error.pa-4.mb-4.relative(v-if="errorMessage && page === 0")
         v-icon mdi-alert-circle-outline
         p.px-4 {{ errorMessage }}
         v-icon.v-ripple.absolute.close-error(
@@ -12,25 +15,33 @@
           @click="errorMessage=false"
           ) mdi-close-circle-outline
       v-text-field(
+        v-if="page === 0"
         v-model="userName"
         name="id"
         label="ID"
         counter="32"
         prepend-inner-icon="mdi-account-outline"
+        type="text"
         :rules="[rules.required]"
         hint="3～32文字、半角英数字アンダーバーのみ"
+        ref="formId"
+        @keydown.enter="$refs.formMail.focus()"
         clearable
         )
       v-text-field(
+        v-if="page === 0"
         v-model="mailAddress"
         name="mail"
         label="Mail Address"
         prepend-inner-icon="mdi-email-outline"
         type="email"
         :rules="[rules.required]"
+        ref="formMail"
+        @keydown.enter="$refs.formPass.focus()"
         clearable
         )
       v-text-field(
+        v-if="page === 0"
         v-model="password"
         name="password"
         label="Password"
@@ -38,9 +49,12 @@
         :type="showPassword ? 'text' : 'password'"
         :append-inner-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
         @click:append-inner="showPassword = !showPassword"
+        ref="formPass"
+        @keydown.enter="$refs.formRePass.focus()"
         :rules="[rules.required]"
         )
       v-text-field(
+        v-if="page === 0"
         v-model="confirmPassword"
         name="confirmPassword"
         label="Confirm Password"
@@ -48,15 +62,31 @@
         :type="showConfirmPassword ? 'text' : 'password'"
         :append-inner-icon="showConfirmPassword ? 'mdi-eye' : 'mdi-eye-off'"
         @click:append-inner="showConfirmPassword = !showConfirmPassword"
+        ref="formRePass"
+        @keydown.enter="agreement = true;$refs.formRegistar.$el.focus();"
         :rules="[rules.required]"
         )
-      v-checkbox(v-model="agreement" label="利用規約に同意します")
+      v-checkbox(
+        v-if="page === 0"
+        v-model="agreement"
+        label="利用規約に同意します"
+        ref="formAgree"
+        )
       .btns
         v-btn.round.submit(
+          v-if="page === 0"
           @click="registar"
           :disabled="!userName || !mailAddress || !password || !confirmPassword"
+          ref="formRegistar"
           ) Registar
-        v-btn.round(@click="a('/login')") I have a account already
+        v-btn.round(
+          v-if="page === 0"
+          @click="a('/login')"
+          ) I have a account already
+        v-btn.round.submit(
+          v-if="page === 1"
+          @click="a('/login')"
+          ) Login
 </template>
 
 <script>
@@ -76,6 +106,7 @@ export default {
       showConfirmPassword: false,
       agreement: false,
       errorMessage: '',
+      page: 0,
       rules: {
         required: (value) => !!value || 'Field is required',
       },
@@ -149,8 +180,14 @@ export default {
       })
         .then((e) => {
           console.log(e)
+          if (e.body.status === 'ok') {
+            this.page = 1
+          } else {
+            this.errorMessage = '既に存在するアカウントです'
+          }
         })
-        .catch(() => {
+        .catch((e) => {
+          console.log(e)
           this.errorMessage = 'ネットワークエラー'
         })
     },
@@ -192,6 +229,12 @@ img {
 }
 .error {
   background-color: var(--color-error);
+  color: white;
+  display: flex;
+  border-radius: 4px;
+}
+.success {
+  background-color: var(--color-success);
   color: white;
   display: flex;
   border-radius: 4px;
