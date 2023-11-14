@@ -491,7 +491,7 @@ button {
   @include mq('tablet') {
   }
   @include mq('smartPhone') {
-    width: 80% !important;
+    width: 60% !important;
   }
 }
 .nav-icon {
