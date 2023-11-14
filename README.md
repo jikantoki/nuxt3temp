@@ -34,6 +34,7 @@ Node.jsとnpmとyarnくらい入ってるよね！（投げやり）
 - ダークテーマ切り替えボタン
 - Push API（使いやすいように改良）
 - Notification API（使いやすいように改良）
+- アカウント登録時のメールアドレス認証、アクセストークンの発行
 - MySQL用API
 
 ## 制作予定
@@ -95,7 +96,7 @@ Project Settings → Enviroment Variables を開く
 1. API用のドメインをクライアント側（Vercel等）とは別で用意する
 2. このリポジトリのphpフォルダをドメインのルートにする（.htaccess等で）
 3. （準備中！！！）にAPI用のドメインを記述
-4. リポジトリのルートから見た/env.phpに以下の記述をする
+4. リポジトリルート直下に/env.phpを用意し、以下の記述をする
 
 ```php
 <?php
@@ -103,6 +104,19 @@ define('VUE_APP_WebPush_PublicKey', 'パブリックキー');
 define('VUE_APP_WebPush_PrivateKey', 'プライベートキー');
 define('WebPush_URL', 'プッシュしたいURL');
 define('WebPush_URL_dev', 'プッシュしたいURL（開発用）');
+
+define('MySQL_Host', 'MySQLサーバー');
+define('MySQL_DBName', 'DB名');
+define('MySQL_User', 'DB操作ユーザー名');
+define('MySQL_Password', 'DBパスワード');
+
+define('SMTP_Name', '自動メール送信時の差出名');
+define('SMTP_Username', 'SMTPユーザー名');
+define('SMTP_Mailaddress', '送信に使うメールアドレス');
+define('SMTP_Password', 'SMTPパスワード');
+define('SMTP_Server', 'SMTPサーバー');
+define('SMTP_Port', 587); //基本は587を使えば大丈夫
+
 ```
 
 #### PHPサーバー用の.htaccessの用意
@@ -126,7 +140,9 @@ Header append Access-Control-Allow-Origin: "*"
 
 ### MySQLの用意
 
-後で書く
+#### /database.sqlファイルをインポートする
+
+PHPMyAdminが使える環境ならDB直下にインポートして終わり、コマンドラインでやる方法は知らん
 
 ### デフォルトAPIのトークンを用意する
 
@@ -135,7 +151,8 @@ Header append Access-Control-Allow-Origin: "*"
 
 1. セットアップしたAPI用サーバーの/makeApiForAdmin.phpにアクセス
 2. 初回アクセス時のみMySQLで登録作業が行われるので、出てきた画面の内容をコピー
-3. 以後、その値を使ってAPIを操作できます
+3. .envにｲｲｶﾝｼﾞに内容を記述（書き方はさっき説明した）
+4. 以後、その値を使ってAPIを操作できます
 
 **忘れたらリセット**するしかないので注意！（一部データは暗号化されており、管理者でも確認できません）
 
@@ -161,13 +178,12 @@ yarn run dev
 
 ### 設定方法
 
-| 項目               | 設定箇所                           |
-| ------------------ | ---------------------------------- |
-| アプリ名           | /package.json                      |
-| フォント           | /src/app.vue                       |
-| ナビゲーション     | /src/items/itemNavigationList.js   |
-| ページ毎のメタ情報 | /src/router/router.js              |
-| 404ページ          | /src/views/error/errorNotFound.vue |
+| 項目           | 設定箇所                     |
+| -------------- | ---------------------------- |
+| アプリ名       | /package.json                |
+| フォント       | /layout/default.vue          |
+| ナビゲーション | /items/itemNavigationList.js |
+| 404ページ      | /error.vue                   |
 
 ### Compiles and minifies for production
 
