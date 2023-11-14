@@ -111,21 +111,22 @@ export default {
 
 <style lang="scss">
 $breakpoints: (
-  'smartPhone': 'screen and (max-width:900px)',
-  'tablet': 'screen and (max-width:1400px)',
+  'smartPhone': 'screen and (max-width:700px)',
+  'tablet': 'screen and (max-width:1100px)',
   'pwa': '(display-mode: standalone)',
 ) !default;
-
-/* フォント設定 */
-$font: 'Zen Maru Gothic', sans-serif;
-@import url('https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic&display=swap');
-/* フォント設定ここまで */
 
 @mixin mq($breakpoint) {
   @media #{map-get($breakpoints, $breakpoint)} {
     @content;
   }
 }
+
+/* フォント設定 */
+$font: 'Zen Maru Gothic', sans-serif;
+@import url('https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic&display=swap');
+/* フォント設定ここまで */
+
 $body-font-family: $font;
 html,
 body {

@@ -1,6 +1,6 @@
 <template lang="pug">
 .header
-  v-navigation-drawer.pa-0(v-model="drawer" fixed temporary)
+  v-navigation-drawer.pa-0.nav-drawer(v-model="drawer" fixed temporary)
     v-list(nav dense)
       v-item-group(v-model="group" active-class="deep-purple-text text--accent-4")
         a.header-list(href="/login" v-if="!userStore || !userStore.userId")
@@ -402,6 +402,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+$breakpoints: (
+  'smartPhone': 'screen and (max-width:700px)',
+  'tablet': 'screen and (max-width:1100px)',
+  'pwa': '(display-mode: standalone)',
+) !default;
+
+@mixin mq($breakpoint) {
+  @media #{map-get($breakpoints, $breakpoint)} {
+    @content;
+  }
+}
 .nav {
   width: 100%;
   height: 2em;
@@ -474,6 +485,13 @@ button {
     margin-bottom: -6px;
     white-space: nowrap;
     overflow: hidden;
+  }
+}
+.nav-drawer {
+  @include mq('tablet') {
+  }
+  @include mq('smartPhone') {
+    width: 80% !important;
   }
 }
 .nav-icon {
