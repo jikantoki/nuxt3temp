@@ -22,6 +22,11 @@
                 p.nav.profile-name(v-if="userStore.profile && !userStore.profile.name && userStore.profile.userId") {{ userStore.profile.userId }}
                 p.nav.profile-id(v-if="userStore.profile") @{{ userStore.profile.userId }}
         v-divider(style="opacity:0.3")
+        a.header-list(:href="`/${userStore.userId}`" v-if="userStore && userStore.userId")
+          v-list-item.pa-4(link)
+            .v-item
+              v-icon(style="opacity:0.7") mdi-account-outline
+              p.nav プロフィール
         a.header-list(v-for="navigationItem in NavigationList" :href="navigationItem.url")
           v-list-item.pa-4(link)
             .v-item
@@ -57,8 +62,13 @@
               v-list-item-title ログアウト
   v-app-bar
     template(v-slot:append)
-      v-btn(icon="mdi-magnify")
-      v-btn(icon="mdi-dots-vertical")
+      v-btn(icon="mdi-magnify" @click="headerSearchDialog = true")
+      v-btn(icon)
+        v-icon mdi-dots-vertical
+        v-menu(activator="parent" offset-y)
+          v-list
+            v-list-item(link @click="a('/rule')")
+              v-list-item-title 利用規約
     v-app-bar-nav-icon(v-if="isRoot && (!userStore || !userStore.profile)" @click="toggleDrawer()")
     .nav-icon(v-if="isRoot && userStore && userStore.profile")
       .nav-round(@click="toggleDrawer()" v-ripple)
@@ -68,7 +78,7 @@
         img.nav-img(
           v-if="userStore.profile && userStore.profile.icon"
           :src="userStore.profile.icon")
-    v-btn(v-if="!isRoot" icon="mdi-keyboard-backspace" @click="console.log(back())")
+    v-btn(v-if="!isRoot" icon="mdi-keyboard-backspace" @click="back()")
     v-app-bar-title {{ metaStore.title }}
   v-dialog(v-model="dialog" max-width="500")
     v-card
@@ -82,6 +92,19 @@
           @click="btn.action()"
           v-bind:class="[key === dialogActions.length - 1 ? 'btn-default' : 'btn-other']"
           ) {{ btn.value }}
+  v-dialog(v-model="headerSearchDialog" max-width="500")
+    v-card
+      v-card-text
+        v-text-field(
+          v-model="searchText"
+          placeholder="今日の天気"
+          label="検索"
+          style="width: 100%;display: contents;"
+          append-inner-icon="mdi-magnify"
+          @click:append-inner="console.log('search!!!')"
+          @keydown.enter="console.log('search!!!')"
+          clearable
+          )
 </template>
 
 <script>
@@ -105,6 +128,8 @@ export default {
       isRoot: false,
       theme: 'light',
       isDarkTheme: false,
+      headerSearchDialog: false,
+      searchText: '',
       //ここからダイアログ用
       dialog: false,
       dialogTitle: null,
