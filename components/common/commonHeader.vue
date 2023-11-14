@@ -235,8 +235,25 @@ export default {
       }
     })
 
-    //リロードでプロフィールを最新に
     if (this.userStore && this.userStore.userId) {
+      //アカウントのトークンが正しいか認証
+      this.sendAjaxWithAuth('/authAccount.php', {
+        id: this.userStore.userId,
+        token: this.userStore.userToken,
+      })
+        .then((e) => {
+          console.log(e)
+          if (e.body && e.body.status && e.body.status !== 'ok') {
+            this.userStore.setToken(null)
+            this.userStore.setId(null)
+            this.userStore.setProfile({})
+          }
+        })
+        .catch((e) => {
+          console.log(e)
+        })
+
+      //プロフィールを最新に
       this.getProfile(this.userStore.userId)
         .then((e) => {
           this.userStore.setProfile(e)
