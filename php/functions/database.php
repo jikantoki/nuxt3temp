@@ -388,6 +388,11 @@ function makeAccount($userId, $password, $mailAddress)
     //既にアカウントがある
     return 'Already';
   }
+  $already = SQLfind('user_mail_list', 'mailAddress', $mailAddress);
+  if ($already) {
+    //既にアカウントがある
+    return 'Already';
+  }
   /** 未使用なランダムID */
   $secretId = SQLmakeRandomId('user_list', 'secretId');
   /** 現在のunixtime */

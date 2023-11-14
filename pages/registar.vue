@@ -1,6 +1,6 @@
 <template lang="pug">
 .login(v-if="isShow")
-  v-form.center
+  v-form.center(@submit.prevent)
     img.ma-8(src="~/assets/logo.png")
     p.form-p.text-h6 アカウント新規登録
     v-container
