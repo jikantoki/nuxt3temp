@@ -6,16 +6,16 @@
         span NuxTemp {{ PackageJson.version }}
         img.ontext(src="~/assets/logo.png")
       hr
-      .text-h6 Nuxtを簡単に構築できるサンプル
+      .text-h6 {{ $t('index.nuxtSampleProject') }}
       .btns
-        v-btn(@click="getRequest()") 通知を許可する
-        v-btn(@click="pushForMe()") 通知送信テスト
+        v-btn(@click="getRequest()") {{ $t('index.buttons.allowNotification') }}
+        v-btn(@click="pushForMe()") {{ $t('index.buttons.notificationTest') }}
         //v-btn.is-not-pwa(@click="download('/download/nuxTemp.apk','vuetifyTemplate.apk')") Download APK
         v-btn(@click="a('https://github.com/jikantoki/nuxt3temp')") Github
-        v-btn(@click="createPopup()") ポップアップ
+        v-btn(@click="createPopup()") {{ $t('index.buttons.popup') }}
       .input-area
         v-text-field.my-4(
-          label="送りたい通知内容を入力"
+          :label="$t('index.hints.whatDoYouWantToSend')"
           v-model="notificationText"
           )
       .hgewao {{ $t('page.content') }}
@@ -33,7 +33,7 @@
           ) {{ btn.value }}
   .wrap
     v-card.content(elevation="4")
-      .text-h2 簡単で、美しい。
+      .text-h2 {{ $t('index.easyAndBeautiful') }}
       p {{ counter.count }}
       v-btn(@click="counter.increment") 追加
       hr
@@ -76,7 +76,7 @@ export default {
     }
   },
   mounted() {
-    this.setTitle('トップ')
+    this.setTitle(this.$t('index.title'))
   },
   methods: {
     getRequest() {

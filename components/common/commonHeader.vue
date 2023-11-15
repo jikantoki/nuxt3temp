@@ -26,7 +26,7 @@
           v-list-item.pa-4(link)
             .v-item
               v-icon(style="opacity:0.7") mdi-account-outline
-              p.nav プロフィール
+              p.nav {{ $t('header.profile') }}
         a.header-list(v-for="navigationItem in NavigationList" :href="navigationItem.url")
           v-list-item.pa-4(link)
             .v-item
@@ -42,12 +42,12 @@
         v-list-item.pa-4
           .v-item
             v-icon(style="opacity:0.7") mdi-theme-light-dark
-            p.nav Theme
+            p.nav {{ $t('header.theme') }}
             v-switch(v-model="isDarkTheme")
         v-list-item.pa-4(link)
           .v-item
             v-icon(style="opacity:0.7") mdi-translate-variant
-            p.nav Langage
+            p.nav {{ $t('header.language') }}
             v-icon(style="opacity:0.7") mdi-menu-right
         v-menu(activator="parent" offset-x)
           v-list
@@ -67,7 +67,7 @@
         v-list-item.pa-4(link)
           .v-item
             v-icon(style="opacity:0.7") mdi-dots-vertical
-            p.nav もっと見る
+            p.nav {{ $t('header.showMore') }}
             v-icon(style="opacity:0.7") mdi-menu-right
         v-menu(activator="parent" offset-x)
           v-list
