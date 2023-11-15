@@ -49,15 +49,15 @@
             v-icon(style="opacity:0.7") mdi-translate-variant
             p.nav {{ $t('header.language') }}
             v-icon(style="opacity:0.7") mdi-menu-right
-        v-menu(activator="parent" offset-x)
-          v-list
-            v-list-item(
-              link
-              v-for="locale in availableLocales"
-              :key="locale"
-              @click="changeLocale(locale)"
-              )
-              v-list-item-title {{ locale }}
+          v-menu(activator="parent" offset-x)
+            v-list
+              v-list-item(
+                link
+                v-for="locale in availableLocales"
+                :key="locale"
+                @click="changeLocale(locale)"
+                )
+                v-list-item-title {{ locale }}
     template(v-slot:append)
       a.header-list(
         v-if="userStore && userStore.userId"
