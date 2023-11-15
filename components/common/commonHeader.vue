@@ -98,6 +98,7 @@
           v-model="searchText"
           placeholder="今日の天気"
           label="検索"
+          ref="searchBox"
           style="width: 100%;display: contents;"
           append-inner-icon="mdi-magnify"
           @click:append-inner="console.log('search!!!')"

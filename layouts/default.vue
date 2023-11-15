@@ -5,10 +5,10 @@
     header
       common-header
     v-main#main
-      .center
+      .center.main-content
         router-view
         common-cookie-get-permission
-      v-footer.pa-16#footer
+      footer.pa-16#footer
         common-footer
   .right-space(style="min-height: 100vh")
 </template>
@@ -315,11 +315,16 @@ body {
     }
   }
   #main {
-    position: relative;
+    display: flex;
+    flex-direction: column;
+    .center.main-content {
+      flex: 1;
+    }
     #footer {
-      position: absolute;
       bottom: 0;
       width: 100%;
+      height: 100px !important;
+      background-color: rgb(var(--v-theme-surface));
     }
   }
   .relative {
