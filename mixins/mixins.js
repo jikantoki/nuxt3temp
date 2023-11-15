@@ -24,6 +24,13 @@ export default {
       userStore: useUserStore(),
     }
   },
+  computed: {
+    availableLocales() {
+      return this.$i18n.availableLocales.filter(
+        (i) => i.code !== this.$i18n.locale,
+      )
+    },
+  },
   mounted() {
     const isAllow = localStorage.cookieAllowed === 'true'
     this.cookieAllowed = isAllow
@@ -212,6 +219,12 @@ export default {
         //存在しない
         return null
       }
+    },
+    /**
+     * 言語切替
+     */
+    async changeLocale(locale) {
+      this.$i18n.locale = locale
     },
 
     //ここからは優先度低いやつ

@@ -52,10 +52,6 @@
       .text-h2 マークダウンぽいやつもお手の物
       hr
       p ノーマルテキスト
-  .wrap
-  .wrap
-  .wrap
-  .wrap
 </template>
 
 <script>
