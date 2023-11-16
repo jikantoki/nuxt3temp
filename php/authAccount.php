@@ -9,8 +9,8 @@ require_once './functions/authAPIforUse.php'; //APIが有効かどうか自動�
 require_once './functions/mailFunctions.php';
 
 if (
-  !isset($_GET['id']) ||
-  !isset($_GET['token'])
+  !isset($_SERVER['HTTP_ID']) ||
+  !isset($_SERVER['HTTP_TOKEN'])
 ) {
   echo json_encode([
     'status' => 'invalid',
@@ -20,7 +20,7 @@ if (
   exit;
 }
 
-$id = $_GET['id'];
+$id = $_SERVER['HTTP_ID'];
 $secretId = idToSecretId($id);
 if (!$secretId) {
   echo json_encode([
@@ -31,7 +31,7 @@ if (!$secretId) {
   ]);
   exit;
 }
-$token = $_GET['token'];
+$token = $_SERVER['HTTP_TOKEN'];
 $res = authAccount($secretId, $token);
 if ($res) {
   echo json_encode([
