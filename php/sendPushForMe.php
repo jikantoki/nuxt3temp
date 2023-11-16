@@ -13,13 +13,27 @@ const VAPID_SUBJECT = 'nuxt.enoki.xyz';
 const PUBLIC_KEY = VUE_APP_WebPush_PublicKey;
 const PRIVATE_KEY = VUE_APP_WebPush_PrivateKey;
 
-if (isset($_SERVER['HTTP_ICON'])) {
-  $icon = $_SERVER['HTTP_ICON'];
+if (
+  !isset($_POST['message'])
+  || !isset($_SERVER['HTTP_ENDPOINT'])
+  || !isset($_SERVER['HTTP_PUBLICKEY'])
+  || !isset($_SERVER['HTTP_AUTHTOKEN'])
+) {
+  echo json_encode([
+    'status' => 'invalid',
+    'reason' => 'invalid authentication information',
+    'errCode' => 10
+  ]);
+  exit;
+}
+
+if (isset($_POST['icon'])) {
+  $icon = $_POST['icon'];
 } else {
   $icon = null;
 }
-if (isset($_SERVER['HTTP_TITLE'])) {
-  $title = $_SERVER['HTTP_TITLE'];
+if (isset($_POST['title'])) {
+  $title = $_POST['title'];
 } else {
   $title = '通知確認テスト';
 }
@@ -48,7 +62,7 @@ $report = $webPush->sendOneNotification(
     array(
       'title' => $title,
       'option' => array(
-        'body' => $_SERVER['message'],
+        'body' => $_POST['message'],
         'icon' => $icon,
         'actions' => [
           array(

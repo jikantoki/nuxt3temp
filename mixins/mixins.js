@@ -70,8 +70,9 @@ export default {
      * @param {string} url 送信先URL（ドメインは自動で付きます）
      * @param {array} header ヘッダ情報
      * @param {object} sendObject 送りたいオブジェクト
+     * @param {bool} isPost true（デフォ）ならPOST、falseでGET
      */
-    sendAjaxWithAuth(url, header = null, sendObject) {
+    sendAjaxWithAuth(url, header = null, sendObject, isPost = true) {
       const authHeader = {
         apiid: this.env.VUE_APP_API_ID,
         apitoken: this.env.VUE_APP_API_TOKEN,
@@ -83,7 +84,12 @@ export default {
       } else {
         hd = authHeader
       }
-      return this.sendAjax(this.env.VUE_APP_API_HOST + url, sendObject, hd)
+      return this.sendAjax(
+        this.env.VUE_APP_API_HOST + url,
+        sendObject,
+        hd,
+        isPost,
+      )
     },
     /**
      * <p>aタグと同じ動きをするし、pjaxになる</p>

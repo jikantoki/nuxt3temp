@@ -149,12 +149,19 @@ export default {
         ]
         return false
       }
-      this.sendAjaxWithAuth('/sendPushForMe.php', {
-        endpoint: keys.endpoint,
-        publickey: keys.publicKey,
-        authtoken: keys.authToken,
-        message: this.notificationText,
-      })
+      this.sendAjaxWithAuth(
+        '/sendPushForMe.php',
+        {
+          endpoint: keys.endpoint,
+          publickey: keys.publicKey,
+          authtoken: keys.authToken,
+        },
+        {
+          message: this.notificationText,
+          title: 'て～～～すと🤓',
+          icon: 'https://nuxt.enoki.xyz/img/icon192.png',
+        },
+      )
         .then((e) => {
           console.log(e)
         })
