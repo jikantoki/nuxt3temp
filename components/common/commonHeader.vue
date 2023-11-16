@@ -311,6 +311,21 @@ export default {
         this.localeStore.setLocale(null)
       }
     }
+
+    if (this.userStore && this.userStore.userId) {
+      //ログイン中のユーザーの情報で、プッシュ通知に関する情報をDB登録
+      this.sendAjaxWithAuth('/insertPushToken.php', {
+        id: this.userStore.userId,
+        token: this.userStore.userToken,
+        //ここにプッシュ通知用のあれこれ入れないとダメ
+      })
+        .then((e) => {
+          console.log(e)
+        })
+        .catch((e) => {
+          console.log(e)
+        })
+    }
   },
   methods: {
     toggleDrawer() {

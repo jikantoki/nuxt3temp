@@ -8,6 +8,20 @@ require_once './functions/authAPIforUse.php'; //APIが有効かどうか自動�
 require_once './functions/mailFunctions.php';
 require_once './functions/authAccount.php'; //ログイン状態が有効かどうか判定
 
+if (
+  !isset($_GET['id']) ||
+  !isset($_GET['token']) ||
+  !isset($_GET['endpoint']) ||
+  !isset($_GET['publickey']) ||
+  !isset($_GET['pushtoken'])
+) {
+  echo json_encode([
+    'status' => 'ng',
+    'reason' => 'invalid GET params',
+    'errCode' => 1
+  ]);
+  exit;
+}
 $id = $_GET['id'];
 $endpoint = $_GET['endpoint'];
 $publickey = $_GET['publickey'];
