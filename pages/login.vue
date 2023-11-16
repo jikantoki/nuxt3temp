@@ -36,8 +36,9 @@
       v-text-field(
         v-if="page === 1"
         v-model="token"
-        type="number"
-        label="XXX-XXX"
+        type="phone"
+        placeholder="XXX-XXX"
+        label="アクセストークン"
         prepend-inner-icon="mdi-key-outline"
         required
         clearable
@@ -91,6 +92,16 @@ export default {
       pageTitle: 'ログインして、世界とつながろう',
       userStore: useUserStore(),
     }
+  },
+  watch: {
+    token(now) {
+      const replaced = now.toString().replace('-', '')
+      console.log(replaced)
+      console.log(replaced.length)
+      if (replaced.length >= 6) {
+        this.login()
+      }
+    },
   },
   mounted() {
     this.setTitle('ログイン')
@@ -154,6 +165,7 @@ export default {
             }
           } else {
             this.errorMessage = 'ワンタイムトークンが違います'
+            this.token = ''
           }
           this.loadingToken = false
         })
