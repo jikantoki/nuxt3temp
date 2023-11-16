@@ -59,17 +59,37 @@ export default {
     sendAjax: ajaxFunctions.send,
     /**
      * APIトークンを同時に送信するAjax（内部処理用）
+     * ### ヘッダ送付方法
+     * ```js
+      header = [
+        {key: 'id', value: 'hogefuga'},
+        {key: 'password', value: 'qwerty'}
+      ]
+     * ```
+     * ___
      * @param {string} url 送信先URL（ドメインは自動で付きます）
      * @param {object} sendObject 送りたいオブジェクト
+     * @param {array} header ヘッダ情報
      */
-    sendAjaxWithAuth(url, sendObject) {
+    sendAjaxWithAuth(url, sendObject, header = null) {
       const auth = {
         apiid: this.env.VUE_APP_API_ID,
         apitoken: this.env.VUE_APP_API_TOKEN,
         apipassword: this.env.VUE_APP_API_ACCESSKEY,
       }
       const sendObj = Object.assign(auth, sendObject)
-      return this.sendAjax(this.env.VUE_APP_API_HOST + url, sendObj)
+      const authHeader = [
+        { key: 'apiid', value: this.env.VUE_APP_API_ID },
+        { key: 'apitoken', value: this.env.VUE_APP_API_TOKEN },
+        { key: 'apipassword', value: this.env.VUE_APP_API_ACCESSKEY },
+      ]
+      let hd = []
+      if (Array.isArray(header)) {
+        hd = header.concat(authHeader)
+      } else {
+        hd = authHeader
+      }
+      return this.sendAjax(this.env.VUE_APP_API_HOST + url, sendObj, header)
     },
     /**
      * <p>aタグと同じ動きをするし、pjaxになる</p>
