@@ -36,6 +36,7 @@
       v-text-field(
         v-if="page === 1"
         v-model="token"
+        type="number"
         label="XXX-XXX"
         prepend-inner-icon="mdi-key-outline"
         required
