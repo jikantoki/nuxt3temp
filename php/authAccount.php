@@ -38,7 +38,6 @@ if ($res) {
     'status' => 'ok',
     'reason' => 'Thank you!',
     'res' => $res,
-    'header' => $_SERVER,
     'id' => $id
   ]);
 } else {

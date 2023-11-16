@@ -116,6 +116,7 @@ export default {
           console.log(e)
           if (e.body.status === 'ok') {
             this.page = 1
+            this.errorMessage = null
             this.pageTitle = 'メールに送信したトークンを入力'
           } else {
             this.errorMessage = 'ユーザー名またはパスワードが間違っています'
