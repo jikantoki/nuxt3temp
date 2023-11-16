@@ -7,19 +7,19 @@ require_once './functions/authAPI.php';
 require_once './functions/authAPIforUse.php'; //APIが有効かどうか自動判定
 
 if (
-  !isset($_GET['id']) ||
-  !isset($_GET['token'])
+  !isset($_SERVER['HTTP_ID']) ||
+  !isset($_SERVER['HTTP_TOKEN'])
 ) {
   echo json_encode([
     'status' => 'invalid',
-    'reason' => 'invalid GET params',
+    'reason' => 'invalid authentication information',
     'errCode' => 10
   ]);
   exit;
 }
 
-$token = $_GET['token'];
-$userId = $_GET['id'];
+$token = $_SERVER['HTTP_TOKEN'];
+$userId = $_SERVER['HTTP_ID'];
 //DBから削除
 $secretId = idToSecretId($userId);
 $res = SQLdeleteSome('user_accesstoken_list', [

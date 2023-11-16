@@ -8,19 +8,19 @@ require_once './functions/authAPIforUse.php'; //APIが有効かどうか自動�
 require_once './functions/mailFunctions.php';
 
 if (
-  !isset($_GET['id']) ||
-  !isset($_GET['password'])
+  !isset($_SERVER['HTTP_ID']) ||
+  !isset($_SERVER['HTTP_PASSWORD'])
 ) {
   echo json_encode([
     'status' => 'invalid',
-    'reason' => 'invalid GET params',
+    'reason' => 'invalid authentication information',
     'errCode' => 10
   ]);
   exit;
 }
 
-$id = $_GET['id'];
-$password = $_GET['password'];
+$id = $_SERVER['HTTP_ID'];
+$password = $_SERVER['HTTP_PASSWORD'];
 $otp = requestOnetimeToken($id, $password);
 if ($otp) {
   $otpString = (string) $otp;

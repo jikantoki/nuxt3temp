@@ -13,22 +13,22 @@ const VAPID_SUBJECT = 'nuxt.enoki.xyz';
 const PUBLIC_KEY = VUE_APP_WebPush_PublicKey;
 const PRIVATE_KEY = VUE_APP_WebPush_PrivateKey;
 
-if (isset($_GET['icon'])) {
-  $icon = $_GET['icon'];
+if (isset($_SERVER['HTTP_ICON'])) {
+  $icon = $_SERVER['HTTP_ICON'];
 } else {
   $icon = null;
 }
-if (isset($_GET['title'])) {
-  $title = $_GET['title'];
+if (isset($_SERVER['HTTP_TITLE'])) {
+  $title = $_SERVER['HTTP_TITLE'];
 } else {
   $title = '通知確認テスト';
 }
 
 // push通知認証用のデータ
 $subscription = Subscription::create([
-  'endpoint' => $_GET['endpoint'],
-  'publicKey' => $_GET['publickey'],
-  'authToken' => $_GET['authtoken'],
+  'endpoint' => $_SERVER['HTTP_ENDPOINT'],
+  'publicKey' => $_SERVER['HTTP_PUBLICKEY'],
+  'authToken' => $_SERVER['HTTP_AUTHTOKEN'],
 ]);
 
 // ブラウザに認証させる
@@ -48,7 +48,7 @@ $report = $webPush->sendOneNotification(
     array(
       'title' => $title,
       'option' => array(
-        'body' => $_GET['message'],
+        'body' => $_SERVER['message'],
         'icon' => $icon,
         'actions' => [
           array(

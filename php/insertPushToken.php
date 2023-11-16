@@ -9,23 +9,23 @@ require_once './functions/mailFunctions.php';
 require_once './functions/authAccount.php'; //ログイン状態が有効かどうか判定
 
 if (
-  !isset($_GET['id']) ||
-  !isset($_GET['token']) ||
-  !isset($_GET['endpoint']) ||
-  !isset($_GET['publickey']) ||
-  !isset($_GET['pushtoken'])
+  !isset($_SERVER['HTTP_ID']) ||
+  !isset($_SERVER['HTTP_TOKEN']) ||
+  !isset($_SERVER['HTTP_ENDPOINT']) ||
+  !isset($_SERVER['HTTP_PUBLICKEY']) ||
+  !isset($_SERVER['HTTP_PUSHTOKEN'])
 ) {
   echo json_encode([
     'status' => 'invalid',
-    'reason' => 'invalid GET params',
+    'reason' => 'invalid authentication information',
     'errCode' => 1
   ]);
   exit;
 }
-$id = $_GET['id'];
-$endpoint = $_GET['endpoint'];
-$publickey = $_GET['publickey'];
-$pushtoken = $_GET['pushtoken'];
+$id = $_SERVER['HTTP_ID'];
+$endpoint = $_SERVER['HTTP_ENDPOINT'];
+$publickey = $_SERVER['HTTP_PUBLICKEY'];
+$pushtoken = $_SERVER['HTTP_PUSHTOKEN'];
 $secretId = idToSecretId($id);
 $res = SQLfindSome('push_token_list', [
   [

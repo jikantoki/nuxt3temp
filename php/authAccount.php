@@ -14,7 +14,7 @@ if (
 ) {
   echo json_encode([
     'status' => 'invalid',
-    'reason' => 'invalid GET params',
+    'reason' => 'invalid authentication information',
     'errCode' => 10
   ]);
   exit;

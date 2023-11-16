@@ -8,17 +8,17 @@ require_once './functions/authAPIforUse.php'; //APIが有効かどうか自動�
 require_once './functions/mailFunctions.php';
 
 if (
-  !isset($_GET['id'])
+  !isset($_SERVER['HTTP_ID'])
 ) {
   echo json_encode([
     'status' => 'invalid',
-    'reason' => 'invalid GET params',
+    'reason' => 'invalid authentication information',
     'errCode' => 10
   ]);
   exit;
 }
 
-$id = $_GET['id'];
+$id = $_SERVER['HTTP_ID'];
 $res = getProfile($id);
 if ($res) {
   echo json_encode([

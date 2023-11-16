@@ -8,31 +8,34 @@ require_once './functions/authAPI.php';
 require_once './functions/authAPIforUse.php'; //APIが有効かどうか自動判定
 
 if (
-  !isset($_GET['username']) ||
-  !isset($_GET['password']) ||
-  !isset($_GET['mailaddress'])
+  !isset($_SERVER['HTTP_USERNAME']) ||
+  !isset($_SERVER['HTTP_PASSWORD']) ||
+  !isset($_SERVER['HTTP_MAILADDRESS'])
 ) {
   echo json_encode([
     'status' => 'invalid',
-    'reason' => 'invalid GET params',
+    'reason' => 'invalid authentication information',
     'errCode' => 10
   ]);
   exit;
 }
 if (
-  $_GET['username'] === '' ||
-  $_GET['password'] === '' ||
-  $_GET['mailaddress'] === ''
+  $_SERVER['HTTP_USERNAME'] === '' ||
+  $_SERVER['HTTP_PASSWORD'] === '' ||
+  $_SERVER['HTTP_MAILADDRESS'] === ''
 ) {
   echo json_encode([
     'status' => 'invalid',
-    'reason' => 'invalid GET params',
+    'reason' => 'invalid authentication information',
     'errCode' => 11
   ]);
   exit;
 }
+$username = $_SERVER['HTTP_USERNAME'];
+$password = $_SERVER['HTTP_PASSWORD'];
+$mailAddress = $_SERVER['HTTP_MAILADDRESS'];
 
-$response = makeAccount($_GET['username'], $_GET['password'], $_GET['mailaddress']);
+$response = makeAccount($username, $password, $mailAddress);
 if (!$response) {
   //アカウント作れた
   echo json_encode([
