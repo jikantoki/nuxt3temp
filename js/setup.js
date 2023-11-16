@@ -21,7 +21,7 @@ export default {
     useServerHead({
       title: pageTitle,
     })
-    useSeoMeta({
+    useServerSeoMeta({
       ogTitle: pageTitle,
     })
     return returnCode
