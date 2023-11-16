@@ -44,4 +44,24 @@ export default {
       return newDescription
     }
   },
+  /** 新しいWebサイトのOGP画像をつける */
+  setImage: (fullURL) => {
+    let isURL
+    try {
+      const url = new URL(fullURL)
+    } catch (e) {
+      isURL = false
+    }
+    if (!fullURL || !isURL) {
+      useServerSeoMeta({
+        ogImage: '',
+      })
+      return null
+    } else {
+      useServerSeoMeta({
+        ogImage: fullURL,
+      })
+      return fullURL
+    }
+  },
 }
