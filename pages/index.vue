@@ -61,10 +61,15 @@
 import mixins from '~/mixins/mixins'
 import webpush from '~/js/webpush'
 import metaFunctions from '~/js/metaFunctions'
+import Setup from '~/js/setup'
 export default {
   name: 'index',
   components: {},
   mixins: [mixins],
+  setup() {
+    //サーバーサイドで仮のタイトルを設定、mountedで言語ごとに再設定する
+    Setup.setTitle('Top')
+  },
   data() {
     return {
       notificationText: '通知テスト12345🤓',
@@ -192,3 +197,4 @@ export default {
 </script>
 
 <style lang="scss" scoped></style>
+~/js/setup

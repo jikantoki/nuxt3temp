@@ -67,8 +67,13 @@
 <script>
 import metaFunctions from '~/js/metaFunctions'
 import mixins from '~/mixins/mixins'
+import Setup from '~/js/setup'
 export default {
   mixins: [mixins],
+  setup() {
+    //サーバーサイドで仮のタイトルを設定、mountedで言語ごとに再設定する
+    Setup.setTitle('Login')
+  },
   data() {
     return {
       /** 将来的にv-dialogとかでフォームを埋め込む用 */
