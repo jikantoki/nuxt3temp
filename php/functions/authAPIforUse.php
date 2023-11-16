@@ -2,22 +2,25 @@
 //APIが有効かどうかをGET要素から自動判定し、ダメそうなら大元から処理を停止
 
 if (
-  !isset($_GET['apiid']) ||
-  !isset($_GET['apitoken']) ||
-  !isset($_GET['apipassword'])
+  !isset($_SERVER['HTTP_APIID']) ||
+  !isset($_SERVER['HTTP_APITOKEN']) ||
+  !isset($_SERVER['HTTP_APIPASSWORD'])
 ) {
   echo json_encode([
-    'status' => 'ng',
+    'status' => 'invalid',
     'reason' => 'invalid GET params',
     'errCode' => 1000
   ]);
   exit;
 }
+$apiid = $_SERVER['HTTP_APIID'];
+$apitoken = $_SERVER['HTTP_APITOKEN'];
+$apipassword = $_SERVER['HTTP_APIPASSWORD'];
 
-$isAPI = authAPI($_GET['apiid'], $_GET['apitoken'], $_GET['apipassword']);
+$isAPI = authAPI($apiid, $apitoken, $apipassword);
 if (!$isAPI) {
   echo json_encode([
-    'status' => 'ng',
+    'status' => 'invalid',
     'reason' => 'invalid API',
     'errCode' => 1001
   ]);

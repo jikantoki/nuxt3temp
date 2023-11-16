@@ -89,7 +89,7 @@ export default {
       } else {
         hd = authHeader
       }
-      return this.sendAjax(this.env.VUE_APP_API_HOST + url, sendObj, header)
+      return this.sendAjax(this.env.VUE_APP_API_HOST + url, sendObj, hd)
     },
     /**
      * <p>aタグと同じ動きをするし、pjaxになる</p>

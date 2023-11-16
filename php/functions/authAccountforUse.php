@@ -6,7 +6,7 @@ if (
   !isset($_GET['token'])
 ) {
   echo json_encode([
-    'status' => 'ng',
+    'status' => 'invalid',
     'reason' => 'invalid GET params',
     'errCode' => 2000
   ]);
@@ -18,7 +18,7 @@ $token = $_GET['token'];
 $secretId = idToSecretId($id);
 if (!$secretId) {
   echo json_encode([
-    'status' => 'ng',
+    'status' => 'invalid',
     'reason' => 'unknown account',
     'errCode' => 2001
   ]);
