@@ -1,3 +1,5 @@
+//主にサーバーサイドでSEO対策する用
+
 import PackageJson from '~/package.json'
 import Functions from '~/js/Functions'
 export default {
@@ -25,5 +27,21 @@ export default {
       ogTitle: pageTitle,
     })
     return returnCode
+  },
+  /** 新しいWebサイトの説明文をつける */
+  setDescription: (newDescription) => {
+    if (!newDescription) {
+      useServerSeoMeta({
+        description: '',
+        ogDescription: '',
+      })
+      return null
+    } else {
+      useServerSeoMeta({
+        description: newDescription,
+        ogDescription: newDescription,
+      })
+      return newDescription
+    }
   },
 }

@@ -15,8 +15,10 @@ export default {
   mixins: [mixins],
   setup() {
     const route = useRoute()
+    const userId = route.params.userId
     //サーバーサイドで仮のタイトルを設定、mountedで言語ごとに再設定する
-    Setup.setTitle(route.params.userId)
+    Setup.setTitle(userId)
+    Setup.setDescription(`${userId}さんの詳細ページです`)
   },
   data() {
     return {
