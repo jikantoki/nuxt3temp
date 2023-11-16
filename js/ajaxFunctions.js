@@ -16,6 +16,14 @@ export default {
     })
    * ```
    * ___
+   * ### header記入例
+   * ```js
+    [
+      {key: 'id': value: 'hogefuga'},
+      {key: 'password', value: 'qwerty'}
+    ]
+   * ```
+   * ___
    * ### returnの中身
    * ```js
     return {
@@ -35,7 +43,7 @@ export default {
    * @param isPost {bool} trueならPOST、false（default）ならGET
    * @returns object Webサイトから貰ったデータはobject.bodyに格納
    */
-  send: (url, obj = null, isPost = false) => {
+  send: (url, obj = null, header = null, isPost = false) => {
     let methods = isPost ? 'POST' : 'GET'
     /**
      * resolve(hogehoge)で実行環境のthenが発火する
@@ -98,6 +106,12 @@ export default {
         'content-type',
         'application/x-www-form-urlencoded;charset=UTF-8',
       )
+      //ヘッダ情報の追加
+      if (Array.isArray(header)) {
+        for (const hd of header) {
+          request.setRequestHeader(hd.key, hd.value)
+        }
+      }
       request.send(postMethod)
     })
   },
