@@ -61,35 +61,29 @@ export default {
      * APIトークンを同時に送信するAjax（内部処理用）
      * ### ヘッダ送付方法
      * ```js
-      header = [
-        {key: 'id', value: 'hogefuga'},
-        {key: 'password', value: 'qwerty'}
-      ]
+    header = {
+      id: 'hogefuga',
+      password: 'qwerty'
+    }
      * ```
      * ___
      * @param {string} url 送信先URL（ドメインは自動で付きます）
-     * @param {object} sendObject 送りたいオブジェクト
      * @param {array} header ヘッダ情報
+     * @param {object} sendObject 送りたいオブジェクト
      */
-    sendAjaxWithAuth(url, sendObject, header = null) {
-      const auth = {
+    sendAjaxWithAuth(url, header = null, sendObject) {
+      const authHeader = {
         apiid: this.env.VUE_APP_API_ID,
         apitoken: this.env.VUE_APP_API_TOKEN,
         apipassword: this.env.VUE_APP_API_ACCESSKEY,
       }
-      const sendObj = Object.assign(auth, sendObject)
-      const authHeader = [
-        { key: 'apiid', value: this.env.VUE_APP_API_ID },
-        { key: 'apitoken', value: this.env.VUE_APP_API_TOKEN },
-        { key: 'apipassword', value: this.env.VUE_APP_API_ACCESSKEY },
-      ]
       let hd = []
-      if (Array.isArray(header)) {
-        hd = header.concat(authHeader)
+      if (this.isObject(header)) {
+        hd = Object.assign(header, authHeader)
       } else {
         hd = authHeader
       }
-      return this.sendAjax(this.env.VUE_APP_API_HOST + url, sendObj, hd)
+      return this.sendAjax(this.env.VUE_APP_API_HOST + url, sendObject, hd)
     },
     /**
      * <p>aタグと同じ動きをするし、pjaxになる</p>
@@ -274,6 +268,10 @@ export default {
         default:
           return locale
       }
+    },
+    /** 連想配列かどうか？（T/F） */
+    isObject(obj) {
+      return obj instanceof Object && !(obj instanceof Array) ? true : false
     },
 
     //ここからは優先度低いやつ

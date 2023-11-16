@@ -12,7 +12,7 @@ if (
   !isset($_GET['password'])
 ) {
   echo json_encode([
-    'status' => 'ng',
+    'status' => 'invalid',
     'reason' => 'invalid GET params',
     'errCode' => 10
   ]);

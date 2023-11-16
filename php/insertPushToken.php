@@ -16,7 +16,7 @@ if (
   !isset($_GET['pushtoken'])
 ) {
   echo json_encode([
-    'status' => 'ng',
+    'status' => 'invalid',
     'reason' => 'invalid GET params',
     'errCode' => 1
   ]);

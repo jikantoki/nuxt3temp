@@ -18,10 +18,10 @@ export default {
    * ___
    * ### header記入例
    * ```js
-    [
-      {key: 'id': value: 'hogefuga'},
-      {key: 'password', value: 'qwerty'}
-    ]
+    header = {
+      id: 'hogefuga',
+      password: 'qwerty'
+    }
    * ```
    * ___
    * ### returnの中身
@@ -107,12 +107,18 @@ export default {
         'application/x-www-form-urlencoded;charset=UTF-8',
       )
       //ヘッダ情報の追加
-      if (Array.isArray(header)) {
-        for (const hd of header) {
-          request.setRequestHeader(hd.key, hd.value)
+      if (isObject(header)) {
+        const keys = Object.keys(header)
+        for (const key of keys) {
+          const value = header[key]
+          request.setRequestHeader(key, value)
         }
       }
       request.send(postMethod)
     })
   },
+}
+//is this object? t/f
+const isObject = (obj) => {
+  return obj instanceof Object && !(obj instanceof Array) ? true : false
 }

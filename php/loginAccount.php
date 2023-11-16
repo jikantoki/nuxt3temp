@@ -14,7 +14,7 @@ if (
   $_GET['token'] === ''
 ) {
   echo json_encode([
-    'status' => 'ng',
+    'status' => 'invalid',
     'reason' => 'invalid GET params',
     'errCode' => 10
   ]);

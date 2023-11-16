@@ -13,7 +13,7 @@ if (
   !isset($_GET['mailaddress'])
 ) {
   echo json_encode([
-    'status' => 'ng',
+    'status' => 'invalid',
     'reason' => 'invalid GET params',
     'errCode' => 10
   ]);
@@ -25,7 +25,7 @@ if (
   $_GET['mailaddress'] === ''
 ) {
   echo json_encode([
-    'status' => 'ng',
+    'status' => 'invalid',
     'reason' => 'invalid GET params',
     'errCode' => 11
   ]);
