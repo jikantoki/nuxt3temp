@@ -36,7 +36,8 @@ export default defineNuxtConfig({
         {
           hid: 'og:image',
           property: 'og:image',
-          content: '/img/icon512.png',
+          /** 相対パスNGらしいので各自で書き換えること */
+          content: 'https://nuxt.enoki.xyz/img/icon512.png',
         },
         { name: 'format-detection', content: 'telephone=no' },
         { name: 'mobile-web-app-capable', content: 'yes' },
