@@ -69,6 +69,7 @@ export default {
   setup() {
     //サーバーサイドで仮のタイトルを設定、mountedで言語ごとに再設定する
     Setup.setTitle('Top')
+    Setup.setDescription('Nuxt環境を簡単にセットアップできる全部入りパッケージ')
   },
   data() {
     return {

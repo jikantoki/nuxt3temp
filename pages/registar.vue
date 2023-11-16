@@ -98,6 +98,7 @@ export default {
   setup() {
     //サーバーサイドで仮のタイトルを設定、mountedで言語ごとに再設定する
     Setup.setTitle('Registar')
+    Setup.setDescription('アカウント作成ページ')
   },
   data() {
     return {

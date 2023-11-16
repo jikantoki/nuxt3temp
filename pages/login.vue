@@ -73,6 +73,7 @@ export default {
   setup() {
     //サーバーサイドで仮のタイトルを設定、mountedで言語ごとに再設定する
     Setup.setTitle('Login')
+    Setup.setDescription('ログインして、世界とつながろう')
   },
   data() {
     return {
