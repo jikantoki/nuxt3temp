@@ -19,21 +19,6 @@ export default defineNuxtConfig({
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
         {
-          hid: 'og:title',
-          property: 'og:title',
-          content: 'NuxTemp',
-        },
-        {
-          hid: 'description',
-          name: 'description',
-          content: 'Nuxtを簡単に構築するサンプル',
-        },
-        {
-          hid: 'og:description',
-          property: 'og:description',
-          content: 'Nuxtを簡単に構築するサンプル',
-        },
-        {
           hid: 'og:image',
           property: 'og:image',
           /** 相対パスNGらしいので各自で書き換えること */
