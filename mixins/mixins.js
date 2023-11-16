@@ -22,6 +22,7 @@ export default {
       counter: useCounterStore(),
       metaStore: useMetaStore(),
       userStore: useUserStore(),
+      localeStore: useLocaleStore(),
     }
   },
   computed: {
@@ -224,7 +225,30 @@ export default {
      * 言語切替
      */
     async changeLocale(locale) {
-      this.$i18n.locale = locale
+      try {
+        this.$i18n.locale = locale
+      } catch (e) {
+        this.$i18n.locale = 'ja'
+      }
+      this.localeStore.setLocale(locale)
+    },
+    /**
+     * 省略された言語名を展開
+     * @param {string} locale 言語名
+     * @returns string
+     */
+    arrangeLocale(locale) {
+      if (!locale) return null
+      switch (locale) {
+        case 'ja':
+          return '日本語'
+        case 'en':
+          return 'English'
+        case 'cn':
+          return '中文'
+        default:
+          return locale
+      }
     },
 
     //ここからは優先度低いやつ

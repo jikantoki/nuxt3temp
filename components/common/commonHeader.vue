@@ -57,7 +57,7 @@
                 :key="locale"
                 @click="changeLocale(locale)"
                 )
-                v-list-item-title {{ locale }}
+                v-list-item-title {{ arrangeLocale(locale) }}
     template(v-slot:append)
       a.header-list(
         v-if="userStore && userStore.userId"
@@ -301,6 +301,16 @@ export default {
           console.log(e)
         })
     }
+
+    //言語関係
+    if (this.localeStore.locale) {
+      try {
+        this.$i18n.locale = this.localeStore.locale
+      } catch (e) {
+        this.$i18n.locale = 'ja'
+        this.localeStore.setLocale(null)
+      }
+    }
   },
   methods: {
     toggleDrawer() {
@@ -375,7 +385,6 @@ export default {
         }
       }
     },
-    changeTheme() {},
     logoutDialog() {
       this.dialogTitle = '最終確認'
       this.dialogText = 'ログアウトしますか？'
