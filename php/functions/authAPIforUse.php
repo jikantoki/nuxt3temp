@@ -8,7 +8,7 @@ if (
 ) {
   echo json_encode([
     'status' => 'invalid',
-    'reason' => 'invalid GET params',
+    'reason' => 'invalid authentication information',
     'errCode' => 1000
   ]);
   exit;
@@ -20,7 +20,7 @@ $apipassword = $_SERVER['HTTP_APIPASSWORD'];
 $isAPI = authAPI($apiid, $apitoken, $apipassword);
 if (!$isAPI) {
   echo json_encode([
-    'status' => 'invalid',
+    'status' => 'ng',
     'reason' => 'invalid API',
     'errCode' => 1001
   ]);
