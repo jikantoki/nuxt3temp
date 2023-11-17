@@ -3,6 +3,14 @@
   p.text-h3 Hello! {{ param.userId }}
   div(v-if="userData")
     p {{ userData }}
+    v-text-field(
+      v-model="pushMessage"
+      placeholder="インターネットからお邪魔します！"
+      :label="`${userData.userId}にメッセージを送ってみよう！`"
+      prepend-inner-icon="mdi-email-edit-outline"
+      @keydown.enter="sendPushForAccount(userData.userId)"
+      clearable
+    )
     v-btn(@click="sendPushForAccount(userData.userId)") {{ userData.userId }}に通知を送信
   p(v-if="!userData") unknown user
 </template>
@@ -24,6 +32,7 @@ export default {
     return {
       param: null,
       userData: null,
+      pushMessage: '',
     }
   },
   async mounted() {
@@ -46,8 +55,8 @@ export default {
           for: userId,
         },
         {
-          title: '通知テスト',
-          message: 'うんち',
+          title: `${this.userStore.userId}からのメッセージ`,
+          message: this.pushMessage,
         },
       )
         .then((e) => {
