@@ -13,6 +13,21 @@
     )
     v-btn(@click="sendPushForAccount(userData.userId)") {{ userData.userId }}に通知を送信
   p(v-if="!userData") unknown user
+v-dialog(v-model="errorMessage" style="max-width: 500px;")
+  v-card
+    v-card-title 送信失敗
+    v-card-text この機能は、ログインしたユーザーのみ使えます！（荒らし対策）
+    v-card-actions
+      v-spacer
+      v-btn(@click="a('/login')") ログイン
+      v-btn(@click="errorMessage = false") 閉じる
+v-dialog(v-model="successMessage" v-if="userData && userData.userId" style="max-width: 500px;")
+  v-card
+    v-card-title 送信完了
+    v-card-text {{ userData.userId }}に通知を送信しました！
+    v-card-actions
+      v-spacer
+      v-btn(@click="successMessage = false") 閉じる
 </template>
 
 <script>
@@ -33,6 +48,8 @@ export default {
       param: null,
       userData: null,
       pushMessage: '',
+      errorMessage: false,
+      successMessage: false,
     }
   },
   async mounted() {
@@ -47,6 +64,10 @@ export default {
   },
   methods: {
     sendPushForAccount(userId) {
+      if (!this.userStore.userId) {
+        this.errorMessage = true
+        return false
+      }
       this.sendAjaxWithAuth(
         '/sendPushForAccount.php',
         {
@@ -61,9 +82,12 @@ export default {
       )
         .then((e) => {
           console.log(e)
+          this.successMessage = true
+          return true
         })
         .catch((e) => {
           console.log(e)
+          return false
         })
     },
   },
