@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- ホスト: localhost
--- 生成日時: 2023 年 11 月 14 日 09:36
+-- 生成日時: 2023 年 11 月 17 日 16:51
 -- サーバのバージョン： 5.7.25-log
 -- PHP のバージョン: 7.4.33
 
@@ -66,6 +66,7 @@ CREATE TABLE `mail_list` (
 --
 
 CREATE TABLE `push_token_list` (
+  `pushId` varchar(64) NOT NULL COMMENT 'プッシュ通知管理用ユニークID',
   `secretId` varchar(64) DEFAULT NULL COMMENT 'ユーザー特定用ID',
   `push_endPoint` text NOT NULL,
   `push_publicKey` text NOT NULL,
@@ -83,7 +84,9 @@ CREATE TABLE `user_accesstoken_list` (
   `tokenId` varchar(32) NOT NULL COMMENT 'トークン管理用ID',
   `secretId` varchar(64) NOT NULL COMMENT '内部処理用ID',
   `token` text NOT NULL COMMENT 'アクセストークン',
-  `createdAt` int(11) NOT NULL COMMENT 'トークン発行時間unixtime'
+  `createdAt` int(11) NOT NULL COMMENT 'トークン発行時間unixtime',
+  `retryCount` int(11) DEFAULT NULL COMMENT 'リトライした回数',
+  `lockedAt` int(11) DEFAULT NULL COMMENT 'リトライ失敗につきロックをしたUNIXTIME'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -228,6 +231,12 @@ ALTER TABLE `api_list`
 --
 ALTER TABLE `api_listForView`
   ADD PRIMARY KEY (`secretId`);
+
+--
+-- テーブルのインデックス `push_token_list`
+--
+ALTER TABLE `push_token_list`
+  ADD PRIMARY KEY (`pushId`);
 
 --
 -- テーブルのインデックス `user_accesstoken_list`
