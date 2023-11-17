@@ -3,7 +3,7 @@
   p.text-h3 Hello! {{ param.userId }}
   div(v-if="userData")
     p {{ userData }}
-    v-btn(@click="setTitle(userData.userId)") {{ userData.userId }}
+    v-btn(@click="sendPushForAccount(userData.userId)") {{ userData.userId }}に通知を送信
   p(v-if="!userData") unknown user
 </template>
 
@@ -35,6 +35,26 @@ export default {
       this.setTitle('unknown user')
     }
     console.log(this.userData)
+  },
+  methods: {
+    sendPushForAccount(userId) {
+      this.sendAjaxWithAuth(
+        '/sendPushForAccount.php',
+        {
+          for: userId,
+        },
+        {
+          title: '通知テスト',
+          message: 'うんち',
+        },
+      )
+        .then((e) => {
+          console.log(e)
+        })
+        .catch((e) => {
+          console.log(e)
+        })
+    },
   },
 }
 </script>
