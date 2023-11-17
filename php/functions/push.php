@@ -77,3 +77,9 @@ function sendPush($endPoint, $publickey, $authToken, $title, $message = '', $ima
     return false;
   }
 }
+
+function sendPushForAccount($secretId, $title, $message = '', $image = '', $options = [])
+{
+  $pushList = SQLfind('push_token_list', 'secretId', $secretId);
+  var_dump($pushList);
+}

@@ -82,8 +82,8 @@
           v-list
             v-list-item(link @click="a('/rule')")
               v-list-item-title 利用規約
-    v-app-bar-nav-icon(v-if="isRoot && (!userStore || !userStore.profile)" @click="toggleDrawer()")
-    .nav-icon(v-if="isRoot && userStore && userStore.profile")
+    v-app-bar-nav-icon(v-if="isRoot && (!userStore || !userStore.profile || !userStore.profile.userId)" @click="toggleDrawer()")
+    .nav-icon(v-if="isRoot && userStore && userStore.profile && userStore.profile.userId")
       .nav-round(@click="toggleDrawer()" v-ripple)
         img.nav-img(
           v-if="!(userStore.profile && userStore.profile.icon)"

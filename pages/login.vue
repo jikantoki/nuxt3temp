@@ -96,8 +96,6 @@ export default {
   watch: {
     token(now) {
       const replaced = now.toString().replace('-', '')
-      console.log(replaced)
-      console.log(replaced.length)
       if (replaced.length >= 6) {
         this.login()
       }
