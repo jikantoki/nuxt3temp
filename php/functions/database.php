@@ -552,7 +552,6 @@ function createUserToken($id, $password, $otp)
 
   if (!password_verify($password, $user['password'])) {
     //パスワードちゃうねん
-    echo 'ちゃう';
     return false;
   }
   /** 未使用なランダムID */
