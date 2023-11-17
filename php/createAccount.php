@@ -33,6 +33,17 @@ $username = $_SERVER['HTTP_USERNAME'];
 $password = $_SERVER['HTTP_PASSWORD'];
 $mailAddress = $_SERVER['HTTP_MAILADDRESS'];
 
+//論理桁数でカウントするためmb_strlenしない
+$passwordLength = strlen($password);
+if ($passwordLength < 4 || $passwordLength > 64) {
+  echo json_encode([
+    'status' => 'invalid',
+    'reason' => 'invalid password',
+    'errCode' => 20
+  ]);
+  exit;
+}
+
 $response = makeAccount($username, $password, $mailAddress);
 if (!$response) {
   //アカウント作れた
@@ -45,6 +56,6 @@ if (!$response) {
   echo json_encode([
     'status' => 'ng',
     'reason' => 'This account already exists',
-    'errCode' => 20
+    'errCode' => 30
   ]);
 }

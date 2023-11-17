@@ -556,7 +556,8 @@ function createUserToken($id, $password, $otp)
   }
   /** 未使用なランダムID */
   $tokenId = SQLmakeRandomId('user_accesstoken_list', 'tokenId');
-  $token = randomString(128);
+  //パスワードハッシュが72文字までしか対応していないため、64文字にしておく
+  $token = randomString(64);
   $hashedToken = password_hash($token, PASSWORD_DEFAULT);
   SQLinsert('user_accesstoken_list', [
     'tokenId' => $tokenId,

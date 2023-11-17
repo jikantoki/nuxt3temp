@@ -17,8 +17,6 @@ function authAccount($secretId, $token)
       //アカウント有効
       return true;
     } else {
-      echo $token;
-      var_dump($account);
       //トークンがちゃう
       return false;
     }
