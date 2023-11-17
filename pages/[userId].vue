@@ -41,6 +41,8 @@ export default {
       this.sendAjaxWithAuth(
         '/sendPushForAccount.php',
         {
+          id: this.userStore.userId,
+          token: this.userStore.userToken,
           for: userId,
         },
         {
