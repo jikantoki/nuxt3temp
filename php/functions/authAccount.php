@@ -11,22 +11,23 @@ require_once DIR_ROOT . '/php/functions/database.php';
  */
 function authAccount($secretId, $token)
 {
-  $isOk = SQLfindSome('user_accesstoken_list', [
+  $account = SQLfindSome('user_accesstoken_list', [
     [
       'key' => 'secretId',
       'value' => $secretId,
       'func' => '='
-    ],
-    [
-      'key' => 'token',
-      'value' => $token,
-      'func' => '='
     ]
   ]);
-  if ($isOk) {
-    //アカウント不明
-    return $isOk;
+  if ($account) {
+    if (password_verify($token, $account['token'])) {
+      //APIアカウント有効
+      return true;
+    } else {
+      //トークンがちゃう
+      return false;
+    }
   } else {
+    //アカウント不明
     return false;
   }
 }

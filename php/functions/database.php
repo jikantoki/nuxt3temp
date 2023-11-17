@@ -399,27 +399,27 @@ function makeAccount($userId, $password, $mailAddress)
   /** メールアドレス */
   $mail = $mailAddress;
 
-  $res = SQLinsert('user_list', [
+  SQLinsert('user_list', [
     'secretId' => $secretId,
     'userId' => $userId,
     'createdAt' => $createdAt,
     'status' => $status
   ]);
 
-  $res = SQLinsert('user_secret_list', [
+  SQLinsert('user_secret_list', [
     'secretId' => $secretId,
     'password' => $password,
     'otp' => null
   ]);
 
-  $res = SQLinsert('user_profile_list', [
+  SQLinsert('user_profile_list', [
     'secretId' => $secretId,
     'icon' => null,
     'coverImg' => null,
     'name' => null,
     'message' => null
   ]);
-  $res = SQLinsert('user_mail_list', [
+  SQLinsert('user_mail_list', [
     'secretId' => $secretId,
     'mailAddress' => $mail,
     'status' => 'Uncertified',
@@ -462,15 +462,17 @@ function createUserToken($id, $password, $otp)
   }
 
   if (!password_verify($password, $user['password'])) {
+    //パスワードちゃうねん
     return false;
   }
   /** 未使用なランダムID */
   $tokenId = SQLmakeRandomId('user_accesstoken_list', 'tokenId');
   $token = randomString(128);
+  $hashedToken = password_hash($token, PASSWORD_DEFAULT);
   SQLinsert('user_accesstoken_list', [
     'tokenId' => $tokenId,
     'secretId' => $secretId,
-    'token' => $token,
+    'token' => $hashedToken,
     'createdAt' => time()
   ]);
   return $token;
