@@ -59,7 +59,9 @@ if ($res) {
   ]);
   exit;
 } else {
+  $pushId = SQLmakeRandomId('push_token_list', 'pushId');
   SQLinsert('push_token_list', [
+    'pushId' => $pushId,
     'secretId' => $secretId,
     'push_endPoint' => $endpoint,
     'push_publicKey' => $publickey,

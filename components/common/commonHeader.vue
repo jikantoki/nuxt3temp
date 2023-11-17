@@ -128,6 +128,7 @@ import NavigationList from '~/items/itemNavigationList'
 import infoList from '~/items/itemInfoList'
 //import router, { currentMeta } from '~/router/router'
 import mixins from '~/mixins/mixins'
+import webpush from '~/js/webpush'
 export default {
   components: {},
   mixins: [mixins],
@@ -173,7 +174,7 @@ export default {
       }
     },
   },
-  mounted() {
+  async mounted() {
     const now = new URL(window.location.href)
     if (Functions.isRoot(now.pathname)) {
       this.isRoot = true
@@ -312,12 +313,16 @@ export default {
       }
     }
 
-    if (this.userStore && this.userStore.userId) {
+    const push = await webpush.set()
+    console.log(push)
+    if (push && push.endpoint && this.userStore && this.userStore.userId) {
       //ログイン中のユーザーの情報で、プッシュ通知に関する情報をDB登録
       this.sendAjaxWithAuth('/insertPushToken.php', {
         id: this.userStore.userId,
         token: this.userStore.userToken,
-        //ここにプッシュ通知用のあれこれ入れないとダメ
+        endPoint: push.endpoint,
+        publicKey: push.publicKey,
+        pushToken: push.authToken,
       })
         .then((e) => {
           console.log(e)
