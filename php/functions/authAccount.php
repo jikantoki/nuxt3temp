@@ -17,10 +17,12 @@ function authAccount($secretId, $token)
       //アカウント有効
       return true;
     } else {
+      echo 'wow';
       //トークンがちゃう
       return false;
     }
   } else {
+    echo 'nan';
     //アカウント不明
     return false;
   }
