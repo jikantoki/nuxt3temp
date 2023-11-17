@@ -466,7 +466,7 @@ function createUserToken($id, $password, $otp)
   }
   /** 未使用なランダムID */
   $tokenId = SQLmakeRandomId('user_accesstoken_list', 'tokenId');
-  $token = randomString(64);
+  $token = randomString(128);
   SQLinsert('user_accesstoken_list', [
     'tokenId' => $tokenId,
     'secretId' => $secretId,
