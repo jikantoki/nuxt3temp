@@ -11,15 +11,16 @@ require_once DIR_ROOT . '/php/functions/database.php';
  */
 function authAccount($secretId, $token)
 {
-  $account = SQLfind('user_accesstoken_list', 'secretId', $secretId);
+  $account = SQLfindAll('user_accesstoken_list', 'secretId', $secretId);
   if ($account) {
-    if (password_verify($token, $account['token'])) {
-      //アカウント有効
-      return true;
-    } else {
-      //トークンがちゃう
-      return false;
+    foreach ($account as $ac) {
+      if (password_verify($token, $ac['token'])) {
+        //アカウント有効
+        return true;
+      }
     }
+    //トークンちゃう
+    return false;
   } else {
     //アカウント不明
     return false;
