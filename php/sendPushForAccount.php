@@ -24,7 +24,7 @@ $forId = $_SERVER['HTTP_FOR'];
 $forSecretId = idToSecretId($forId);
 if (!$forSecretId) {
   echo json_encode([
-    'status' => 'unknown',
+    'status' => 'ng',
     'reason' => 'unknown user',
     'errCode' => 10
   ]);
@@ -51,4 +51,17 @@ if (isset($_POST['options'])) {
   $options = [];
 }
 
-sendPushForAccount($forSecretId, $title, $message, $image, $options);
+$res = sendPushForAccount($forSecretId, $title, $message, $image, $options);
+if ($res) {
+  echo json_encode([
+    'status' => 'ok',
+    'reason' => 'thank you!',
+    'deviceCount' => $res
+  ]);
+} else {
+  echo json_encode([
+    'status' => 'cannot sent',
+    'reason' => 'system donot have this accounts push info',
+    'errCode' => 20
+  ]);
+}
