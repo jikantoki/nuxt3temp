@@ -100,6 +100,8 @@ Project Settings → Enviroment Variables を開く
 
 ```php
 <?php
+define('DIRECTORY_NAME', '/プロジェクトルートのディレクトリ名');
+
 define('VUE_APP_WebPush_PublicKey', 'パブリックキー');
 define('VUE_APP_WebPush_PrivateKey', 'プライベートキー');
 define('WebPush_URL', 'プッシュしたいURL');
