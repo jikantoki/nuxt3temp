@@ -43,6 +43,7 @@ self.addEventListener('fetch', function (/*event*/) {
   )*/
 })
 
+//通知がクリックされたときの挙動はこれ
 self.addEventListener('notificationclick', function (event) {
   /*console.log('sw event: notification clicked')*/
   event.notification.close()

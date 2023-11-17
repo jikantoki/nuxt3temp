@@ -1,11 +1,6 @@
 <?php
 
 /**
- * 環境変数
- */
-require_once DIR_ROOT . '/env.php';
-
-/**
  * ランダムな一文字を生成
  *
  * @return string 1文字

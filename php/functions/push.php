@@ -1,8 +1,5 @@
 <?php
 require_once DIR_ROOT . '/vendor/autoload.php';
-require_once DIR_ROOT . '/env.php';
-require_once DIR_ROOT . '/php/functions/authAPI.php';
-require_once DIR_ROOT . '/php/functions/authAccount.php';
 
 use Minishlink\WebPush\WebPush;
 use Minishlink\WebPush\Subscription;
@@ -12,7 +9,17 @@ const PUBLIC_KEY = VUE_APP_WebPush_PublicKey;
 const PRIVATE_KEY = VUE_APP_WebPush_PrivateKey;
 
 /**
- * プッシュ通知を送信する
+ * ## プッシュ通知を送信する
+ *
+ * $actions使用例（最大二つのボタンを追加可能）
+ * ```php
+  $actions = [
+    array(
+      'action' => '/search?q=google',
+      'title' => 'googleの検索結果を見る'
+    )
+  ]
+ * ```
  *
  * @param [String] $endPoint
  * @param [String] $publickey
@@ -23,7 +30,7 @@ const PRIVATE_KEY = VUE_APP_WebPush_PrivateKey;
  * @param [String] $options その他オプション
  * @return bool うまくいけばTrue、ダメならfalse
  */
-function sendPush($endPoint, $publickey, $authToken, $title, $message = '', $image = '', $options = [])
+function sendPush($endPoint, $publickey, $authToken, $title, $message = '', $image = '', $actions = [])
 {
   if ($image !== '') {
     $icon = $image;
@@ -57,12 +64,7 @@ function sendPush($endPoint, $publickey, $authToken, $title, $message = '', $ima
         'option' => array(
           'body' => $message,
           'icon' => $icon,
-          'actions' => [
-            array(
-              'action' => 'test',
-              'title' => 'アクションボタン'
-            )
-          ]
+          'actions' => $actions
         )
       )
     )

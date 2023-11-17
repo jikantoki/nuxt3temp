@@ -1,8 +1,8 @@
 <?php
-
-require_once './settings.php';
-require_once './functions/database.php';
-require_once './functions/functions.php';
+require_once '../env.php'; //環境変数読み込み
+require_once './settings.php'; //ルートディレクトリ読み込み
+require_once DIR_ROOT . '/php/functions/database.php';
+require_once DIR_ROOT . '/php/functions/functions.php';
 const API_LIST = 'api_list';
 const API_LIST_FORVIEW = 'api_listForView';
 const API_SECRET_ID = 'secretId';

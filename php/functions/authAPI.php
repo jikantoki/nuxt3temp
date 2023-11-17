@@ -1,5 +1,4 @@
 <?php
-require_once DIR_ROOT . '/php/settings.php';
 require_once DIR_ROOT . '/php/functions/functions.php';
 require_once DIR_ROOT . '/php/functions/database.php';
 

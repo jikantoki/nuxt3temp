@@ -1,11 +1,6 @@
 <?php
 //メール関係
 
-/**
- * 環境変数
- */
-require_once DIR_ROOT . '/env.php';
-
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
