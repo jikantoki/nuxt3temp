@@ -78,8 +78,13 @@ function sendPush($endPoint, $publickey, $authToken, $title, $message = '', $ima
   }
 }
 
-function sendPushForAccount($secretId, $title, $message = '', $image = '', $options = [])
+function sendPushForAccount($secretId, $title, $message = '', $image = '', $actions = [])
 {
   $pushList = SQLfindAll('push_token_list', 'secretId', $secretId);
-  var_dump($pushList);
+  foreach ($pushList as $push) {
+    $endpoint = $push['push_endPoint'];
+    $publicKey = $push['push_publicKey'];
+    $authToken = $push['push_authToken'];
+    sendPush($endpoint, $publicKey, $authToken, $title, $message, $image, $actions);
+  }
 }
