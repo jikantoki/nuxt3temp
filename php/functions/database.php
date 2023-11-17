@@ -231,7 +231,7 @@ function SQLfindEx($table, $key, $value, $func)
   if (is_string($value)) {
     $useValue = '"' . $value . '"';
   }
-  echo 'select * from ' . $table . ' where ' . $key . $func . $useValue . '\n';
+  echo 'select * from ' . $table . ' where ' . $key . $func . $useValue . "\n";
   return SQL('select * from ' . $table . ' where ' . $key . $func . $useValue);
 }
 
