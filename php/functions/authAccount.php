@@ -14,6 +14,7 @@ function authAccount($secretId, $token)
   $account = SQLfindAll('user_accesstoken_list', 'secretId', $secretId);
   if ($account) {
     foreach ($account as $ac) {
+      echo $ac['token'] . "\n";
       if (password_verify($token, $ac['token'])) {
         //アカウント有効
         return true;
