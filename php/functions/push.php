@@ -78,13 +78,28 @@ function sendPush($endPoint, $publickey, $authToken, $title, $message = '', $ima
   }
 }
 
+/**
+ * 特定のユーザーに通知を送信
+ *
+ * @param string $secretId
+ * @param string $title
+ * @param string $message
+ * @param string $image
+ * @param array $actions
+ * @return int 通知を送信した端末の数
+ */
 function sendPushForAccount($secretId, $title, $message = '', $image = '', $actions = [])
 {
+  $count = 0;
   $pushList = SQLfindAll('push_token_list', 'secretId', $secretId);
   foreach ($pushList as $push) {
     $endpoint = $push['push_endPoint'];
     $publicKey = $push['push_publicKey'];
     $authToken = $push['push_authToken'];
-    sendPush($endpoint, $publicKey, $authToken, $title, $message, $image, $actions);
+    $res = sendPush($endpoint, $publicKey, $authToken, $title, $message, $image, $actions);
+    if ($res) {
+      $count += 1;
+    }
   }
+  return $count;
 }
