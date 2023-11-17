@@ -25,6 +25,11 @@ if (
   exit;
 }
 
+$message = $_POST['message'];
+$endPoint = $_SERVER['HTTP_ENDPOINT'];
+$publicKey = $_SERVER['HTTP_PUBLICKEY'];
+$authToken = $_SERVER['HTTP_AUTHTOKEN'];
+
 if (isset($_POST['icon'])) {
   $icon = $_POST['icon'];
 } else {
@@ -36,45 +41,9 @@ if (isset($_POST['title'])) {
   $title = '通知確認テスト';
 }
 
-// push通知認証用のデータ
-$subscription = Subscription::create([
-  'endpoint' => $_SERVER['HTTP_ENDPOINT'],
-  'publicKey' => $_SERVER['HTTP_PUBLICKEY'],
-  'authToken' => $_SERVER['HTTP_AUTHTOKEN'],
-]);
+$res = sendPush($endPoint, $publicKey, $authToken, $title, $message, $icon);
 
-// ブラウザに認証させる
-$auth = [
-  'VAPID' => [
-    'subject' => VAPID_SUBJECT,
-    'publicKey' => PUBLIC_KEY,
-    'privateKey' => PRIVATE_KEY,
-  ]
-];
-
-$webPush = new WebPush($auth);
-
-$report = $webPush->sendOneNotification(
-  $subscription,
-  json_encode(
-    array(
-      'title' => $title,
-      'option' => array(
-        'body' => $_POST['message'],
-        'icon' => $icon,
-        'actions' => [
-          array(
-            'action' => 'test',
-            'title' => 'アクションボタン'
-          )
-        ]
-      )
-    )
-  )
-);
-
-$endpoint = $report->getRequest()->getUri()->__toString();
-if ($report->isSuccess()) {
+if ($res) {
   echo json_encode([
     'status' => 'ok',
     'reason' => 'Thank you!'
@@ -82,7 +51,7 @@ if ($report->isSuccess()) {
 } else {
   echo json_encode([
     'status' => 'ng',
-    'reason' => $report,
+    'reason' => $res,
     'errCode' => 10
   ]);
   //この場合は無効なトークンを持っている場合が多い
