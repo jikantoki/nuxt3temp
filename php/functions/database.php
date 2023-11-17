@@ -52,7 +52,7 @@ function SQLConnect()
 }
 
 /**
- * SQL文を実行
+ * SQL文を実行し、最初の一つの結果を取得
  *
  * @param [string] $sql
  * @return object
@@ -62,6 +62,19 @@ function SQL($sql)
   $pdo = SQLConnect();
   $stmt = $pdo->query($sql);
   return $stmt->fetch();
+}
+
+/**
+ * SQL文を実行し、全ての結果を取得
+ *
+ * @param [string] $sql
+ * @return object
+ */
+function SQLfetchAll($sql)
+{
+  $pdo = SQLConnect();
+  $stmt = $pdo->query($sql);
+  return $stmt->fetchAll();
 }
 
 function SQLselectTable($tableName)
@@ -179,6 +192,7 @@ function SQLupdate($table, $updateKey, $updateValue, $key, $value)
 
 /**
  * ## テーブルの中から複数条件で検索
+ * ## 【注意】最初の一件のみ取得
  *
  * ### $arrayの中身
  * ```
@@ -217,7 +231,48 @@ function SQLfindSome($table, $array)
 }
 
 /**
+ * ## テーブルの中から複数条件で検索
+ * ## 【注意】全件取得
+ *
+ * ### $arrayの中身
+ * ```
+ * $array = [
+ *   [
+ *     'key' => '検索したいキー',
+ *     'value' => '検索したい文字列',
+ *     'func' => '=' //演算記号
+ *   ],
+ *   [
+ *     'key' => '検索したいキー',
+ *     'value' => '検索したい文字列',
+ *     'func' => '=' //演算記号
+ *   ]
+ * ]
+ * ```
+ *
+ * @param [string] $table 検索したいテーブル
+ * @param [array] $array 検索したい条件をまとめた配列
+ * @return object 結果
+ */
+function SQLfindSomeAll($table, $array)
+{
+  $words = 'select * from ' . $table . ' where ';
+  foreach ($array as $obj) {
+    $key = $obj['key'];
+    $val = $obj['value'];
+    $func = $obj['func'];
+    if (is_string($val)) {
+      $val = '"' . $val . '"';
+    }
+    $words = $words . $key . $func . ' ' . $val . ' and ';
+  }
+  $words = substr($words, 0, -4);
+  return SQLfetchAll($words);
+}
+
+/**
  * テーブルの中の'key'列から$funcの演算記号で検索する
+ * ## 【注意】最初の一件のみ取得
  *
  * @param [string] $table 検索したいテーブル
  * @param [string] $key 検索したい列
@@ -231,12 +286,31 @@ function SQLfindEx($table, $key, $value, $func)
   if (is_string($value)) {
     $useValue = '"' . $value . '"';
   }
-  echo 'select * from ' . $table . ' where ' . $key . $func . $useValue . "\n";
   return SQL('select * from ' . $table . ' where ' . $key . $func . $useValue);
 }
 
 /**
+ * テーブルの中の'key'列から$funcの演算記号で検索する
+ * ## 【注意】全件取得
+ *
+ * @param [string] $table 検索したいテーブル
+ * @param [string] $key 検索したい列
+ * @param [*] $value 見つけたい値
+ * @param [string] $func 演算記号（=、<、>=、など）
+ * @return void
+ */
+function SQLfindExAll($table, $key, $value, $func)
+{
+  $useValue = $value;
+  if (is_string($value)) {
+    $useValue = '"' . $value . '"';
+  }
+  return SQLfetchAll('select * from ' . $table . ' where ' . $key . $func . $useValue);
+}
+
+/**
  * テーブルの中の'key'列から検索値'value'と完全一致するものを出す
+ * ## 【注意】最初の一件のみ取得
  *
  * @param [string] $table 検索したいテーブル
  * @param [string] $key 検索したい列
@@ -246,6 +320,20 @@ function SQLfindEx($table, $key, $value, $func)
 function SQLfind($table, $key, $value)
 {
   return SQLfindEx($table, $key, $value, '=');
+}
+
+/**
+ * テーブルの中の'key'列から検索値'value'と完全一致するものを出す
+ * ## 【注意】全件取得
+ *
+ * @param [string] $table 検索したいテーブル
+ * @param [string] $key 検索したい列
+ * @param [*] $value 見つけたい値
+ * @return void
+ */
+function SQLfindAll($table, $key, $value)
+{
+  return SQLfindExAll($table, $key, $value, '=');
 }
 
 /**
