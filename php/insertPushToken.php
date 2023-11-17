@@ -37,12 +37,22 @@ $res = SQLfindSome('push_token_list', [
     'key' => 'push_endPoint',
     'value' => $endpoint,
     'func' => '='
+  ],
+  [
+    'key' => 'push_publicKey',
+    'value' => $publickey,
+    'func' => '='
+  ],
+  [
+    'key' => 'push_authToken',
+    'value' => $pushtoken,
+    'func' => '='
   ]
 ]);
 if ($res) {
   //既にPushトークンが登録されている
   echo json_encode([
-    'status' => 'ng',
+    'status' => 'already',
     'reason' => 'Already inserted',
     'id' => $id,
     'errCode' => 10
