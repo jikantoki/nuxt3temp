@@ -1,7 +1,7 @@
 <?php
 require_once '../env.php'; //環境変数読み込み
 require_once './settings.php'; //ルートディレクトリ読み込み
-require_once '/vendor/autoload.php';
+require_once DIR_ROOT . '/vendor/autoload.php';
 require_once DIR_ROOT . '/php/functions/database.php';
 require_once DIR_ROOT . '/php/functions/authAPI.php';
 require_once DIR_ROOT . '/php/functions/authAccount.php';
