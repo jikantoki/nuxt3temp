@@ -49,7 +49,11 @@ self.addEventListener('notificationclick', function (event) {
   event.notification.close()
 
   clients.openWindow('/')
+  if(event.action && event.action !== ''){
   console.log('通知イベント' + event.action + 'を実行しました')
+  } else {
+    console.log('デフォルトの通知イベントを実行しました')
+  }
 })
 
 self.addEventListener('push', function (event) {
