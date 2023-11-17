@@ -12,6 +12,7 @@ require_once DIR_ROOT . '/php/functions/database.php';
 function authAccount($secretId, $token)
 {
   $account = SQLfindAll('user_accesstoken_list', 'secretId', $secretId);
+  var_dump($account);
   if ($account) {
     foreach ($account as $ac) {
       echo $ac['token'] . "\n";
