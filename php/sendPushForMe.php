@@ -4,13 +4,6 @@ require_once './settings.php'; //ルートディレクトリ読み込み
 require_once DIR_ROOT . '/php/myAutoLoad.php'; //自動読み込み
 require_once DIR_ROOT . '/php/functions/authAPIforUse.php'; //APIが有効かどうか自動判定
 
-use Minishlink\WebPush\WebPush;
-use Minishlink\WebPush\Subscription;
-
-const VAPID_SUBJECT = 'nuxt.enoki.xyz';
-const PUBLIC_KEY = VUE_APP_WebPush_PublicKey;
-const PRIVATE_KEY = VUE_APP_WebPush_PrivateKey;
-
 if (
   !isset($_POST['message'])
   || !isset($_SERVER['HTTP_ENDPOINT'])
