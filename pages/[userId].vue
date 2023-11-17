@@ -68,6 +68,9 @@ export default {
         this.errorMessage = true
         return false
       }
+      if (!this.pushMessage && this.pushMessage === '') {
+        return false
+      }
       this.sendAjaxWithAuth(
         '/sendPushForAccount.php',
         {
