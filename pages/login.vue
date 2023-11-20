@@ -155,6 +155,14 @@ export default {
             this.userStore.setToken(e.body.token)
             const profile = await this.getProfile(e.body.id)
             this.userStore.setProfile(profile)
+            //ログイン中のユーザーの情報で、プッシュ通知に関する情報をDB登録
+            await this.sendAjaxWithAuth('/insertPushToken.php', {
+              id: this.userStore.userId,
+              token: this.userStore.userToken,
+              endPoint: push.endpoint,
+              publicKey: push.publicKey,
+              pushToken: push.authToken,
+            })
             const redirect = now.searchParams.get('redirect')
             if (redirect && redirect !== '') {
               this.a(redirect)
