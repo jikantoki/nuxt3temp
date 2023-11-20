@@ -18,6 +18,15 @@ if (
 }
 /** 送信元のアカウントID */
 $fromId = $_SERVER['HTTP_ID'];
+/** 送信元のプロフィール */
+$fromProfile = getProfile($fromId);
+/** 送信元のアイコン */
+$fromIcon = $fromProfile['icon'];
+if ($fromIcon && $fromIcon !== '') {
+  $icon = $fromIcon;
+} else {
+  $icon = Default_user_icon;
+}
 /** 送信先のアカウントID */
 $forId = $_SERVER['HTTP_FOR'];
 /** 送信先のシークレットID */
@@ -51,7 +60,7 @@ if (isset($_POST['options'])) {
   $options = [];
 }
 
-$res = sendPushForAccount($forSecretId, $title, $message, $image, $options);
+$res = sendPushForAccount($forSecretId, $title, $message, $image, $icon, $options);
 if ($res) {
   echo json_encode([
     'status' => 'ok',

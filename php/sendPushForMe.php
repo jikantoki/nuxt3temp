@@ -34,7 +34,7 @@ if (isset($_POST['title'])) {
   $title = '通知確認テスト';
 }
 
-$res = sendPush($endPoint, $publicKey, $authToken, $title, $message, $image);
+$res = sendPush($endPoint, $publicKey, $authToken, $title, $message, $image, null);
 
 if ($res) {
   echo json_encode([
