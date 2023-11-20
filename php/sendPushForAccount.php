@@ -69,7 +69,7 @@ if ($res) {
   ]);
 } else {
   echo json_encode([
-    'status' => 'cannot sent',
+    'status' => 'nothing',
     'reason' => 'system donot have this accounts push info',
     'errCode' => 20
   ]);
