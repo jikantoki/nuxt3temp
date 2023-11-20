@@ -5,9 +5,9 @@ require_once DIR_ROOT . '/php/functions/database.php';
 /**
  * APIの有効性を調べる
  *
- * @param [string] $id
- * @param [string] $token
- * @param [string] $password
+ * @param string $id
+ * @param string $token
+ * @param string $password
  * @return void アカウントが有効ならtrue
  */
 function authAPI($id, $token, $password)

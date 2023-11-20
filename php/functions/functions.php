@@ -3,7 +3,7 @@
 /**
  * エラーが出ず、最後に改行されるvar_dump
  *
- * @param [*] $var
+ * @param * $var
  * @return int
  */
 function dump($var)

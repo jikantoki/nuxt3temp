@@ -5,8 +5,8 @@ require_once DIR_ROOT . '/php/functions/database.php';
 /**
  * アカウントにログインできているか確認する
  *
- * @param [string] $secretId
- * @param [string] $token
+ * @param string $secretId
+ * @param string $token
  * @return void トークンが有効ならtrue
  */
 function authAccount($secretId, $token)

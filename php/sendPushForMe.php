@@ -24,9 +24,9 @@ $publicKey = $_SERVER['HTTP_PUBLICKEY'];
 $authToken = $_SERVER['HTTP_AUTHTOKEN'];
 
 if (isset($_POST['icon'])) {
-  $icon = $_POST['icon'];
+  $image = $_POST['icon'];
 } else {
-  $icon = null;
+  $image = null;
 }
 if (isset($_POST['title'])) {
   $title = $_POST['title'];
@@ -34,7 +34,7 @@ if (isset($_POST['title'])) {
   $title = '通知確認テスト';
 }
 
-$res = sendPush($endPoint, $publicKey, $authToken, $title, $message, $icon);
+$res = sendPush($endPoint, $publicKey, $authToken, $title, $message, $image);
 
 if ($res) {
   echo json_encode([

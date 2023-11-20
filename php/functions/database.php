@@ -13,7 +13,7 @@ function randomChar()
 /**
  * ランダムな文字列を生成
  *
- * @param [string] $length 文字数
+ * @param string $length 文字数
  * @return string ランダムな文字列
  */
 function randomString($length)
@@ -54,7 +54,7 @@ function SQLConnect()
 /**
  * SQL文を実行し、最初の一つの結果を取得
  *
- * @param [string] $sql
+ * @param string $sql
  * @return object
  */
 function SQL($sql)
@@ -67,7 +67,7 @@ function SQL($sql)
 /**
  * SQL文を実行し、全ての結果を取得
  *
- * @param [string] $sql
+ * @param string $sql
  * @return object
  */
 function SQLfetchAll($sql)
@@ -104,8 +104,8 @@ function SQLsearchTable($tableName)
  * ```
  * 型指定に使えるもの→int、float、varchar(自然数)、text、datetime
  *
- * @param [string] $tableName
- * @param [object] $array
+ * @param string $tableName
+ * @param object $array
  * @return void
  */
 function SQLcreateTable($tableName, $array)
@@ -128,8 +128,8 @@ function SQLcreateTable($tableName, $array)
  * ```php
  * $array = ['列名1'=>'値1','列名2'=>'値2'...];
  * ```
- * @param [string] $table テーブル名を指定
- * @param [object] $array
+ * @param string $table テーブル名を指定
+ * @param object $array
  * @return void
  */
 function SQLinsert($table, $array)
@@ -151,12 +151,12 @@ function SQLinsert($table, $array)
 /**
  * テーブルの中の'key'列から$funcの演算記号で検索し、一致した項目の'updateKey'の項目を$updateValueに更新
  *
- * @param [string] $table 検索したいテーブル
- * @param [string] $key 検索したい列
- * @param [*] $value 見つけたい値
- * @param [string] $updateKey 更新したい列
- * @param [*] $updateValue 更新後の値
- * @param [string] $func 演算記号（=、<、>=、など）
+ * @param string $table 検索したいテーブル
+ * @param string $key 検索したい列
+ * @param * $value 見つけたい値
+ * @param string $updateKey 更新したい列
+ * @param * $updateValue 更新後の値
+ * @param string $func 演算記号（=、<、>=、など）
  * @return void
  */
 function SQLupdateEx($table, $updateKey, $updateValue, $key, $value, $func)
@@ -178,11 +178,11 @@ function SQLupdateEx($table, $updateKey, $updateValue, $key, $value, $func)
 /**
  * テーブルの中の'key'列から$valueを検索し、一致した項目の'updateKey'の項目を$updateValueに更新
  *
- * @param [string] $table 検索したいテーブル
- * @param [string] $key 検索したい列
- * @param [*] $value 見つけたい値
- * @param [string] $updateKey 更新したい列
- * @param [*] $updateValue 更新後の値
+ * @param string $table 検索したいテーブル
+ * @param string $key 検索したい列
+ * @param * $value 見つけたい値
+ * @param string $updateKey 更新したい列
+ * @param * $updateValue 更新後の値
  * @return void
  */
 function SQLupdate($table, $updateKey, $updateValue, $key, $value)
@@ -210,8 +210,8 @@ function SQLupdate($table, $updateKey, $updateValue, $key, $value)
  * ]
  * ```
  *
- * @param [string] $table 検索したいテーブル
- * @param [array] $array 検索したい条件をまとめた配列
+ * @param string $table 検索したいテーブル
+ * @param array $array 検索したい条件をまとめた配列
  * @return object 結果
  */
 function SQLfindSome($table, $array)
@@ -250,8 +250,8 @@ function SQLfindSome($table, $array)
  * ]
  * ```
  *
- * @param [string] $table 検索したいテーブル
- * @param [array] $array 検索したい条件をまとめた配列
+ * @param string $table 検索したいテーブル
+ * @param array $array 検索したい条件をまとめた配列
  * @return object 結果
  */
 function SQLfindSomeAll($table, $array)
@@ -274,10 +274,10 @@ function SQLfindSomeAll($table, $array)
  * テーブルの中の'key'列から$funcの演算記号で検索する
  * ## 【注意】最初の一件のみ取得
  *
- * @param [string] $table 検索したいテーブル
- * @param [string] $key 検索したい列
- * @param [*] $value 見つけたい値
- * @param [string] $func 演算記号（=、<、>=、など）
+ * @param string $table 検索したいテーブル
+ * @param string $key 検索したい列
+ * @param * $value 見つけたい値
+ * @param string $func 演算記号（=、<、>=、など）
  * @return void
  */
 function SQLfindEx($table, $key, $value, $func)
@@ -293,10 +293,10 @@ function SQLfindEx($table, $key, $value, $func)
  * テーブルの中の'key'列から$funcの演算記号で検索する
  * ## 【注意】全件取得
  *
- * @param [string] $table 検索したいテーブル
- * @param [string] $key 検索したい列
- * @param [*] $value 見つけたい値
- * @param [string] $func 演算記号（=、<、>=、など）
+ * @param string $table 検索したいテーブル
+ * @param string $key 検索したい列
+ * @param * $value 見つけたい値
+ * @param string $func 演算記号（=、<、>=、など）
  * @return void
  */
 function SQLfindExAll($table, $key, $value, $func)
@@ -312,9 +312,9 @@ function SQLfindExAll($table, $key, $value, $func)
  * テーブルの中の'key'列から検索値'value'と完全一致するものを出す
  * ## 【注意】最初の一件のみ取得
  *
- * @param [string] $table 検索したいテーブル
- * @param [string] $key 検索したい列
- * @param [*] $value 見つけたい値
+ * @param string $table 検索したいテーブル
+ * @param string $key 検索したい列
+ * @param * $value 見つけたい値
  * @return void
  */
 function SQLfind($table, $key, $value)
@@ -326,9 +326,9 @@ function SQLfind($table, $key, $value)
  * テーブルの中の'key'列から検索値'value'と完全一致するものを出す
  * ## 【注意】全件取得
  *
- * @param [string] $table 検索したいテーブル
- * @param [string] $key 検索したい列
- * @param [*] $value 見つけたい値
+ * @param string $table 検索したいテーブル
+ * @param string $key 検索したい列
+ * @param * $value 見つけたい値
  * @return void
  */
 function SQLfindAll($table, $key, $value)
@@ -359,11 +359,11 @@ function SQLmakeRandomId($table, $key)
 /**
  * 二つの表を比較し、baseTableをjoinTableで拡張した表を作成
  *
- * @param [string] $baseTable ベースにするテーブル
- * @param [string] $joinTable 拡張したい情報
- * @param [string] $baseKey baseTableのキー
- * @param [string] $joinKey 拡張テーブルのキー
- * @param [string] $where 命令後のwhere句以降（whereは勝手に入ります）
+ * @param string $baseTable ベースにするテーブル
+ * @param string $joinTable 拡張したい情報
+ * @param string $baseKey baseTableのキー
+ * @param string $joinKey 拡張テーブルのキー
+ * @param string $where 命令後のwhere句以降（whereは勝手に入ります）
  * @return void
  */
 function SQLjoin($baseTable, $joinTable, $baseKey, $joinKey, $where = null)
@@ -430,8 +430,8 @@ function SQLdelete($table, $key, $value)
  * ]
  * ```
  *
- * @param [string] $table 検索したいテーブル
- * @param [array] $array 検索したい条件をまとめた配列
+ * @param string $table 検索したいテーブル
+ * @param array $array 検索したい条件をまとめた配列
  * @param [integer] $limit 最大削除数デフォルト1
  * @return object 結果
  */
@@ -460,9 +460,9 @@ function SQLdeleteSome($table, $array, $limit = 1)
 
 /**
  * ## アカウント作成
- * @param [string] $userId ユーザー名
- * @param [string] $password パスワード
- * @param [string] $mailAddress メアド
+ * @param string $userId ユーザー名
+ * @param string $password パスワード
+ * @param string $mailAddress メアド
  * @return string 既にアカウントがある場合はAlready、問題なく作れたら0
  */
 function makeAccount($userId, $password, $mailAddress)
@@ -520,9 +520,9 @@ function makeAccount($userId, $password, $mailAddress)
 /**
  * ユーザー用のアクセストークンを発行する
  *
- * @param [String] $id ユーザーID
- * @param [String] $password パスワード
- * @param [String] $otp ワンタイムトークン
+ * @param string $id ユーザーID
+ * @param string $password パスワード
+ * @param string $otp ワンタイムトークン
  * @return void
  */
 function createUserToken($id, $password, $otp)
@@ -571,7 +571,7 @@ function createUserToken($id, $password, $otp)
 /**
  * ログイン用のワンタイムトークンを発行する
  *
- * @param [String] $id ユーザーID
+ * @param string $id ユーザーID
  * @return void OTPまたは失敗したらfalse
  */
 function requestOnetimeToken($id, $password)
@@ -596,7 +596,7 @@ function requestOnetimeToken($id, $password)
 /**
  * UserIdをSecretIdに変換
  *
- * @param [String] $id ユーザーID
+ * @param string $id ユーザーID
  * @return String シークレットID
  */
 function idToSecretId($id)
@@ -614,7 +614,7 @@ function idToSecretId($id)
 /**
  * SecretIdをUserIdに変換
  *
- * @param [String] $secretId シークレットID
+ * @param string $secretId シークレットID
  * @return String ユーザーID
  */
 function secretIdToId($secretId)
@@ -632,7 +632,7 @@ function secretIdToId($secretId)
 /**
  * SecretIdからメールアドレスを特定
  *
- * @param [String] $secretId シークレットID
+ * @param string $secretId シークレットID
  * @return String メアド
  */
 function secretIdToMailAddress($secretId)

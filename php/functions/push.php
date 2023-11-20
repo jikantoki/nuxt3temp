@@ -21,16 +21,17 @@ const PRIVATE_KEY = VUE_APP_WebPush_PrivateKey;
   ]
  * ```
  *
- * @param [String] $endPoint
- * @param [String] $publickey
- * @param [String] $authToken
- * @param [String] $title 通知タイトル
- * @param [String] $message 通知の本文
- * @param [String] $image 通知に添付する画像URL
- * @param [String] $options その他オプション
+ * @param string $endPoint
+ * @param string $publickey
+ * @param string $authToken
+ * @param string $title 通知タイトル
+ * @param string $message 通知の本文
+ * @param string $image 通知に添付する画像URL
+ * @param string $icon 通知に表示するアイコン（バッジとは別）
+ * @param string $actions その他オプション
  * @return bool うまくいけばTrue、ダメならfalse
  */
-function sendPush($endPoint, $publickey, $authToken, $title, $message = '', $image = '', $actions = [])
+function sendPush($endPoint, $publickey, $authToken, $title, $message = '', $image = '', $icon = null, $actions = [])
 {
   if ($image !== '') {
     $image = $image;
@@ -65,8 +66,8 @@ function sendPush($endPoint, $publickey, $authToken, $title, $message = '', $ima
           'body' => $message,
           'image' => $image,
           'actions' => $actions,
-          'icon' => WebPush_URL . '/img/icon96.png',
-          'badge' => WebPush_URL . '/img/icon96.png'
+          'icon' => $icon,
+          'badge' => WebPush_icon
         )
       )
     )
@@ -87,10 +88,11 @@ function sendPush($endPoint, $publickey, $authToken, $title, $message = '', $ima
  * @param string $title
  * @param string $message
  * @param string $image
+ * @param string $icon
  * @param array $actions
  * @return int 通知を送信した端末の数
  */
-function sendPushForAccount($secretId, $title, $message = '', $image = '', $actions = [])
+function sendPushForAccount($secretId, $title, $message = '', $image = '', $icon = null, $actions = [])
 {
   $count = 0;
   $pushList = SQLfindAll('push_token_list', 'secretId', $secretId);
@@ -98,7 +100,7 @@ function sendPushForAccount($secretId, $title, $message = '', $image = '', $acti
     $endpoint = $push['push_endPoint'];
     $publicKey = $push['push_publicKey'];
     $authToken = $push['push_authToken'];
-    $res = sendPush($endpoint, $publicKey, $authToken, $title, $message, $image, $actions);
+    $res = sendPush($endpoint, $publicKey, $authToken, $title, $message, $image, $icon, $actions);
     if ($res) {
       $count += 1;
     }
