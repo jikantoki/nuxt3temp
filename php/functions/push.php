@@ -64,7 +64,8 @@ function sendPush($endPoint, $publickey, $authToken, $title, $message = '', $ima
         'option' => array(
           'body' => $message,
           'icon' => $icon,
-          'actions' => $actions
+          'actions' => $actions,
+          'badge' => WebPush_URL . '/icon96.png'
         )
       )
     )
