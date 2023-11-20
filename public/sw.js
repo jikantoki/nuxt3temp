@@ -102,7 +102,11 @@ self.addEventListener('push', function (event) {
    * }
    * ```
    */
-  let option = notificationDataObj.option
+  const option = notificationDataObj.option
+  if(notificationDataObj.option && notificationDataObj.option.badge){
+    notificationDataObj.option.icon = notificationDataObj.option.badge
+  }
+  console.log(notificationDataObj)
   event.waitUntil(self.registration.showNotification(title, option))
 
   /**
