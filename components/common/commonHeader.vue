@@ -414,7 +414,7 @@ export default {
       this.dialog = true
     },
     async logout() {
-      const push = await webpush.set()
+      const push = await webpush.get()
       if (push) {
         await this.sendAjaxWithAuth('/deletePushToken.php', {
           id: this.userStore.userId,

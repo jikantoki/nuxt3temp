@@ -155,7 +155,7 @@ export default {
             const profile = await this.getProfile(e.body.id)
             this.userStore.setProfile(profile)
             //ログイン中のユーザーの情報で、プッシュ通知に関する情報をDB登録
-            const push = await webpush.set()
+            const push = await webpush.get()
             if (push) {
               await this.sendAjaxWithAuth('/insertPushToken.php', {
                 id: this.userStore.userId,
