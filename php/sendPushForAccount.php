@@ -22,6 +22,7 @@ $fromId = $_SERVER['HTTP_ID'];
 $fromProfile = getProfile($fromId);
 /** 送信元のアイコン */
 $fromIcon = $fromProfile['icon'];
+echo $fromIcon;
 if ($fromIcon && $fromIcon !== '') {
   $icon = $fromIcon;
 } else {
