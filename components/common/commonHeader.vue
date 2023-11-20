@@ -314,7 +314,6 @@ export default {
     }
 
     const push = await webpush.set()
-    console.log(push)
     if (push && push.endpoint && this.userStore && this.userStore.userId) {
       //ログイン中のユーザーの情報で、プッシュ通知に関する情報をDB登録
       this.sendAjaxWithAuth('/insertPushToken.php', {
@@ -425,8 +424,18 @@ export default {
       ]
       this.dialog = true
     },
-    logout() {
+    async logout() {
       console.log('logout')
+      const push = await webpush.set()
+      if (push) {
+        await this.sendAjaxWithAuth('/deletePushToken.php', {
+          id: this.userStore.userId,
+          token: this.userStore.userToken,
+          endPoint: push.endpoint,
+          publicKey: push.publicKey,
+          pushToken: push.authToken,
+        })
+      }
       this.sendAjaxWithAuth('/logoutAccount.php', {
         id: this.userStore.userId,
         token: this.userStore.userToken,
