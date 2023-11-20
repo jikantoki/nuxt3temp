@@ -33,9 +33,9 @@ const PRIVATE_KEY = VUE_APP_WebPush_PrivateKey;
 function sendPush($endPoint, $publickey, $authToken, $title, $message = '', $image = '', $actions = [])
 {
   if ($image !== '') {
-    $icon = $image;
+    $image = $image;
   } else {
-    $icon = null;
+    $image = null;
   }
 
   // push通知認証用のデータ
@@ -63,8 +63,9 @@ function sendPush($endPoint, $publickey, $authToken, $title, $message = '', $ima
         'title' => $title,
         'option' => array(
           'body' => $message,
-          'icon' => $icon,
+          'image' => $image,
           'actions' => $actions,
+          'icon' => WebPush_URL . '/icon96.png',
           'badge' => WebPush_URL . '/icon96.png'
         )
       )
