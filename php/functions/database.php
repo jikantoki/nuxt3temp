@@ -329,7 +329,7 @@ function SQLfind($table, $key, $value)
  * @param string $table 検索したいテーブル
  * @param string $key 検索したい列
  * @param * $value 見つけたい値
- * @return void
+ * @return array
  */
 function SQLfindAll($table, $key, $value)
 {
