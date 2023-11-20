@@ -70,6 +70,7 @@
 import metaFunctions from '~/js/metaFunctions'
 import mixins from '~/mixins/mixins'
 import Setup from '~/js/setup'
+import webpush from '~/js/webpush'
 export default {
   mixins: [mixins],
   setup() {
