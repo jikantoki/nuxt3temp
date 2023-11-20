@@ -162,12 +162,6 @@ export default {
           icon: 'https://nuxt.enoki.xyz/img/icon192.png',
         },
       )
-        .then((e) => {
-          console.log(e)
-        })
-        .catch((e) => {
-          console.log(e)
-        })
       this.dialogTitle = '通知を送信しました'
       this.dialogText = 'プッシュ通知を確認してみてください！'
       this.dialog = true

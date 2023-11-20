@@ -60,7 +60,6 @@ export default {
     } else {
       this.setTitle('unknown user')
     }
-    console.log(this.userData)
   },
   methods: {
     sendPushForAccount(userId) {
@@ -84,7 +83,6 @@ export default {
         },
       )
         .then((e) => {
-          console.log(e)
           this.successMessage = true
           return true
         })

@@ -81,14 +81,7 @@ export default {
           console.warn(e)
         })
       */
-    webpush
-      .set()
-      .then((e) => {
-        console.log(e)
-      })
-      .catch((e) => {
-        console.log(e)
-      })
+    webpush.set()
 
     /**
      * mountedの最後に記述

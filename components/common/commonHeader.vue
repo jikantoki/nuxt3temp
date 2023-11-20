@@ -59,11 +59,7 @@
                 )
                 v-list-item-title {{ arrangeLocale(locale) }}
     template(v-slot:append)
-      a.header-list(
-        v-if="userStore && userStore.userId"
-        v-bind="attrs"
-        v-on="on"
-        )
+      a.header-list(v-if="userStore && userStore.userId")
         v-list-item.pa-4(link)
           .v-item
             v-icon(style="opacity:0.7") mdi-dots-vertical
@@ -282,7 +278,6 @@ export default {
         token: this.userStore.userToken,
       })
         .then((e) => {
-          console.log(e)
           if (e.body && e.body.status && e.body.status === 'ng') {
             this.userStore.setToken(null)
             this.userStore.setId(null)
@@ -316,19 +311,13 @@ export default {
     const push = await webpush.set()
     if (push && push.endpoint && this.userStore && this.userStore.userId) {
       //ログイン中のユーザーの情報で、プッシュ通知に関する情報をDB登録
-      this.sendAjaxWithAuth('/insertPushToken.php', {
+      await this.sendAjaxWithAuth('/insertPushToken.php', {
         id: this.userStore.userId,
         token: this.userStore.userToken,
         endPoint: push.endpoint,
         publicKey: push.publicKey,
         pushToken: push.authToken,
       })
-        .then((e) => {
-          console.log(e)
-        })
-        .catch((e) => {
-          console.log(e)
-        })
     }
   },
   methods: {
@@ -425,7 +414,6 @@ export default {
       this.dialog = true
     },
     async logout() {
-      console.log('logout')
       const push = await webpush.set()
       if (push) {
         await this.sendAjaxWithAuth('/deletePushToken.php', {
@@ -441,7 +429,6 @@ export default {
         token: this.userStore.userToken,
       })
         .then((e) => {
-          console.log(e)
           this.userStore.setId(null)
           this.userStore.setToken(null)
           this.userStore.setProfile(null)

@@ -185,7 +185,6 @@ export default {
         mailaddress: this.mailAddress,
       })
         .then((e) => {
-          console.log(e)
           if (e.body.status === 'ok') {
             this.page = 1
           } else {

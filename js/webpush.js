@@ -111,12 +111,6 @@ const getRequest = async (listenFlag = false) => {
           return null
         }
         Notification.requestPermission()
-          .then((e) => {
-            console.log(e)
-          })
-          .catch((e) => {
-            console.log(e)
-          })
       }
       subscription = await window.sw.pushManager.subscribe({
         userVisibleOnly: true,
