@@ -47,27 +47,39 @@ $res = SQLfindSome('push_token_list', [
   ]
 ]);
 if ($res) {
-  //既にPushトークンが登録されている
-  echo json_encode([
-    'status' => 'already',
-    'reason' => 'Already inserted',
-    'id' => $id,
-    'errCode' => 10
-  ]);
-  exit;
-} else {
-  $pushId = SQLmakeRandomId('push_token_list', 'pushId');
-  SQLinsert('push_token_list', [
-    'pushId' => $pushId,
-    'secretId' => $secretId,
-    'push_endPoint' => $endpoint,
-    'push_publicKey' => $publickey,
-    'push_authToken' => $pushtoken,
-    'createdAt' => time()
+  //Pushトークンが登録されているので削除
+  SQLdeleteSome('push_token_list', [
+    [
+      'key' => 'secretId',
+      'value' => $secretId,
+      'func' => '='
+    ],
+    [
+      'key' => 'push_endPoint',
+      'value' => $endpoint,
+      'func' => '='
+    ],
+    [
+      'key' => 'push_publicKey',
+      'value' => $publickey,
+      'func' => '='
+    ],
+    [
+      'key' => 'push_authToken',
+      'value' => $pushtoken,
+      'func' => '='
+    ]
   ]);
   echo json_encode([
     'status' => 'ok',
-    'reason' => 'Thank you!',
+    'reason' => 'deleted',
     'id' => $id
+  ]);
+  exit;
+} else {
+  echo json_encode([
+    'status' => 'ng',
+    'reason' => 'unknown push token',
+    'errCode' => 20
   ]);
 }
