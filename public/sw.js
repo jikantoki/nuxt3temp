@@ -92,6 +92,8 @@ self.addEventListener('push', function (event) {
    * {
    *   "body": "message",
    *   "icon": "icon_url",
+   *   "badge": "badge_url",
+   *   "image": "image_url",
    *   "tag": "tag(optional)",
    *   "actions": [
    *     {
@@ -103,10 +105,6 @@ self.addEventListener('push', function (event) {
    * ```
    */
   const option = notificationDataObj.option
-  if(notificationDataObj.option && notificationDataObj.option.badge){
-    notificationDataObj.option.icon = notificationDataObj.option.badge
-  }
-  console.log(notificationDataObj)
   event.waitUntil(self.registration.showNotification(title, option))
 
   /**
