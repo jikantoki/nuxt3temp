@@ -104,11 +104,13 @@ export default {
   },
   mounted() {
     this.setTitle('ログイン')
+    this.commonBarStore.hidden = true
     if (localStorage.userIdForLogin) {
       this.userName = localStorage.userIdForLogin
     }
   },
   unmounted() {
+    this.commonBarStore.hidden = false
     if (this.userName) {
       localStorage.userIdForLogin = this.userName
     } else {

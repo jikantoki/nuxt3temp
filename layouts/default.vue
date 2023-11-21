@@ -7,7 +7,7 @@
     v-main#main
       .center.main-content
         router-view
-        common-cookie-get-permission
+      common-bar(v-if="!userStore.userId" title="ログインして、もっと便利に" subTitle="NuxTempにログインし、通知の挙動をチェックしてみよう" :buttons="commonBarButtons")
       footer.pa-16#footer
         common-footer
   .right-space(style="min-height: 100vh")
@@ -18,10 +18,10 @@ import PackageJson from '/package.json'
 import Functions from '~/js/Functions'
 import commonHeader from '~/components/common/commonHeader'
 import commonFooter from '~/components/common/commonFooter'
-import commonCookieGetPermission from '~/components/common/commonCookieGetPermission'
 import mixins from '~/mixins/mixins'
 import webpush from '~/js/webpush'
 import splash from '~/components/common/commonSplash'
+import commonBar from '~/components/common/commonBar.vue'
 
 export default {
   /**
@@ -34,8 +34,8 @@ export default {
   components: {
     commonHeader: commonHeader,
     commonFooter: commonFooter,
-    commonCookieGetPermission: commonCookieGetPermission,
     splash: splash,
+    commonBar: commonBar,
   },
   mixins: [mixins],
   /**
@@ -48,6 +48,16 @@ export default {
     return {
       splash: true,
       style: 'opacity: 0;',
+      commonBarButtons: [
+        {
+          title: 'ログイン',
+          href: '/login',
+        },
+        {
+          title: 'アカウント作成',
+          href: '/registar',
+        },
+      ],
     }
   },
   /**

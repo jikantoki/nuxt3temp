@@ -8,6 +8,7 @@ import adsense from '~/components/common/commonAdsense'
 import ajaxFunctions from '~/js/ajaxFunctions'
 import PackageJson from '/package.json'
 import Functions from '~/js/Functions'
+import { useCommonBarStore } from '~/composables/commonBar'
 
 export default {
   components: {
@@ -23,6 +24,7 @@ export default {
       metaStore: useMetaStore(),
       userStore: useUserStore(),
       localeStore: useLocaleStore(),
+      commonBarStore: useCommonBarStore(),
     }
   },
   computed: {
