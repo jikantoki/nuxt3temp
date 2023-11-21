@@ -34,7 +34,7 @@
         ref="maillAddress"
         @keydown.enter="requestToken()"
         )
-      a.forgot-password(href="/login") パスワードを思い出した
+      a.forgot-password(v-if="page === 0" href="/login") パスワードを思い出した
       v-text-field(
         v-if="page === 1"
         v-model="token"
