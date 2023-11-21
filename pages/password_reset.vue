@@ -38,8 +38,6 @@
       v-text-field(
         v-if="page === 1"
         v-model="token"
-        type="phone"
-        placeholder="XXX-XXX"
         label="アクセストークン"
         prepend-inner-icon="mdi-key-outline"
         required
@@ -119,17 +117,18 @@ export default {
     /** ログイン前の二段階認証をリクエスト */
     async requestToken() {
       this.loading = true
-      this.sendAjaxWithAuth('/requestToken.php', {
+      this.sendAjaxWithAuth('/requestTokenForgotAccount.php', {
         id: this.userName,
-        password: this.password,
+        mailAddress: this.mailAddress,
       })
         .then((e) => {
+          console.log(e)
           if (e.body.status === 'ok') {
             this.page = 1
             this.errorMessage = null
             this.pageTitle = 'メールに送信したトークンを入力'
           } else {
-            this.errorMessage = 'ユーザー名またはパスワードが間違っています'
+            this.errorMessage = 'ユーザー名またはメールアドレスが間違っています'
           }
           this.loading = false
         })
@@ -141,7 +140,6 @@ export default {
     },
     async login() {
       this.loadingToken = true
-      this.token = this.token.replace('-', '')
       this.sendAjaxWithAuth('/loginAccount.php', {
         id: this.userName,
         password: this.password,

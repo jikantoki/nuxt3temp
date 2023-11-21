@@ -17,14 +17,6 @@ if (
 }
 
 $id = $_SERVER['HTTP_ID'];
-if (!$secretId) {
-  echo json_encode([
-    'status' => 'error',
-    'reason' => 'unknown account',
-    'errCode' => 20
-  ]);
-  exit;
-}
 $mailAddress = $_SERVER['HTTP_MAILADDRESS'];
 $otp = requestOnetimeTokenForgotPassword($id, $mailAddress);
 if ($otp) {
