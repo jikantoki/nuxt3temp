@@ -24,6 +24,7 @@ function randomString($length)
   }
   return $text;
 }
+
 /**
  * ランダムなOTPを生成
  *
@@ -589,6 +590,42 @@ function requestOnetimeToken($id, $password)
     return false;
   }
   $otp = randomOTP();
+  SQLupdate('user_secret_list', 'otp', $otp, 'secretId', $secretId);
+  return $otp;
+}
+
+/**
+ * パスワードリセット用のワンタイムトークンを発行する
+ *
+ * @param string $id ユーザーID
+ * @param string $mailAddress メアド
+ * @return void OTPまたは失敗したらfalse
+ */
+function requestOnetimeTokenForgotPassword($id, $mailAddress)
+{
+  if (!$id) {
+    return false;
+  }
+  $secretId = idToSecretId($id);
+  if (!$secretId) {
+    return false;
+  }
+  $user = SQLfindSome('user_mail_list', [
+    [
+      'key' => 'secretId',
+      'value' => $secretId,
+      'func' => '='
+    ],
+    [
+      'key' => 'mailAddress',
+      'value' => $mailAddress,
+      'func' => '='
+    ]
+  ]);
+  if (!$user) {
+    return false;
+  }
+  $otp = randomString(64);
   SQLupdate('user_secret_list', 'otp', $otp, 'secretId', $secretId);
   return $otp;
 }

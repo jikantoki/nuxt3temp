@@ -19,21 +19,22 @@
         required
         clearable
         ref="userName"
-        @keydown.enter="$refs.password.focus()"
+        @keydown.enter="$refs.mailAddress.focus()"
         )
       v-text-field(
         v-if="page === 0"
-        v-model="password"
-        label="Password"
-        prepend-inner-icon="mdi-lock-outline"
-        :type="showPassword ? 'text' : 'password'"
-        :append-inner-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-        @click:append-inner="showPassword = !showPassword"
+        v-model="mailAddress"
+        label="Mailaddress"
+        placeholder="mail@example.com"
+        :rules="rules"
+        prepend-inner-icon="mdi-email-outline"
+        type="email"
+        clearable
         required
-        ref="password"
+        ref="maillAddress"
         @keydown.enter="requestToken()"
         )
-      a.forgot-password(href="/password_reset") パスワードを忘れました
+      a.forgot-password(href="/login") パスワードを思い出した
       v-text-field(
         v-if="page === 1"
         v-model="token"
@@ -49,15 +50,10 @@
         v-btn.round.submit(
           v-if="page === 0"
           @click="requestToken()"
-          :disabled="!userName || !password"
+          :disabled="!userName || !mailAddress"
           :loading="loading"
           ref="submit"
           ) Login
-        v-btn.round(
-          v-if="page === 0"
-          @click="a('/registar')"
-          v-show="!loading"
-          ) Registar Account
         v-btn.round.submit(
           v-if="page === 1"
           @click="login()"
@@ -76,23 +72,24 @@ export default {
   mixins: [mixins],
   setup() {
     //サーバーサイドで仮のタイトルを設定、mountedで言語ごとに再設定する
-    Setup.setTitle('Login')
-    Setup.setDescription('ログインして、世界とつながろう')
+    Setup.setTitle('Reset password')
+    Setup.setDescription('パスワードをリセットする')
   },
   data() {
     return {
       /** 将来的にv-dialogとかでフォームを埋め込む用 */
       isShow: true,
       userName: '',
-      password: '',
+      mailAddress: '',
       token: '',
-      showPassword: false,
       loading: false,
       loadingToken: false,
       errorMessage: null,
       page: 0,
-      pageTitle: 'ログインして、世界とつながろう',
+      pageTitle: 'パスワードをリセットする（まだできない）',
       userStore: useUserStore(),
+      /** メアド検証用 */
+      mailRules: [(v) => !!v || '', (v) => /.+@.+\..+/.test(v) || ''],
     }
   },
   watch: {
@@ -104,7 +101,7 @@ export default {
     },
   },
   mounted() {
-    this.setTitle('ログイン')
+    this.setTitle('パスワードをリセット')
     this.commonBarStore.hidden = true
     if (localStorage.userIdForLogin) {
       this.userName = localStorage.userIdForLogin
