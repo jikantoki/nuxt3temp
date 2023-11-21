@@ -33,7 +33,7 @@
         ref="password"
         @keydown.enter="requestToken()"
         )
-      a.forgot-password(href="/password_reset") パスワードを忘れました
+      a.forgot-password(v-if="page === 0" href="/password_reset") パスワードを忘れました
       v-text-field(
         v-if="page === 1"
         v-model="token"

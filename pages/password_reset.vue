@@ -90,14 +90,6 @@ export default {
       mailRules: [(v) => !!v || '', (v) => /.+@.+\..+/.test(v) || ''],
     }
   },
-  watch: {
-    token(now) {
-      const replaced = now.toString().replace('-', '')
-      if (replaced.length >= 6) {
-        this.login()
-      }
-    },
-  },
   mounted() {
     this.setTitle('パスワードをリセット')
     this.commonBarStore.hidden = true
@@ -140,9 +132,9 @@ export default {
     },
     async login() {
       this.loadingToken = true
-      this.sendAjaxWithAuth('/loginAccount.php', {
+      this.sendAjaxWithAuth('/loginAccountForgotAccount.php', {
         id: this.userName,
-        password: this.password,
+        mailAddress: this.mailAddress,
         token: this.token,
       })
         .then(async (e) => {
