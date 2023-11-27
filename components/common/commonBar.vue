@@ -6,8 +6,8 @@
       v-card-title.bar-title.pa-4 {{ title }}
       v-card-text.bar-sub-title.pa-1(v-if="subTitle") {{ subTitle }}
       v-card-actions.bar-actions
-        a.bar-button.px-4.py-1.ma-4(v-for="button, key of buttons" :key="key" :href="button.href")
-          .v-ripple(v-ripple) {{ button.title }}
+        a.bar-button.ma-4(v-for="button, key of buttons" :key="key" :href="button.href")
+          .v-ripple.button-text.px-4.py-1(v-ripple) {{ button.title }}
 </template>
 
 <script>
@@ -95,5 +95,8 @@ $breakpoints: (
   z-index: 9;
   background-color: red;
   color: white;
+}
+.button-text {
+  overflow: hidden;
 }
 </style>

@@ -550,23 +550,60 @@ function createUserToken($id, $password, $otp)
   if (!$user) {
     return false;
   }
+}
 
-  if (!password_verify($password, $user['password'])) {
-    //パスワードちゃうねん
+/**
+ * パスワードを新しくする（ログインできない人用）
+ *
+ * @param string $id ユーザーID
+ * @param string $mailAddress メアド
+ * @param string $otp ワンタイムトークン
+ * @param string $newPassword 新規パスワード
+ * @return bool
+ */
+function authTokenForResetPassword($id, $mailAddress, $otp, $newPassword)
+{
+  if (!$id || !$otp) {
     return false;
   }
-  /** 未使用なランダムID */
-  $tokenId = SQLmakeRandomId('user_accesstoken_list', 'tokenId');
-  //パスワードハッシュが72文字までしか対応していないため、64文字にしておく
-  $token = randomString(64);
-  $hashedToken = password_hash($token, PASSWORD_DEFAULT);
-  SQLinsert('user_accesstoken_list', [
-    'tokenId' => $tokenId,
-    'secretId' => $secretId,
-    'token' => $hashedToken,
-    'createdAt' => time()
+  $secretId = idToSecretId($id);
+  if (!$secretId) {
+    return false;
+  }
+  $user = SQLfindSome('user_secret_list', [
+    [
+      'key' => 'secretId',
+      'value' => $secretId,
+      'func' => '='
+    ],
+    [
+      'key' => 'otp',
+      'value' => $otp,
+      'func' => '='
+    ]
   ]);
-  return $token;
+  if (!$user) {
+    return false;
+  }
+  $user = SQLfindSome('user_mail_list', [
+    [
+      'key' => 'secretId',
+      'value' => $secretId,
+      'func' => '='
+    ],
+    [
+      'key' => 'mailAddress',
+      'value' => $mailAddress,
+      'func' => '='
+    ]
+  ]);
+  if (!$user) {
+    return false;
+  }
+  $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+  SQLupdate('user_secret_list', 'password', $hashedPassword, 'secretId', $secretId);
+
+  return true;
 }
 
 /**
