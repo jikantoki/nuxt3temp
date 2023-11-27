@@ -185,11 +185,13 @@ export default {
           this.$vuetify.theme.global.name = 'light'
           MetaFunctions.setStatusColor('#FFFFFF')
           this.isDarkTheme = false
+          this.nowTheme.setTheme('light')
           break
         case 'dark':
           this.$vuetify.theme.global.name = 'dark'
           MetaFunctions.setStatusColor('#222222')
           this.isDarkTheme = true
+          this.nowTheme.setTheme('dark')
           break
       }
     } else {
@@ -198,10 +200,12 @@ export default {
         this.$vuetify.theme.global.name = 'dark'
         MetaFunctions.setStatusColor('#222222')
         this.isDarkTheme = true
+        this.nowTheme.setTheme('dark')
       } else {
         this.$vuetify.theme.global.name = 'light'
         MetaFunctions.setStatusColor('#FFFFFF')
         this.isDarkTheme = false
+        this.nowTheme.setTheme('light')
       }
     }
 

@@ -358,6 +358,17 @@ body {
   }
   .flex {
     display: flex;
+    @include mq('smartPhone') {
+      flex-direction: column;
+    }
+  }
+  .flex-child {
+    flex: 1;
+    overflow: hidden;
+    padding: 8px;
+    @include mq('smartPhone') {
+      padding: 0;
+    }
   }
 }
 .btn-default {

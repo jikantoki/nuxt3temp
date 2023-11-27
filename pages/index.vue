@@ -215,10 +215,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss" scoped>
-.flex-child {
-  width: 50%;
-  overflow: hidden;
-}
-</style>

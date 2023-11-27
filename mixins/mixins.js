@@ -10,6 +10,7 @@ import PackageJson from '/package.json'
 import Functions from '~/js/Functions'
 import ContentLoader from '~/components/LoadingText'
 import { useCommonBarStore } from '~/composables/commonBar'
+import { useThemeStore } from '~/composables/theme'
 
 export default {
   components: {
@@ -27,6 +28,7 @@ export default {
       userStore: useUserStore(),
       localeStore: useLocaleStore(),
       commonBarStore: useCommonBarStore(),
+      nowTheme: useThemeStore(),
     }
   },
   computed: {
