@@ -62,14 +62,14 @@
           p.text-h6 H6テキスト
           p.text-h7 H7テキスト
         .flex-child
-          ContentLoader.text-h0.loading-text(width="10em")
-          ContentLoader.text-h1.loading-text(width="10em")
-          ContentLoader.text-h2.loading-text(width="10em")
-          ContentLoader.text-h3.loading-text(width="10em")
-          ContentLoader.text-h4.loading-text(width="10em")
-          ContentLoader.text-h5.loading-text(width="10em")
-          ContentLoader.text-h6.loading-text(width="10em")
-          ContentLoader.text-h7.loading-text(width="10em")
+          ContentLoader.text-h0
+          ContentLoader.text-h1
+          ContentLoader.text-h2
+          ContentLoader.text-h3
+          ContentLoader.text-h4
+          ContentLoader.text-h5
+          ContentLoader.text-h6
+          ContentLoader.text-h7
 </template>
 
 <script>

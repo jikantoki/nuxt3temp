@@ -364,9 +364,4 @@ body {
   background-color: var(--accent-color);
   color: white;
 }
-.loading-text {
-  border-radius: 0.3em;
-  max-width: 100%;
-  display: block;
-}
 </style>

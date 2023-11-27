@@ -8,13 +8,13 @@ import adsense from '~/components/common/commonAdsense'
 import ajaxFunctions from '~/js/ajaxFunctions'
 import PackageJson from '/package.json'
 import Functions from '~/js/Functions'
+import ContentLoader from '~/components/LoadingText'
 import { useCommonBarStore } from '~/composables/commonBar'
-import { ContentLoader } from 'vue-content-loader'
 
 export default {
   components: {
     adsense: adsense,
-    ContentLoader,
+    ContentLoader: ContentLoader,
   },
   data() {
     return {
