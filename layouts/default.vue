@@ -173,29 +173,49 @@ body {
   }
   .text-h0 {
     font-size: 4em !important;
+    height: 5.8rem;
+    line-height: 5.8rem;
   }
   .text-h1 {
     font-size: 3em !important;
+    line-height: 4rem;
+    height: 4rem;
   }
   .text-h2 {
     font-size: 2.8em !important;
+    line-height: 3.75rem;
+    height: 3.75rem;
   }
   .text-h3 {
     font-size: 2.4em !important;
+    line-height: 3.125rem;
+    height: 3.125rem !important;
   }
   .text-h4 {
     font-size: 2.2em !important;
+    line-height: 2.5rem;
+    height: 2.5rem;
   }
   .text-h5 {
     font-size: 2em !important;
+    line-height: 2rem;
+    height: 2rem;
   }
   .text-h6,
   .text {
     font-size: 1.5em !important;
+    line-height: 2rem;
+  }
+  .text-h6 {
+    height: 2rem;
   }
   .text-h7,
   .text-small {
     font-size: 1em !important;
+    line-height: 1.45rem;
+  }
+  .text-h7 {
+    height: 1.45rem;
   }
   .text-h0,
   .text-h1,
@@ -336,9 +356,17 @@ body {
   .absolute {
     position: absolute;
   }
+  .flex {
+    display: flex;
+  }
 }
 .btn-default {
   background-color: var(--accent-color);
   color: white;
+}
+.loading-text {
+  border-radius: 0.3em;
+  max-width: 100%;
+  display: block;
 }
 </style>

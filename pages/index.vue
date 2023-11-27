@@ -49,9 +49,27 @@
         p.text-h1 テキストを入力
   .wrap
     v-card.content(elevation="4")
-      .text-h2 マークダウンぽいやつもお手の物
+      .text-h2 いい感じの読み込み画面
       hr
-      p ノーマルテキスト
+      .flex
+        .flex-child
+          p.text-h0 H0テキスト
+          p.text-h1 H1テキスト
+          p.text-h2 H2テキスト
+          p.text-h3 H3テキスト
+          p.text-h4 H4テキスト
+          p.text-h5 H5テキスト
+          p.text-h6 H6テキスト
+          p.text-h7 H7テキスト
+        .flex-child
+          ContentLoader.text-h0.loading-text(width="10em")
+          ContentLoader.text-h1.loading-text(width="10em")
+          ContentLoader.text-h2.loading-text(width="10em")
+          ContentLoader.text-h3.loading-text(width="10em")
+          ContentLoader.text-h4.loading-text(width="10em")
+          ContentLoader.text-h5.loading-text(width="10em")
+          ContentLoader.text-h6.loading-text(width="10em")
+          ContentLoader.text-h7.loading-text(width="10em")
 </template>
 
 <script>
@@ -198,5 +216,9 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
-~/js/setup
+<style lang="scss" scoped>
+.flex-child {
+  width: 50%;
+  overflow: hidden;
+}
+</style>

@@ -9,10 +9,12 @@ import ajaxFunctions from '~/js/ajaxFunctions'
 import PackageJson from '/package.json'
 import Functions from '~/js/Functions'
 import { useCommonBarStore } from '~/composables/commonBar'
+import { ContentLoader } from 'vue-content-loader'
 
 export default {
   components: {
     adsense: adsense,
+    ContentLoader,
   },
   data() {
     return {
