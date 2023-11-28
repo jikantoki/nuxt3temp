@@ -1,8 +1,8 @@
 <template lang="pug">
 ContentLoader.loading-text(
   :width="width"
-  :primaryColor="primaryColor"
-  :secondaryColor="secondaryColor"
+  primaryColor="#777777"
+  secondaryColor="#bbbbbb"
   primaryOpacity=0.3
   secondaryOpacity=0.4
   speed=1.7
@@ -12,12 +12,6 @@ ContentLoader.loading-text(
 <script>
 import { ContentLoader } from 'vue-content-loader'
 export default {
-  data() {
-    return {
-      primaryColor: '#777777',
-      secondaryColor: '#bbbbbb',
-    }
-  },
   props: {
     width: {
       type: String,

@@ -41,6 +41,6 @@ if ($res) {
     'status' => 'ng',
     'reason' => 'Unknown user',
     'id' => $id,
-    'errCode' => 20
+    'errCode' => 30
   ]);
 }
