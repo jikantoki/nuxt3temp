@@ -42,6 +42,32 @@
         prepend-inner-icon="mdi-key-outline"
         required
         clearable
+        @keydown.enter="$refs.newPassword.focus()"
+        )
+      v-text-field(
+        v-if="page === 1"
+        v-model="newPassword"
+        label="新しいパスワード"
+        prepend-inner-icon="mdi-lock-outline"
+        required
+        clearable
+        ref="newPassword"
+        :type="showPassword ? 'text' : 'password'"
+        :append-inner-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+        @click:append-inner="showPassword = !showPassword"
+        @keydown.enter="$refs.newRePassword.focus()"
+        )
+      v-text-field(
+        v-if="page === 1"
+        v-model="newRePassword"
+        label="新しいパスワード（確認）"
+        prepend-inner-icon="mdi-lock-outline"
+        required
+        clearable
+        ref="newRePassword"
+        :type="showRePassword ? 'text' : 'password'"
+        :append-inner-icon="showRePassword ? 'mdi-eye' : 'mdi-eye-off'"
+        @click:append-inner="showRePassword = !showRePassword"
         @keydown.enter="login()"
         )
       .btns
@@ -83,6 +109,10 @@ export default {
       loading: false,
       loadingToken: false,
       errorMessage: null,
+      newPassword: null,
+      newRePassword: null,
+      showPassword: false,
+      showRePassword: false,
       page: 0,
       pageTitle: 'パスワードをリセットする（まだできない）',
       userStore: useUserStore(),
@@ -118,7 +148,7 @@ export default {
           if (e.body.status === 'ok') {
             this.page = 1
             this.errorMessage = null
-            this.pageTitle = 'メールに送信したトークンを入力'
+            this.pageTitle = 'メールに送信したトークンと新規パスワードを入力'
           } else {
             this.errorMessage = 'ユーザー名またはメールアドレスが間違っています'
           }
@@ -136,33 +166,14 @@ export default {
         id: this.userName,
         mailAddress: this.mailAddress,
         token: this.token,
+        newPassword: this.newPassword,
       })
         .then(async (e) => {
           if (e.body.status === 'ok') {
-            const now = new URL(window.location.href)
-            this.userStore.setId(e.body.id)
-            this.userStore.setToken(e.body.token)
-            const profile = await this.getProfile(e.body.id)
-            this.userStore.setProfile(profile)
-            //ログイン中のユーザーの情報で、プッシュ通知に関する情報をDB登録
-            const push = await webpush.get()
-            if (push) {
-              await this.sendAjaxWithAuth('/insertPushToken.php', {
-                id: this.userStore.userId,
-                token: this.userStore.userToken,
-                endPoint: push.endpoint,
-                publicKey: push.publicKey,
-                pushToken: push.authToken,
-              })
-            }
-            const redirect = now.searchParams.get('redirect')
-            if (redirect && redirect !== '') {
-              this.a(redirect)
-            } else {
-              this.a('/')
-            }
+            console.log('password reseted!')
           } else {
-            this.errorMessage = 'ワンタイムトークンが違います'
+            this.errorMessage =
+              'ワンタイムトークンが違うか、無効なパスワードです'
             this.token = ''
           }
           this.loadingToken = false
