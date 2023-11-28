@@ -22,7 +22,7 @@ $fromId = $_SERVER['HTTP_ID'];
 $fromProfile = getProfile($fromId);
 /** 送信元のアイコン */
 $fromIcon = $fromProfile['icon'];
-if ($fromIcon && $fromIcon !== '') {
+if ($fromIcon || $fromIcon !== '') {
   $icon = $fromIcon;
 } else {
   $icon = Default_user_icon;
