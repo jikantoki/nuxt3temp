@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- ホスト: localhost
--- 生成日時: 2023 年 11 月 17 日 16:51
+-- 生成日時: 2023 年 11 月 28 日 02:16
 -- サーバのバージョン： 5.7.25-log
 -- PHP のバージョン: 7.4.33
 
@@ -81,7 +81,7 @@ CREATE TABLE `push_token_list` (
 --
 
 CREATE TABLE `user_accesstoken_list` (
-  `tokenId` varchar(32) NOT NULL COMMENT 'トークン管理用ID',
+  `tokenId` varchar(64) NOT NULL COMMENT 'トークン管理用ID',
   `secretId` varchar(64) NOT NULL COMMENT '内部処理用ID',
   `token` text NOT NULL COMMENT 'アクセストークン',
   `createdAt` int(11) NOT NULL COMMENT 'トークン発行時間unixtime',
