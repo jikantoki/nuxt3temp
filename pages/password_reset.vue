@@ -162,7 +162,11 @@ export default {
     },
     async login() {
       this.loadingToken = true
-      this.sendAjaxWithAuth('/loginAccountForgotAccount.php', {
+      if (this.newPassword !== this.newRePassword) {
+        this.errorMessage = 'パスワードが一致しません'
+        return false
+      }
+      this.sendAjaxWithAuth('/resetPassword.php', {
         id: this.userName,
         mailAddress: this.mailAddress,
         token: this.token,
@@ -170,11 +174,9 @@ export default {
       })
         .then(async (e) => {
           if (e.body.status === 'ok') {
-            console.log('password reseted!')
           } else {
             this.errorMessage =
               'ワンタイムトークンが違うか、無効なパスワードです'
-            this.token = ''
           }
           this.loadingToken = false
         })
