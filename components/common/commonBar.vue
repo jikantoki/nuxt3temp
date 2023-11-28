@@ -6,7 +6,7 @@
       v-card-title.bar-title.pa-4 {{ title }}
       v-card-text.bar-sub-title.pa-1(v-if="subTitle") {{ subTitle }}
       v-card-actions.bar-actions
-        //アクションは、hrefに飛ぶかdoを実行するか選べる
+        //アクションは、hrefに飛ぶかdoを実行するかreturnの内容を$emitするか選べる
         a.bar-button.ma-4(
           v-for="button, key of buttons"
           :key="key"
