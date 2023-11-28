@@ -553,7 +553,16 @@ function createUserToken($id, $password, $otp)
   if (!password_verify($password, $user['password'])) {
     return false;
   }
-  return true;
+  $token = randomString(64);
+  $hashedToken = password_hash($token, PASSWORD_DEFAULT);
+  SQLinsert('user_accesstoken_list', [
+    'tokenId' => randomString(48) . time(),
+    'token' => $hashedToken,
+    'secretId' => $secretId,
+    'createdAt' => time()
+  ]);
+
+  return $token;
 }
 
 /**
