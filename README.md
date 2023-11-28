@@ -22,6 +22,7 @@ Node.jsとnpmとyarnくらい入ってるよね！（投げやり）
 - PugとSASS
 - PWA Preset
 - Google Fonts
+- Vue Content Loader
 
 ## 独自実装
 
