@@ -8,7 +8,6 @@
       hr
       .text-h6 {{ $t('index.nuxtSampleProject') }}
       .btns
-        v-btn(@click="getRequest()") {{ $t('index.buttons.allowNotification') }}
         v-btn(@click="pushForMe()") {{ $t('index.buttons.notificationTest') }}
         //v-btn.is-not-pwa(@click="download('/download/nuxTemp.apk','vuetifyTemplate.apk')") Download APK
         v-btn(@click="a('https://github.com/jikantoki/nuxt3temp')") Github
@@ -18,7 +17,7 @@
           :label="$t('index.hints.whatDoYouWantToSend')"
           v-model="notificationText"
           )
-      .hgewao {{ $t('page.content') }}
+      .lang {{ $t('page.content') }}
   v-dialog(v-model="dialog" max-width="500")
     v-card
       v-card-title {{ dialogTitle }}
@@ -99,57 +98,10 @@ export default {
       counter: useCounterStore(),
     }
   },
-  mounted() {
+  async mounted() {
     this.setTitle(this.$t('index.title'))
   },
   methods: {
-    getRequest() {
-      webpush
-        .get(true)
-        .then((e) => {
-          if (e) {
-            this.dialogTitle = 'ありがとうございます！'
-            this.dialogText = 'プッシュ通知の許可に成功しました。'
-            this.dialogActions = [
-              {
-                value: '閉じる',
-                action: () => {
-                  this.dialog = false
-                },
-              },
-            ]
-            this.dialog = true
-          } else {
-            if (e === undefined) {
-              this.dialogTitle = 'リクエスト失敗'
-              this.dialogText =
-                'ブラウザによって通知へのリクエストが拒否されています。'
-              this.dialog = true
-              this.dialogActions = [
-                {
-                  value: '閉じる',
-                  action: () => {
-                    this.dialog = false
-                  },
-                },
-              ]
-            } else {
-              this.dialogTitle = 'リクエスト失敗'
-              this.dialogText = `プッシュ通知の許可は、ブラウザから行う必要があります。\nこの端末で <span class="allow-select-all underline">https://${location.host}</span> にアクセスしてください。`
-              this.dialog = true
-              this.dialogActions = [
-                {
-                  value: '閉じる',
-                  action: () => {
-                    this.dialog = false
-                  },
-                },
-              ]
-            }
-          }
-        })
-        .catch(() => {})
-    },
     async pushForMe() {
       const keys = await webpush.get()
       if (!keys) {

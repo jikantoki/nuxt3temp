@@ -122,7 +122,6 @@ import Functions from '~/js/Functions'
 import MetaFunctions from '~/js/metaFunctions'
 import NavigationList from '~/items/itemNavigationList'
 import infoList from '~/items/itemInfoList'
-//import router, { currentMeta } from '~/router/router'
 import mixins from '~/mixins/mixins'
 import webpush from '~/js/webpush'
 export default {

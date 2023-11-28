@@ -6,7 +6,13 @@
       v-card-title.bar-title.pa-4 {{ title }}
       v-card-text.bar-sub-title.pa-1(v-if="subTitle") {{ subTitle }}
       v-card-actions.bar-actions
-        a.bar-button.ma-4(v-for="button, key of buttons" :key="key" :href="button.href")
+        //アクションは、hrefに飛ぶかdoを実行するか選べる
+        a.bar-button.ma-4(
+          v-for="button, key of buttons"
+          :key="key"
+          :href="button.href"
+          @click="$emit('clicked',button.return)"
+          )
           .v-ripple.button-text.px-4.py-1(v-ripple) {{ button.title }}
 </template>
 
@@ -29,6 +35,7 @@ export default {
       default: [],
     },
   },
+  emits: ['clicked'],
   mixins: [mixins],
 }
 </script>
