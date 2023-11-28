@@ -540,14 +540,12 @@ function createUserToken($id, $password, $otp)
       'key' => 'secretId',
       'value' => $secretId,
       'func' => '='
-    ],
-    [
-      'key' => 'otp',
-      'value' => $otp,
-      'func' => '='
     ]
   ]);
   if (!$user) {
+    return false;
+  }
+  if (!password_verify($otp, $user['otp'])) {
     return false;
   }
   if (!password_verify($password, $user['password'])) {
@@ -588,14 +586,12 @@ function authTokenForResetPassword($id, $mailAddress, $otp, $newPassword)
       'key' => 'secretId',
       'value' => $secretId,
       'func' => '='
-    ],
-    [
-      'key' => 'otp',
-      'value' => $otp,
-      'func' => '='
     ]
   ]);
   if (!$user) {
+    return false;
+  }
+  if (!password_verify($otp, $user['otp'])) {
     return false;
   }
   $user = SQLfindSome('user_mail_list', [
@@ -640,7 +636,8 @@ function requestOnetimeToken($id, $password)
     return false;
   }
   $otp = randomOTP();
-  SQLupdate('user_secret_list', 'otp', $otp, 'secretId', $secretId);
+  $hashedOTP = password_hash($otp, PASSWORD_DEFAULT);
+  SQLupdate('user_secret_list', 'otp', $hashedOTP, 'secretId', $secretId);
   return $otp;
 }
 
@@ -676,7 +673,8 @@ function requestOnetimeTokenForgotPassword($id, $mailAddress)
     return false;
   }
   $otp = randomString(64);
-  SQLupdate('user_secret_list', 'otp', $otp, 'secretId', $secretId);
+  $hashedOTP = password_hash($otp, PASSWORD_DEFAULT);
+  SQLupdate('user_secret_list', 'otp', $hashedOTP, 'secretId', $secretId);
   return $otp;
 }
 
