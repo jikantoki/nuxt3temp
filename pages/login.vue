@@ -151,6 +151,7 @@ export default {
         token: this.token,
       })
         .then(async (e) => {
+          console.log(e)
           if (e.body.status === 'ok') {
             const now = new URL(window.location.href)
             this.userStore.setId(e.body.id)

@@ -528,7 +528,7 @@ function makeAccount($userId, $password, $mailAddress)
  */
 function createUserToken($id, $password, $otp)
 {
-  if (!$id || !$otp) {
+  if (!$id || !$password || !$otp) {
     return false;
   }
   $secretId = idToSecretId($id);
@@ -550,6 +550,10 @@ function createUserToken($id, $password, $otp)
   if (!$user) {
     return false;
   }
+  if (!password_verify($password, $user['password'])) {
+    return false;
+  }
+  return true;
 }
 
 /**

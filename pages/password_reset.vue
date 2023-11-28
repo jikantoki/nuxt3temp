@@ -77,14 +77,19 @@
           :disabled="!userName || !mailAddress"
           :loading="loading"
           ref="submit"
-          ) Login
+          ) リクエストを送信
         v-btn.round.submit(
           v-if="page === 1"
           @click="login()"
           :disabled="!token"
           :loading="loadingToken"
           ref="submitToken"
-          ) Login
+          ) パスワードをリセット
+        v-btn.round.submit(
+          v-if="page === 2"
+          @click="a('/login')"
+          ref="jumpToLogin"
+          ) ログイン
 </template>
 
 <script>
@@ -114,7 +119,7 @@ export default {
       showPassword: false,
       showRePassword: false,
       page: 0,
-      pageTitle: 'パスワードをリセットする（まだできない）',
+      pageTitle: 'パスワードをリセットする',
       userStore: useUserStore(),
       /** メアド検証用 */
       mailRules: [(v) => !!v || '', (v) => /.+@.+\..+/.test(v) || ''],
@@ -174,6 +179,8 @@ export default {
       })
         .then(async (e) => {
           if (e.body.status === 'ok') {
+            this.pageTitle = 'パスワードをリセットしました！'
+            this.page = 2
           } else {
             this.errorMessage =
               'ワンタイムトークンが違うか、無効なパスワードです'
