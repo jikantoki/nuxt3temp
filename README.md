@@ -105,8 +105,8 @@ define('DIRECTORY_NAME', '/プロジェクトルートのディレクトリ名')
 
 define('VUE_APP_WebPush_PublicKey', 'パブリックキー');
 define('VUE_APP_WebPush_PrivateKey', 'プライベートキー');
-define('WebPush_URL', 'プッシュしたいURL');
-define('WebPush_URL_dev', 'プッシュしたいURL（開発用）');//この行は無くても良い
+define('WebPush_URL', 'プッシュ通知を使うドメイン');
+define('WebPush_URL_dev', 'プッシュ通知を使うドメイン（開発用）');//この行は無くても良い
 define('WebPush_icon', 'プッシュ通知がスマホに届いたときに表示するアイコンURL');
 define('Default_user_icon', 'アイコン未設定アカウント用の初期アイコンURL');
 
