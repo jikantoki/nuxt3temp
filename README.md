@@ -60,7 +60,7 @@ WebPush https://tech.excite.co.jp/entry/2021/06/30/104213
 ### 表示用サーバー
 
 ```shell
-git clone git@github.com:jikantoki/vuetifyTemplate.git
+git clone git@github.com:jikantoki/nuxt3temp.git
 echo 'これだけでセットアップ完了！'
 echo 'Vercelとかでデプロイしたらそのまま動く'
 ```
