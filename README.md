@@ -149,6 +149,10 @@ Header append Access-Control-Allow-Origin: "*"
 
 PHPMyAdminが使える環境ならDB直下にインポートして終わり、コマンドラインでやる方法は知らん
 
+#### ※インポートでエラーが出たら
+
+/database_VIEW.sql の中身をコピーしてphpmyadminで直接実行
+
 ### デフォルトAPIのトークンを用意する
 
 このプログラムは独自のアクセストークンを利用してAPIにアクセスします。  

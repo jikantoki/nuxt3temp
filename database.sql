@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- ホスト: localhost
--- 生成日時: 2023 年 11 月 28 日 02:16
+-- 生成日時: 2024 年 9 月 30 日 04:50
 -- サーバのバージョン： 5.7.25-log
 -- PHP のバージョン: 7.4.33
 
@@ -27,6 +27,7 @@ SET time_zone = "+00:00";
 -- テーブルの構造 `api_list`
 --
 
+DROP TABLE IF EXISTS `api_list`;
 CREATE TABLE `api_list` (
   `secretId` varchar(64) NOT NULL COMMENT 'APIの内部処理用ID',
   `apiId` text NOT NULL COMMENT '実際に使われるID',
@@ -40,6 +41,7 @@ CREATE TABLE `api_list` (
 -- テーブルの構造 `api_listForView`
 --
 
+DROP TABLE IF EXISTS `api_listForView`;
 CREATE TABLE `api_listForView` (
   `secretId` varchar(64) NOT NULL COMMENT '内部処理用ID',
   `apiName` text NOT NULL COMMENT 'APIの名前',
@@ -53,6 +55,7 @@ CREATE TABLE `api_listForView` (
 -- テーブルの構造 `mail_list`
 --
 
+DROP TABLE IF EXISTS `mail_list`;
 CREATE TABLE `mail_list` (
   `secretId` varchar(64) NOT NULL COMMENT '内部処理用ID',
   `mailAddress` text NOT NULL COMMENT 'メアド',
@@ -65,6 +68,7 @@ CREATE TABLE `mail_list` (
 -- テーブルの構造 `push_token_list`
 --
 
+DROP TABLE IF EXISTS `push_token_list`;
 CREATE TABLE `push_token_list` (
   `pushId` varchar(64) NOT NULL COMMENT 'プッシュ通知管理用ユニークID',
   `secretId` varchar(64) DEFAULT NULL COMMENT 'ユーザー特定用ID',
@@ -80,6 +84,7 @@ CREATE TABLE `push_token_list` (
 -- テーブルの構造 `user_accesstoken_list`
 --
 
+DROP TABLE IF EXISTS `user_accesstoken_list`;
 CREATE TABLE `user_accesstoken_list` (
   `tokenId` varchar(64) NOT NULL COMMENT 'トークン管理用ID',
   `secretId` varchar(64) NOT NULL COMMENT '内部処理用ID',
@@ -95,6 +100,7 @@ CREATE TABLE `user_accesstoken_list` (
 -- テーブルの構造 `user_list`
 --
 
+DROP TABLE IF EXISTS `user_list`;
 CREATE TABLE `user_list` (
   `secretId` varchar(64) NOT NULL COMMENT '内部処理用ID',
   `userId` varchar(64) NOT NULL COMMENT '表示用ID',
@@ -108,6 +114,7 @@ CREATE TABLE `user_list` (
 -- テーブルの構造 `user_mail_list`
 --
 
+DROP TABLE IF EXISTS `user_mail_list`;
 CREATE TABLE `user_mail_list` (
   `secretId` varchar(64) NOT NULL COMMENT '内部処理用ID',
   `mailAddress` text NOT NULL COMMENT 'メアド',
@@ -121,6 +128,7 @@ CREATE TABLE `user_mail_list` (
 -- ビュー用の代替構造 `USER_MAIL_VIEW`
 -- (実際のビューを参照するには下にあります)
 --
+DROP VIEW IF EXISTS `USER_MAIL_VIEW`;
 CREATE TABLE `USER_MAIL_VIEW` (
 `secretId` varchar(64)
 ,`userId` varchar(64)
@@ -137,6 +145,7 @@ CREATE TABLE `USER_MAIL_VIEW` (
 -- テーブルの構造 `user_profile_list`
 --
 
+DROP TABLE IF EXISTS `user_profile_list`;
 CREATE TABLE `user_profile_list` (
   `secretId` varchar(64) NOT NULL COMMENT '内部処理用ID',
   `icon` text COMMENT 'アイコンのURL',
@@ -151,6 +160,7 @@ CREATE TABLE `user_profile_list` (
 -- ビュー用の代替構造 `USER_PROFILE_VIEW`
 -- (実際のビューを参照するには下にあります)
 --
+DROP VIEW IF EXISTS `USER_PROFILE_VIEW`;
 CREATE TABLE `USER_PROFILE_VIEW` (
 `secretId` varchar(64)
 ,`userId` varchar(64)
@@ -168,6 +178,7 @@ CREATE TABLE `USER_PROFILE_VIEW` (
 -- テーブルの構造 `user_secret_list`
 --
 
+DROP TABLE IF EXISTS `user_secret_list`;
 CREATE TABLE `user_secret_list` (
   `secretId` varchar(64) NOT NULL COMMENT '内部処理用ID',
   `password` text NOT NULL COMMENT 'ハッシュされたパスワード',
@@ -180,6 +191,7 @@ CREATE TABLE `user_secret_list` (
 -- ビュー用の代替構造 `USER_TOKEN_VIEW`
 -- (実際のビューを参照するには下にあります)
 --
+DROP VIEW IF EXISTS `USER_TOKEN_VIEW`;
 CREATE TABLE `USER_TOKEN_VIEW` (
 `secretId` varchar(64)
 ,`userId` varchar(64)
@@ -196,6 +208,7 @@ CREATE TABLE `USER_TOKEN_VIEW` (
 --
 DROP TABLE IF EXISTS `USER_MAIL_VIEW`;
 
+DROP VIEW IF EXISTS `USER_MAIL_VIEW`;
 CREATE ALGORITHM=UNDEFINED DEFINER=`qr4el_vuetempadmin`@`localhost` SQL SECURITY DEFINER VIEW `USER_MAIL_VIEW`  AS SELECT `user_list`.`secretId` AS `secretId`, `user_list`.`userId` AS `userId`, `user_list`.`createdAt` AS `createdAt`, `user_list`.`status` AS `status`, `user_mail_list`.`mailAddress` AS `mailAddress`, `user_mail_list`.`status` AS `mailStatus`, `user_mail_list`.`token` AS `mailToken` FROM (`user_mail_list` join `user_list`) WHERE (`user_mail_list`.`secretId` = `user_list`.`secretId`) ;
 
 -- --------------------------------------------------------
@@ -205,6 +218,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`qr4el_vuetempadmin`@`localhost` SQL SECURITY
 --
 DROP TABLE IF EXISTS `USER_PROFILE_VIEW`;
 
+DROP VIEW IF EXISTS `USER_PROFILE_VIEW`;
 CREATE ALGORITHM=UNDEFINED DEFINER=`qr4el_vuetempadmin`@`localhost` SQL SECURITY DEFINER VIEW `USER_PROFILE_VIEW`  AS SELECT `user_list`.`secretId` AS `secretId`, `user_list`.`userId` AS `userId`, `user_list`.`createdAt` AS `createdAt`, `user_list`.`status` AS `status`, `user_profile_list`.`icon` AS `icon`, `user_profile_list`.`coverImg` AS `coverImg`, `user_profile_list`.`name` AS `name`, `user_profile_list`.`message` AS `message` FROM (`user_list` join `user_profile_list`) WHERE (`user_list`.`secretId` = `user_profile_list`.`secretId`) ;
 
 -- --------------------------------------------------------
@@ -214,6 +228,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`qr4el_vuetempadmin`@`localhost` SQL SECURITY
 --
 DROP TABLE IF EXISTS `USER_TOKEN_VIEW`;
 
+DROP VIEW IF EXISTS `USER_TOKEN_VIEW`;
 CREATE ALGORITHM=UNDEFINED DEFINER=`qr4el_vuetempadmin`@`localhost` SQL SECURITY DEFINER VIEW `USER_TOKEN_VIEW`  AS SELECT `user_list`.`secretId` AS `secretId`, `user_list`.`userId` AS `userId`, `user_list`.`createdAt` AS `userCreatedAt`, `user_list`.`status` AS `status`, `user_accesstoken_list`.`token` AS `token`, `user_accesstoken_list`.`createdAt` AS `tokenCreatedAt` FROM (`user_list` join `user_accesstoken_list`) WHERE (`user_list`.`secretId` = `user_accesstoken_list`.`secretId`) ;
 
 --
