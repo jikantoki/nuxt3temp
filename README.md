@@ -2,7 +2,7 @@
 
 ## 2025-09-01:警告: 新しいNuxt4Tempを使用してください
 
-URL: [https://github.com/jikantoki/nuxt4temp](https://github.com/jikantoki.nuxt4temp)
+URL: [https://github.com/jikantoki/nuxt4temp](https://github.com/jikantoki/nuxt4temp)
 
 ## Nuxt3Tempの説明
 
