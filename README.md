@@ -1,5 +1,11 @@
 # Nuxt3 Template
 
+## 2025-09-01:警告: 新しいNuxt4Tempを使用してください
+
+URL: [https://github.com/jikantoki/nuxt4temp](https://github.com/jikantoki.nuxt4temp)
+
+## Nuxt3Tempの説明
+
 Nuxtを簡単にインストールしてすぐ使うためのテンプレート
 
 - NOLICENSED ご自由にお使いください
